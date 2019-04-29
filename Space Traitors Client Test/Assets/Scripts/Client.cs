@@ -20,7 +20,7 @@ public class Client : MonoBehaviour
     private const int port = 26000;
     private const int webPort = 26001;
     private const int byteSize = 1024;
-    private const string serverIP = "127.0.0.1";
+    private const string serverIP = "192.168.1.65";
 
     private bool isStarted = false;
 

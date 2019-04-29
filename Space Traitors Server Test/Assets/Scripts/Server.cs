@@ -145,4 +145,13 @@ public class Server : MonoBehaviour {
         }
 
     }
+
+    public void roomLocation(Net_ChangeRoom ca) {
+
+
+
+
+    }
+
+   
 }
