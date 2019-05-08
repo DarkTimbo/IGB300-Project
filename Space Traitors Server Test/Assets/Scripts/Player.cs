@@ -7,8 +7,9 @@ public class Player : Navigation
 
     public float moveSpeed = 50.0f;
     public float minDistance = 0.1f;
-    public int goalIndex = 2;
+    public int goalIndex = 0;
     public bool Turn = true;
+    public bool move = true;
     
 
 
@@ -16,26 +17,29 @@ public class Player : Navigation
     void Update()
     {
         if(Turn == true) {
+
             PlayerMove();
         }
-        
+                
     }
 
     private void PlayerMove() {
 
-        //Reset current path and add first node - needs to be done here because of recursive function of greedy
-        currentPath.Clear();
-        greedyPaintList.Clear();
-        currentPathIndex = 0;
-        currentPath.Add(currentNodeIndex);
+        if (move) {
+            //Reset current path and add first node - needs to be done here because of recursive function of greedy
+            currentPath.Clear();
+            greedyPaintList.Clear();
+            currentPathIndex = 0;
+            currentPath.Add(currentNodeIndex);
 
-        //Greedy Search
-        currentPath = GreedySearch(currentPath[currentPathIndex], goalIndex, currentPath);
+            //Greedy Search
+            currentPath = GreedySearch(currentPath[currentPathIndex], goalIndex, currentPath);
 
-        //Reverse path and remove final (i.e. initial) position
-        currentPath.Reverse();
-        currentPath.RemoveAt(currentPath.Count - 1);
-
+            //Reverse path and remove final (i.e. initial) position
+            currentPath.Reverse();
+            currentPath.RemoveAt(currentPath.Count - 1);
+            move = false;
+        }
         if (currentPath.Count > 0) {
 
             transform.position = Vector3.MoveTowards(transform.position, graphNodes.graphNodes[currentPath[currentPathIndex]].transform.position, moveSpeed * Time.deltaTime);
@@ -49,6 +53,14 @@ public class Player : Navigation
 
             currentNodeIndex = graphNodes.graphNodes[currentPath[currentPathIndex]].GetComponent<LinkedNodes>().index;   //Store current node index
         }
+        //If player object is at the last node of the path allow it to move again.
+        if(transform.position == graphNodes.graphNodes[currentPath[currentPathIndex]].transform.position) {
+            move = true;
+        }
+        
+        
+
+
 
 
     }

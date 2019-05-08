@@ -47,8 +47,6 @@ public class Navigation : MonoBehaviour
 
     }
 
-
-
     //Greedy Search
     public List<int> GreedySearch(int currentNode, int goal, List<int> path) {
 

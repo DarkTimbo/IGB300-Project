@@ -140,7 +140,8 @@ public class Client : MonoBehaviour
 
     }
 
-    public void SendLocation(string location)
+    //Sends the location to the server, references the get,set from Net_Change Room
+    public void SendLocation(int location)
     {
         Net_ChangeRoom ca = new Net_ChangeRoom();
 

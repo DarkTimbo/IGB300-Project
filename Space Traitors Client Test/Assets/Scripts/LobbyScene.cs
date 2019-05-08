@@ -10,7 +10,8 @@ public class LobbyScene : MonoBehaviour
     public Text roomText, influencePoints;
     public int influence;
 
-    public void OnClickChangeRoom(string room)
+    //Button that calls The Send location in client, tells it what to send also
+    public void OnClickChangeRoom(int room)
     {
         roomText .text = ("You are in the " + room);
         Client.Instance.SendLocation(room);

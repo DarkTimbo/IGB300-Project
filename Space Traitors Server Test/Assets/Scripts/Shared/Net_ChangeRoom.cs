@@ -10,5 +10,5 @@ public class Net_ChangeRoom : NetMessage
         OperationCode = NetOP.ChangeRoom;
     }
 
-    public string Location { set; get; }
+    public int Location { set; get; }
 }

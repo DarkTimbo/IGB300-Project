@@ -9,6 +9,9 @@ public class Server : MonoBehaviour {
     private byte reliableChannel;
     private int hostID;
     private int webHostID;
+    private Vector3 startingLocation;
+    public GameObject[] PlayerModel;
+    public List<GameObject> Players;
 
     private const int maxUser = 100;
     private const int port = 26000;
@@ -41,6 +44,15 @@ public class Server : MonoBehaviour {
 
         Debug.Log(string.Format("Opening connection on port {0} and webport {1}", port, webPort));
         isStarted = true;
+
+        //Creates a location for the player spawn at
+        startingLocation = new Vector3(0, 0, 0);
+        //Creates the player into the game with the model selected
+        Players.Add( Instantiate(PlayerModel[0], startingLocation, PlayerModel[0].transform.rotation));
+        
+       
+        
+
     }
 
     public void ShutDown()
@@ -119,6 +131,7 @@ public class Server : MonoBehaviour {
     private void ChangeRoom(int conID, int chanID, int rHostID, Net_ChangeRoom ca)
     {
         Debug.Log("Player "  + conID + " is in " + ca.Location);
+        Players[0].GetComponent<Player>().goalIndex = ca.Location;
     }
 
     private void SendPoints(int conID, int chanID, int rHostID, Net_SendPoints lr)
