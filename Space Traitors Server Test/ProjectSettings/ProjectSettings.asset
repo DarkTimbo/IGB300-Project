@@ -586,10 +586,10 @@ PlayerSettings:
   facebookXfbml: 0
   facebookFrictionlessRequests: 1
   apiCompatibilityLevel: 2
-  cloudProjectId: 6309b9a7-3a58-489c-a812-34ea9c9af0a0
+  cloudProjectId: b65181ce-45c3-41f6-b923-f887781cd6fc
   framebufferDepthMemorylessMode: 0
-  projectName: Server Test
-  organizationId: darktimbo
+  projectName: Space Traitors Client Test
+  organizationId: medley-games
   cloudEnabled: 0
   enableNativePlatformBackendsForNewInputSystem: 0
   disableOldInputManagerSupport: 0

@@ -5,13 +5,11 @@ using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
 using UnityEngine.Networking;
 
-public class Server : MonoBehaviour {
+public class Server : MonoBehaviour
+{
     private byte reliableChannel;
     private int hostID;
     private int webHostID;
-    private Vector3 startingLocation;
-    public GameObject[] PlayerModel;
-    public List<GameObject> Players;
 
     private const int maxUser = 100;
     private const int port = 26000;
@@ -21,10 +19,13 @@ public class Server : MonoBehaviour {
     private bool isStarted = false;
     private byte error;
 
+    public AudioSource connectSound;
+    public GameObject[] players = new GameObject[4];
+
     // Use this for initialization
     void Start()
     {
-        DontDestroyOnLoad(gameObject);
+        //DontDestroyOnLoad(gameObject);
         Initialise();
     }
 
@@ -44,15 +45,6 @@ public class Server : MonoBehaviour {
 
         Debug.Log(string.Format("Opening connection on port {0} and webport {1}", port, webPort));
         isStarted = true;
-
-        //Creates a location for the player spawn at
-        startingLocation = new Vector3(0, 0, 0);
-        //Creates the player into the game with the model selected
-        Players.Add( Instantiate(PlayerModel[0], startingLocation, PlayerModel[0].transform.rotation));
-        
-       
-        
-
     }
 
     public void ShutDown()
@@ -63,7 +55,8 @@ public class Server : MonoBehaviour {
 
 
     // Update is called once per frame
-    void Update() {
+    void Update()
+    {
         UpdateMessagePump();
     }
 
@@ -88,12 +81,47 @@ public class Server : MonoBehaviour {
             case NetworkEventType.Nothing:
                 break;
 
+            //When user connects to game
             case NetworkEventType.ConnectEvent:
-                Debug.Log(string.Format("User {0} has connected through host {1}", connectionID, recHostID));
+                connectSound.Play();
+                //Loop through to find a player not already connected, and assign them their ID
+                foreach (GameObject player in players)
+                {
+                    if (!player.GetComponent<PlayerConnect>().connected)
+                    {
+                        player.GetComponent<PlayerConnect>().connected = true;
+                        player.GetComponent<PlayerConnect>().playerID = connectionID;
+                        player.GetComponent<PlayerConnect>().playerImage.enabled = true;
+                        Debug.Log(player.name + " has connected through host " + recHostID);
+                        break;
+                    }
+                }
                 break;
 
+            //When user disconnects from game
             case NetworkEventType.DisconnectEvent:
-                Debug.Log(string.Format("User {0} has disconnected", connectionID));
+                //Loop through to find player that is disconnecting, based on their ID
+
+                foreach (GameObject player in players)
+                {
+                    if (player.GetComponent<PlayerConnect>().playerID == connectionID)
+                    {
+                        //Reset player variables
+                        player.GetComponent<PlayerConnect>().connected = false;
+                        player.GetComponent<PlayerConnect>().playerID = 0;
+                        player.GetComponent<PlayerConnect>().playerImage.enabled = false;
+                        player.GetComponent<PlayerConnect>().influence = 0;
+                        //Reset inventory
+                        foreach (GameObject inv in player.GetComponent<PlayerConnect>().inventory)
+                        {
+                            player.GetComponent<PlayerConnect>().inventory = null;
+                        }
+
+                        Debug.Log(player.name + " has disconnected");
+                        break;
+                    }
+                }
+                Debug.Log(connectionID + " has disconnected");
                 break;
 
             case NetworkEventType.DataEvent:
@@ -130,13 +158,32 @@ public class Server : MonoBehaviour {
 
     private void ChangeRoom(int conID, int chanID, int rHostID, Net_ChangeRoom ca)
     {
-        Debug.Log("Player "  + conID + " is in " + ca.Location);
-        Players[0].GetComponent<Player>().goalIndex = ca.Location;
+        foreach (GameObject player in players)
+        {
+            //Find the correct player
+            if (player.GetComponent<PlayerConnect>().playerID == conID)
+            {
+                //Room Movement action here
+
+                Debug.Log(player.name + " is in " + ca.Location);
+                break;
+            }
+        }
     }
 
     private void SendPoints(int conID, int chanID, int rHostID, Net_SendPoints lr)
     {
-        Debug.Log("Player " + conID + " has " + lr.Influence + " influence");
+        foreach (GameObject player in players)
+        {
+            //Find the correct player
+            if (player.GetComponent<PlayerConnect>().playerID == conID)
+            {
+                //Influence (/variable) handling here
+                player.GetComponent<PlayerConnect>().influence += lr.Influence;
+                Debug.Log(player.name + " has " + player.GetComponent<PlayerConnect>().influence + " influence");
+                break;
+            }
+        }
     }
 
     public void SendClient(int recHost, int conID, NetMessage msg)
@@ -159,12 +206,13 @@ public class Server : MonoBehaviour {
 
     }
 
-    public void roomLocation(Net_ChangeRoom ca) {
+    public void roomLocation(Net_ChangeRoom ca)
+    {
 
 
 
 
     }
 
-   
+
 }
