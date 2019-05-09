@@ -5,6 +5,62 @@ using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
 using UnityEngine.Networking;
 
+using System.Net;
+using System.Net.NetworkInformation;
+using System.Net.Sockets;
+
+public class IPManager
+{
+    public static string GetIP(ADDRESSFAM Addfam)
+    {
+        //Return null if ADDRESSFAM is Ipv6 but Os does not support it
+        if (Addfam == ADDRESSFAM.IPv6 && !Socket.OSSupportsIPv6)
+        {
+            return null;
+        }
+
+        string output = "";
+
+        foreach (NetworkInterface item in NetworkInterface.GetAllNetworkInterfaces())
+        {
+#if UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN
+            NetworkInterfaceType _type1 = NetworkInterfaceType.Wireless80211;
+            NetworkInterfaceType _type2 = NetworkInterfaceType.Ethernet;
+
+            if ((item.NetworkInterfaceType == _type1 || item.NetworkInterfaceType == _type2) && item.OperationalStatus == OperationalStatus.Up)
+#endif 
+            {
+                foreach (UnicastIPAddressInformation ip in item.GetIPProperties().UnicastAddresses)
+                {
+                    //IPv4
+                    if (Addfam == ADDRESSFAM.IPv4)
+                    {
+                        if (ip.Address.AddressFamily == AddressFamily.InterNetwork)
+                        {
+                            output = ip.Address.ToString();
+                        }
+                    }
+
+                    //IPv6
+                    else if (Addfam == ADDRESSFAM.IPv6)
+                    {
+                        if (ip.Address.AddressFamily == AddressFamily.InterNetworkV6)
+                        {
+                            output = ip.Address.ToString();
+                        }
+                    }
+                }
+            }
+        }
+        return output;
+    }
+}
+
+public enum ADDRESSFAM
+{
+    IPv4, IPv6
+}
+
 [System.Serializable]
 public class Client : MonoBehaviour
 {
@@ -20,7 +76,8 @@ public class Client : MonoBehaviour
     private const int port = 26000;
     private const int webPort = 26001;
     private const int byteSize = 1024;
-    private const string serverIP = "100.104.80.220";
+    //private const string serverIP = "100.104.80.220";
+    private string serverIP = IPManager.GetIP(ADDRESSFAM.IPv4);
     private bool isStarted = false;
 
     // Use this for initialization
@@ -140,7 +197,7 @@ public class Client : MonoBehaviour
     }
 
     //Sends the location to the server, references the get,set from Net_Change Room
-    public void SendLocation(int location)
+    public void SendLocation(string location)
     {
         Net_ChangeRoom ca = new Net_ChangeRoom();
 
@@ -156,18 +213,6 @@ public class Client : MonoBehaviour
         lr.Influence = var;
         SendServer(lr);
     }
-
-
-    //public void TESTFUNCTIONCREATEACCOUNT()
-    //{
-    //    Net_CreateAccount ca = new Net_CreateAccount();
-
-    //    ca.Username = ("UpDog");
-    //    ca.Password = ("Password");
-    //    ca.Email = ("RandomEmail@somewhere.com");
-
-    //    SendServer(ca);
-    //}
 }
 
 
