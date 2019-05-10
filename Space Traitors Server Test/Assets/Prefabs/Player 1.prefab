@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3963594381792282744}
   - component: {fileID: 3963594381792282746}
   m_Layer: 5
-  m_Name: 1
+  m_Name: Player 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -84,9 +84,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 3963594381792282750}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 22e77200ff9618c46ab6503639331131, type: 3}
+  m_Script: {fileID: 11500000, guid: 45221b5d3be07d942ad68309508cfc3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerImage: {fileID: 3963594381792282744}
-  playerID: 0
-  connected: 0
+  graphNodes: {fileID: 0}
+  currentPath: 
+  greedyPaintList: 
+  currentPathIndex: 0
+  currentNodeIndex: 0
+  moveSpeed: 50
+  minDistance: 0.1
+  goalIndex: 0
+  Turn: 1
+  move: 1
