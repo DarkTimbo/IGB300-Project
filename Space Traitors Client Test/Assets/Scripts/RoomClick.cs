@@ -1,18 +1,21 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class Button : MonoBehaviour
+public class RoomClick: MonoBehaviour
 {
 
     public int RoomNumber;
+    private GameObject RoomAcceptCanvas;
     private int EnergyCost;
+    
 
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        RoomAcceptCanvas = GameObject.Find("Room Accept Button");
     }
 
     // Update is called once per frame
@@ -26,7 +29,8 @@ public class Button : MonoBehaviour
 
                 if(hit.transform.position == this.transform.position) {
 
-                    Debug.Log("Button Pressed");             
+                    Debug.Log("Button Pressed");
+                    RoomAcceptCanvas.GetComponent<Canvas>().enabled = true;
 
                 }
             }

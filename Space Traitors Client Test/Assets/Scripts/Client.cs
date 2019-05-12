@@ -80,6 +80,7 @@ public class Client : MonoBehaviour
     private string serverIP = IPManager.GetIP(ADDRESSFAM.IPv4);
     private bool isStarted = false;
 
+
     // Use this for initialization
     void Start()
     {
@@ -197,7 +198,7 @@ public class Client : MonoBehaviour
     }
 
     //Sends the location to the server, references the get,set from Net_Change Room
-    public void SendLocation(string location)
+    public void SendLocation(int location)
     {
         Net_ChangeRoom ca = new Net_ChangeRoom();
 

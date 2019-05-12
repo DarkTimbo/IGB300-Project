@@ -5306,8 +5306,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6669035571776394293, guid: aec222d2419d0ac439f170e90401ec8b,
         type: 3}
+      propertyPath: players.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6669035571776394293, guid: aec222d2419d0ac439f170e90401ec8b,
+        type: 3}
       propertyPath: connectSound
       value: 
       objectReference: {fileID: 1841795240}
+    - target: {fileID: 6669035571776394293, guid: aec222d2419d0ac439f170e90401ec8b,
+        type: 3}
+      propertyPath: players.Array.data[0]
+      value: 
+      objectReference: {fileID: 3963594381792282750, guid: 116b414b931c29146b3c3abf63ecf023,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aec222d2419d0ac439f170e90401ec8b, type: 3}
