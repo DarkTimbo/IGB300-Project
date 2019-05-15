@@ -77,16 +77,16 @@ public class Client : MonoBehaviour
     private const int webPort = 26001;
     private const int byteSize = 1024;
     //private const string serverIP = "100.104.80.220";
-    private string serverIP = IPManager.GetIP(ADDRESSFAM.IPv4);
+    public string serverIP = IPManager.GetIP(ADDRESSFAM.IPv4);
     private bool isStarted = false;
-
+ 
 
     // Use this for initialization
     void Start()
     {
         Instance = this;
         DontDestroyOnLoad(gameObject);
-        Initialise();
+        //Initialise();
     }
 
     public void Initialise()
@@ -103,6 +103,7 @@ public class Client : MonoBehaviour
 
 #if !UNITY_WEBGL && UNITY_EDITOR
         //Standalone Client
+        Debug.Log(serverIP);
         connectionID = NetworkTransport.Connect(hostID, serverIP, port, 0, out error);
         Debug.Log(string.Format("Connecting from standalone"));
 #else
@@ -125,7 +126,7 @@ public class Client : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        UpdateMessagePump();
+            UpdateMessagePump();
     }
 
     private void UpdateMessagePump()
@@ -198,7 +199,7 @@ public class Client : MonoBehaviour
     }
 
     //Sends the location to the server, references the get,set from Net_Change Room
-    public void SendLocation(int location)
+    public void SendLocation(string location)
     {
         Net_ChangeRoom ca = new Net_ChangeRoom();
 
