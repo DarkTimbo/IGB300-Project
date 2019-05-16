@@ -26,8 +26,8 @@ public class Button : MonoBehaviour
 
                 if(hit.transform.position == this.transform.position) {
 
-                    Debug.Log("Button Pressed");             
-
+                    Client.Instance.SendLocation(RoomNumber);
+                    
                 }
             }
         }

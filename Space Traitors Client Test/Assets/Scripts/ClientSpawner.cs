@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class ClientSpawner : MonoBehaviour
 {
@@ -30,7 +31,8 @@ public class ClientSpawner : MonoBehaviour
         }
         
         client.GetComponent<Client>().Initialise();
-
+        SceneManager.LoadScene("Interface");
+        
 
     }
 }

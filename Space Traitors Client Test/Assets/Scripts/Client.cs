@@ -199,13 +199,14 @@ public class Client : MonoBehaviour
     }
 
     //Sends the location to the server, references the get,set from Net_Change Room
-    public void SendLocation(string location)
+    public void SendLocation(int location)
     {
         Net_ChangeRoom ca = new Net_ChangeRoom();
 
         ca.Location = location;
 
         SendServer(ca);
+
     }
 
     public void SendPoints(int var)
