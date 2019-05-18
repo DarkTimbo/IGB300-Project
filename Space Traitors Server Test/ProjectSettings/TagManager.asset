@@ -5,6 +5,11 @@ TagManager:
   serializedVersion: 2
   tags:
   - waypoint graph
+  - A Player
+  - RoundManager
+  - Spawner
+  - Server
+  - Setter
   layers:
   - Default
   - TransparentFX
