@@ -10,6 +10,6 @@ public class Net_SendPoints : NetMessage
         OperationCode = NetOP.SendPoints;
     }
 
-    public int Influence { set; get; }
+    public string Influence { set; get; }
 
 }
