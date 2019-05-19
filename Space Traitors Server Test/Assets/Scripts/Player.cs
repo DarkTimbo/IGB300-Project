@@ -14,7 +14,6 @@ public class Player : Navigation
     //Network variables
     public int playerID;
     public bool connected;
-    public string characterName;
 
     //Gameplay variables
     public float influence;

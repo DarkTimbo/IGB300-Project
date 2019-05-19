@@ -15,7 +15,6 @@ public class PlayerConnect : MonoBehaviour
     public int playerID;
     public int playerNo;
     public bool connected;
-    public string characterName;
     public Image playerImage;
     
 

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -192,7 +192,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1757862861}
-        m_MethodName: SetIP
+        m_MethodName: ConnectClick
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -284,8 +284,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b3e50531aad87d4892b1d4aed56aed2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  roomText: {fileID: 0}
+  influencePoints: {fileID: 0}
   influence: 0
-  character: Brute
 --- !u!1 &210713142
 GameObject:
   m_ObjectHideFlags: 0
@@ -977,7 +978,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 33.899994, y: 578}
+  m_AnchoredPosition: {x: 33.899994, y: 389.0002}
   m_SizeDelta: {x: 300.3, y: -29.2}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1545517033
@@ -1193,7 +1194,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1757862860
 Transform:
   m_ObjectHideFlags: 0
@@ -1221,15 +1222,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   customServerIP: 
-  charName: 
   client: {fileID: 2084083767}
   ipBox: {fileID: 210713144}
-  mainPortrait: {fileID: 0}
-  portraitList: []
-  characterLabel: {fileID: 0}
-  selectButton: {fileID: 0}
-  gameButton: {fileID: 0}
-  LobbyScene: {fileID: 0}
 --- !u!1 &1823812036
 GameObject:
   m_ObjectHideFlags: 0
@@ -1505,10 +1499,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 2084083767}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5dcfc3128ed1290449f01aa8788919b1, type: 3}
+  m_Script: {fileID: 11500000, guid: b23e4341601aaa34280a072aefd68562, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  serverIP: 
+  serverIP: 192.168.1.65
 --- !u!4 &2084083769
 Transform:
   m_ObjectHideFlags: 0
