@@ -619,6 +619,7 @@ MonoBehaviour:
   playerNo: 2
   connected: 0
   playerImage: {fileID: 323557524}
+  characterName: 
 --- !u!114 &323557524 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3963594381792282744, guid: 116b414b931c29146b3c3abf63ecf023,
@@ -814,6 +815,7 @@ MonoBehaviour:
   playerNo: 5
   connected: 0
   playerImage: {fileID: 1736973131}
+  characterName: 
 --- !u!1 &819554510
 GameObject:
   m_ObjectHideFlags: 0
@@ -998,6 +1000,7 @@ MonoBehaviour:
   playerNo: 1
   connected: 0
   playerImage: {fileID: 1154099949}
+  characterName: 
 --- !u!114 &1154099949 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3963594381792282744, guid: 116b414b931c29146b3c3abf63ecf023,
@@ -1178,6 +1181,7 @@ MonoBehaviour:
   playerNo: 4
   connected: 0
   playerImage: {fileID: 1285483318}
+  characterName: 
 --- !u!114 &1285483318 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3963594381792282744, guid: 116b414b931c29146b3c3abf63ecf023,
@@ -1620,7 +1624,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playersInGame: []
-  playerObject: {fileID: 4515132729699850780, guid: 9504fdb5e879edf43bb9d11ccfd4d6f3,
+  playerObject: {fileID: 4515132729699850780, guid: 54559ad2223b7b64caad2768c73092be,
     type: 3}
   RoundIndex: 0
 --- !u!1 &1711447265
@@ -1911,6 +1915,7 @@ MonoBehaviour:
   playerNo: 6
   connected: 0
   playerImage: {fileID: 1479871450}
+  characterName: 
 --- !u!1001 &1825965113
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1990,6 +1995,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6669035571776394293, guid: aec222d2419d0ac439f170e90401ec8b,
         type: 3}
+      propertyPath: portraits.Array.size
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6669035571776394293, guid: aec222d2419d0ac439f170e90401ec8b,
+        type: 3}
       propertyPath: connectSound
       value: 
       objectReference: {fileID: 1825965115}
@@ -2044,6 +2054,42 @@ PrefabInstance:
       propertyPath: connectText
       value: 
       objectReference: {fileID: 483072127}
+    - target: {fileID: 6669035571776394293, guid: aec222d2419d0ac439f170e90401ec8b,
+        type: 3}
+      propertyPath: portraits.Array.data[0]
+      value: 
+      objectReference: {fileID: 21300000, guid: d2345ad82d073964088c942f9f117aa4,
+        type: 3}
+    - target: {fileID: 6669035571776394293, guid: aec222d2419d0ac439f170e90401ec8b,
+        type: 3}
+      propertyPath: portraits.Array.data[1]
+      value: 
+      objectReference: {fileID: 21300000, guid: 6ce7e7bf2b5d7ad458126972ecb2ce55,
+        type: 3}
+    - target: {fileID: 6669035571776394293, guid: aec222d2419d0ac439f170e90401ec8b,
+        type: 3}
+      propertyPath: portraits.Array.data[2]
+      value: 
+      objectReference: {fileID: 21300000, guid: 15e4f33e318496b4b9dc8f31e5ec21d8,
+        type: 3}
+    - target: {fileID: 6669035571776394293, guid: aec222d2419d0ac439f170e90401ec8b,
+        type: 3}
+      propertyPath: portraits.Array.data[3]
+      value: 
+      objectReference: {fileID: 21300000, guid: 6a986cb875a02494eada122482ed53c1,
+        type: 3}
+    - target: {fileID: 6669035571776394293, guid: aec222d2419d0ac439f170e90401ec8b,
+        type: 3}
+      propertyPath: portraits.Array.data[5]
+      value: 
+      objectReference: {fileID: 21300000, guid: b724ab9b36175264d81214aced6dea66,
+        type: 3}
+    - target: {fileID: 6669035571776394293, guid: aec222d2419d0ac439f170e90401ec8b,
+        type: 3}
+      propertyPath: portraits.Array.data[4]
+      value: 
+      objectReference: {fileID: 21300000, guid: fd110693af342f74ea4d1e37a3ca2623,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aec222d2419d0ac439f170e90401ec8b, type: 3}
 --- !u!1 &1825965114 stripped
@@ -2323,6 +2369,7 @@ MonoBehaviour:
   playerNo: 3
   connected: 0
   playerImage: {fileID: 1831576075}
+  characterName: 
 --- !u!114 &1831576075 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3963594381792282744, guid: 116b414b931c29146b3c3abf63ecf023,

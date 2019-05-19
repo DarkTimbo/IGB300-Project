@@ -7,21 +7,25 @@ using UnityEngine.UI;
 public class LobbyScene : MonoBehaviour
 {
 
-    public Text roomText, influencePoints;
+
     public int influence;
+    public string character = "Brute";
+    public GameObject clientSp;
+
+    public void Start()
+    {
+
+    }
 
     //Button that calls The Send location in client, tells it what to send also
     public void OnClickChangeRoom(int room)
     {
-        roomText .text = ("You are in the " + room);
         Client.Instance.SendLocation(room);
     }
 
     public void OnClickChangeVariable()
     {
-        influence += 1;
-        influencePoints.text = (influence.ToString());
-        Client.Instance.SendPoints(influence);
+        Client.Instance.SendPoints(character);
     }
 }
 

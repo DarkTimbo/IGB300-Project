@@ -95,9 +95,12 @@ public class Server : MonoBehaviour
     public int[] playerIDs = new int[6];
     public GameObject playerStorage;
     public int playersJoined;
+    private int portraitID = -1;
     private Scene currentScene;
     private string sceneName;
     public Text connectText;
+    public Sprite[] portraits;
+    private GameObject setter;
 
     // Use this for initialization
     void Start()
@@ -139,10 +142,15 @@ public class Server : MonoBehaviour
         //Keep track of the current scene
         currentScene = SceneManager.GetActiveScene();
         sceneName = currentScene.name;
-        
+
         if (sceneName == "LobbyTest")
         {
             connectText.text = serverIP;
+        }
+
+        if (sceneName == "Character Select")
+        {
+            SetPortraits();
         }
 
         //Networking messages
@@ -264,9 +272,36 @@ public class Server : MonoBehaviour
             //Find the correct player
             if (player.GetComponent<PlayerConnect>().playerID == conID)
             {
-                //Influence (/variable) handling here
-                //player.GetComponent<PlayerConnect>().influence += lr.Influence;
-                //Debug.Log(player.name + " has " + player.GetComponent<PlayerConnect>().influence + " influence");
+                if ((sceneName == "Character Select"))
+                {
+                    switch (lr.Influence)
+                    {
+                        case "Brute":
+                            player.GetComponent<PlayerConnect>().characterName = "Brute";
+                            break;
+
+                        case "Butler":
+                            player.GetComponent<PlayerConnect>().characterName = "Butler";
+                            break;
+
+                        case "Entertainer":
+                            player.GetComponent<PlayerConnect>().characterName = "Entertainer";
+                            break;
+
+                        case "Techie":
+                            player.GetComponent<PlayerConnect>().characterName = "Techie";
+                            break;
+
+                        case "Engineer":
+                            player.GetComponent<PlayerConnect>().characterName = "Engineer";
+                            break;
+
+                        case "Chef":
+                            player.GetComponent<PlayerConnect>().characterName = "Chef";
+                            break;
+                    }
+
+                }
                 break;
             }
         }
@@ -302,8 +337,8 @@ public class Server : MonoBehaviour
 
     private List<GameObject> playerArray()
     {
-        
-        if (sceneName == "LobbyTest")
+
+        if ((sceneName == "LobbyTest") || (sceneName == "Character Select"))
             return players;
         else if (sceneName == "server")
             return playerStorage.GetComponent<RoundManager>().playersInGame;
@@ -328,6 +363,47 @@ public class Server : MonoBehaviour
         player.GetComponent<Player>().playerID = conID;
     }
 
+    private void SetPortraits()
+    {
+        setter = GameObject.FindGameObjectWithTag("Setter");
+        for (int i = 0; i < playerArray().Count; i++)
+        {
+            switch (players[i].GetComponent<PlayerConnect>().characterName)
+            {
+                case "Brute":
+                    portraitID = 0;
+                    break;
+
+                case "Butler":
+                    portraitID = 1;
+                    break;
+
+                case "Entertainer":
+                    portraitID = 2;
+                    break;
+
+                case "Techie":
+                    portraitID = 3;
+                    break;
+
+                case "Engineer":
+                    portraitID = 4;
+                    break;
+
+                case "Chef":
+                    portraitID = 5;
+                    break;
+            }
+            if (portraitID >= 0)
+            {
+                setter.GetComponent<ImageSetter>().images[i].sprite = portraits[portraitID];
+            }
+
+
+        }
+
+    }
+
     public void StartGame() //This is called when a game is started in lobby
     {
         //TODO: cannot start game unless at least 3 (1 for purposes of testing) players are connected
@@ -348,7 +424,7 @@ public class Server : MonoBehaviour
                 players.Remove(player);
             }
         }
-        
+
 
         //Get the number of players based on how many remain
         playersJoined = players.Count;
@@ -360,11 +436,10 @@ public class Server : MonoBehaviour
             DontDestroyOnLoad(player);
             i++;
         }
-        
-        //Change to the main game room
-        SceneManager.LoadScene("server"); //TODO: Should change to '1' later, build order index
 
-        
+        //Change to the character select
+        SceneManager.LoadScene("Character Select"); //TODO: Should change to '1' later, build order index
+
     }
 
 }

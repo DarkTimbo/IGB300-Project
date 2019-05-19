@@ -209,7 +209,7 @@ public class Client : MonoBehaviour
 
     }
 
-    public void SendPoints(int var)
+    public void SendPoints(string var)
     {
         Net_SendPoints lr = new Net_SendPoints();
 

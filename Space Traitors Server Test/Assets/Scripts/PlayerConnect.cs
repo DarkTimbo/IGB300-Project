@@ -16,7 +16,8 @@ public class PlayerConnect : MonoBehaviour
     public int playerNo;
     public bool connected;
     public Image playerImage;
-    
+    public string characterName;
+
 
     // Start is called before the first frame update
     void Start()

@@ -13,6 +13,7 @@ public class Player : Navigation
 
     //Network variables
     public int playerID;
+    public string characterName;
     public bool connected;
 
     //Gameplay variables
