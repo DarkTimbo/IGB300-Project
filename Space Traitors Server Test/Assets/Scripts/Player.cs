@@ -17,19 +17,21 @@ public class Player : Navigation
 
     //Gameplay variables
     public float influence;
+    private bool spawned = false;
     public GameObject playerStorage;
     public GameObject[] inventory;
-
-    private void Start()
-    {
-        playerStorage = GameObject.FindGameObjectWithTag("RoundManager");
-        playerStorage.GetComponent<RoundManager>().playersInGame.Add(gameObject);
-    }
 
     // Update is called once per frame
     void Update()
     {
-        if(Turn == true) {
+        if (!spawned)
+        {
+            playerStorage = GameObject.FindGameObjectWithTag("RoundManager");
+            playerStorage.GetComponent<RoundManager>().playersInGame.Add(gameObject);
+            spawned = true;
+        }
+
+        if (Turn == true) {
 
             PlayerMove();
         }
