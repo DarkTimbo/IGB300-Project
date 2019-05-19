@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class PlayerSpawner : MonoBehaviour
 {
-    public GameObject test;
     private GameObject server;
     private GameObject playerStorage;   
     private int maxPlayers, currPlayers;
@@ -34,6 +33,15 @@ public class PlayerSpawner : MonoBehaviour
             }
             currPlayers++;
         }
+        //Find player objects that have not been set with a player and remove them from round manager
+        foreach (GameObject player in playerStorage.GetComponent<RoundManager>().playersInGame)
+        {
+            if (player.GetComponent<Player>().playerID == 0)
+            {
+                playerStorage.GetComponent<RoundManager>().playersInGame.Remove(player);
+            }
+        }
     }
+
   
 }
