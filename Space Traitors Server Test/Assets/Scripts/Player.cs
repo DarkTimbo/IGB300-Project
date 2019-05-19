@@ -17,8 +17,14 @@ public class Player : Navigation
 
     //Gameplay variables
     public float influence;
+    public GameObject playerStorage;
     public GameObject[] inventory;
 
+    private void Start()
+    {
+        playerStorage = GameObject.FindGameObjectWithTag("RoundManager");
+        playerStorage.GetComponent<RoundManager>().playersInGame.Add(gameObject);
+    }
 
     // Update is called once per frame
     void Update()

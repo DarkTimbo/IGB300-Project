@@ -1619,13 +1619,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56d01116d2f9144488d7a29896310f33, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playersInGame:
-  - {fileID: 4515132729699850780, guid: 9504fdb5e879edf43bb9d11ccfd4d6f3, type: 3}
-  - {fileID: 4515132729699850780, guid: 9504fdb5e879edf43bb9d11ccfd4d6f3, type: 3}
-  - {fileID: 4515132729699850780, guid: 9504fdb5e879edf43bb9d11ccfd4d6f3, type: 3}
-  - {fileID: 4515132729699850780, guid: 9504fdb5e879edf43bb9d11ccfd4d6f3, type: 3}
-  - {fileID: 4515132729699850780, guid: 9504fdb5e879edf43bb9d11ccfd4d6f3, type: 3}
-  - {fileID: 4515132729699850780, guid: 9504fdb5e879edf43bb9d11ccfd4d6f3, type: 3}
+  playersInGame: []
+  playerObject: {fileID: 4515132729699850780, guid: 9504fdb5e879edf43bb9d11ccfd4d6f3,
+    type: 3}
   RoundIndex: 0
 --- !u!1 &1711447265
 GameObject:

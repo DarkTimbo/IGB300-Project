@@ -5,6 +5,7 @@ using UnityEngine;
 public class RoundManager : MonoBehaviour
 {
     public List<GameObject> playersInGame = new List<GameObject>();
+    public GameObject playerObject;
     public int RoundIndex;
 
     // Start is called before the first frame update
