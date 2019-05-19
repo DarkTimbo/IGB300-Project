@@ -79,7 +79,6 @@ public class Client : MonoBehaviour
     //private const string serverIP = "100.104.80.220";
     public string serverIP = IPManager.GetIP(ADDRESSFAM.IPv4);
     private bool isStarted = false;
- 
 
     // Use this for initialization
     void Start()
@@ -206,15 +205,24 @@ public class Client : MonoBehaviour
         ca.Location = location;
 
         SendServer(ca);
-
     }
 
-    public void SendPoints(int var)
+    public void SendPoints(string var)
     {
         Net_SendPoints lr = new Net_SendPoints();
 
         lr.Influence = var;
         SendServer(lr);
+    }
+
+    //Sends character name to server for character selection screen
+    public void SendCharacter(string characterName)
+    {
+        Net_ChangeCharacter cc = new Net_ChangeCharacter();
+
+        cc.Character = characterName;
+
+        SendServer(cc);
     }
 }
 

@@ -29,7 +29,7 @@ public class PlayerSpawner : MonoBehaviour
                 GameObject spawnedPlayer = Instantiate(playerStorage.GetComponent<RoundManager>().playersInGame[player.GetComponent<PlayerConnect>().playerNo - 1], transform.position, Quaternion.identity) as GameObject; //TODO: spawn position is a placeholder, change later
 
                 spawnedPlayer.GetComponent<Player>().playerID = server.GetComponent<Server>().playerIDs[j];
-
+                spawnedPlayer.GetComponent<Player>().characterName = player.GetComponent<PlayerConnect>().characterName;
                 j++;
             }
             currPlayers++;

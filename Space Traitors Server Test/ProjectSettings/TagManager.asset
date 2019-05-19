@@ -9,6 +9,7 @@ TagManager:
   - RoundManager
   - Spawner
   - Server
+  - Setter
   layers:
   - Default
   - TransparentFX

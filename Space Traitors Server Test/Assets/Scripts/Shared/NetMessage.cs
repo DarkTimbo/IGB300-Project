@@ -8,8 +8,10 @@ public static class NetOP
     
     public const int ChangeRoom = 1;
     public const int SendPoints = 2;
-    public const int OnChangeRoom = 3;
-    public const int OnLoginRequest = 4;
+    public const int ChangeCharacter = 3;
+    public const int OnChangeRoom = 4;
+    public const int OnLoginRequest = 5;
+    public const int OnChangeCharacter = 6;
 
 }
 
