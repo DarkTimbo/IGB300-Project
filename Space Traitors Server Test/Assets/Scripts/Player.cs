@@ -33,7 +33,7 @@ public class Player : Navigation
         }
 
         if (Turn == true) {
-
+    
             PlayerMove();
         }
                 
@@ -73,11 +73,11 @@ public class Player : Navigation
         if(transform.position == graphNodes.graphNodes[currentPath[currentPathIndex]].transform.position) {
             move = true;
         }
-        
-        
 
+    }
 
-
+    public void SetPlayerTurn()
+    {
 
     }
         

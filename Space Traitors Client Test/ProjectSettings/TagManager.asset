@@ -5,6 +5,10 @@ TagManager:
   serializedVersion: 2
   tags:
   - Room
+  - End
+  - Client
+  - Portrait
+  - LobbyScene
   layers:
   - Default
   - TransparentFX

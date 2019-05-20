@@ -12,6 +12,8 @@ public static class NetOP
     public const int OnChangeRoom = 4;
     public const int OnLoginRequest = 5;
     public const int OnChangeCharacter = 6;
+    public const int SendTurnEnd = 7;
+    public const int OnSendTurnEnd = 8;
 
 }
 

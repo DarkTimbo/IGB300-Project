@@ -245,6 +245,9 @@ public class Server : MonoBehaviour
             case NetOP.SendPoints:
                 SendPoints(conID, chanID, rHostID, (Net_SendPoints)msg);
                 break;
+            case NetOP.SendTurnEnd:
+                SendTurnEnd(conID, chanID, rHostID, (Net_SendTurnEnd)msg);
+                break;
         }
         //Debug.Log("Recieved a message of type " + msg.OperationCode);
 
@@ -255,7 +258,7 @@ public class Server : MonoBehaviour
         foreach (GameObject player in playerArray())
         {
             //Find the correct player
-            if (player.GetComponent<PlayerConnect>().playerID == conID)
+            if (player.GetComponent<Player>().playerID == conID)
             {
                 //Room Movement action here
 
@@ -303,6 +306,18 @@ public class Server : MonoBehaviour
 
                 }
                 break;
+            }
+        }
+    }
+
+    public void SendTurnEnd(int conID, int chanID, int rHostID, Net_SendTurnEnd te)
+    {
+        foreach (GameObject player in playerArray())
+        {
+            //Find the correct player
+            if (player.GetComponent<PlayerConnect>().playerID == conID)
+            {
+                playerStorage.GetComponent<RoundManager>().IncrementTurn(); 
             }
         }
     }

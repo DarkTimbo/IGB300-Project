@@ -194,6 +194,7 @@ public class Client : MonoBehaviour
         MemoryStream ms = new MemoryStream(buffer);
         formatter.Serialize(ms, msg);
 
+        Debug.Log("sent");
         NetworkTransport.Send(hostID, connectionID, reliableChannel, buffer, byteSize, out error);
 
     }
@@ -215,6 +216,14 @@ public class Client : MonoBehaviour
 
         lr.Influence = var;
         SendServer(lr);
+    }
+
+    public void SendTurnEnd(int var)
+    {
+        Net_SendTurnEnd te = new Net_SendTurnEnd();
+
+        te.Ended = var;
+        SendServer(te);
     }
 }
 

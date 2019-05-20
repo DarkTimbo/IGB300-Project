@@ -27,6 +27,11 @@ public class LobbyScene : MonoBehaviour
     {
         Client.Instance.SendPoints(character);
     }
+
+    public void OnSendTurnEnd()
+    {
+        Client.Instance.SendTurnEnd(1);
+    }
 }
 
 //public void OnClickCreateAccount()
