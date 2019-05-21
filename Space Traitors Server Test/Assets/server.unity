@@ -3256,7 +3256,7 @@ PrefabInstance:
     - target: {fileID: 8721592472415371601, guid: 3c5851cbc134bcc4987f7abb1b5d2334,
         type: 3}
       propertyPath: m_RootOrder
-      value: 8
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 8721592472415371601, guid: 3c5851cbc134bcc4987f7abb1b5d2334,
         type: 3}
@@ -6030,7 +6030,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
 --- !u!1 &1889106236
 GameObject:
@@ -6276,7 +6276,7 @@ Transform:
   - {fileID: 2049855508}
   - {fileID: 1087044175}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1949414201
 GameObject:
@@ -7419,7 +7419,7 @@ PrefabInstance:
     - target: {fileID: 7193829423504451533, guid: f6ecb5a507a568c42aedb1653b028f6d,
         type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7193829423504451533, guid: f6ecb5a507a568c42aedb1653b028f6d,
         type: 3}
@@ -7458,4 +7458,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playersInGame: []
-  RoundIndex: 0
+  server: {fileID: 0}
+  playerObject: {fileID: 0}

@@ -260,8 +260,10 @@ public class Server : MonoBehaviour
             //Find the correct player
             if (player.GetComponent<Player>().playerID == conID)
             {
-                //Room Movement action here
+                player.GetComponent<Player>().goalIndex = ca.Location;
+                player.GetComponent<Player>().startMoving = true;
 
+              
                 Debug.Log(player.name + " is in " + ca.Location);
                 break;
             }

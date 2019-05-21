@@ -10,6 +10,7 @@ public class Player : Navigation
     public int goalIndex = 0;
     public bool Turn = true;
     public bool move = true;
+    public bool startMoving = false;
 
     //Network variables
     public int playerID;
@@ -32,14 +33,14 @@ public class Player : Navigation
             spawned = true;
         }
 
-        if (Turn == true) {
+        if (Turn == true && startMoving == true ) {
     
-            PlayerMove();
+            PlayerMove(goalIndex);
         }
                 
     }
 
-    private void PlayerMove() {
+    private void PlayerMove(int goalIndex) {
 
         if (move) {
             //Reset current path and add first node - needs to be done here because of recursive function of greedy
@@ -72,6 +73,7 @@ public class Player : Navigation
         //If player object is at the last node of the path allow it to move again.
         if(transform.position == graphNodes.graphNodes[currentPath[currentPathIndex]].transform.position) {
             move = true;
+            startMoving = false;
         }
 
     }

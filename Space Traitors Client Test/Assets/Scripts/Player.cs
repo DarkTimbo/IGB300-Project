@@ -75,6 +75,7 @@ public class Player : MonoBehaviour {
                         RoomNameText.text = ("Do you want to move to " + RoomSelected.name + "?");
                         AcceptRoomCanvas.enabled= true;
                         isInSelction = true;
+                        
                     }
                 }
             }
@@ -104,7 +105,7 @@ public class Player : MonoBehaviour {
         AcceptRoomCanvas.enabled = false;
         RoomSelected.GetComponent<Rooms>().RoomChoices.enabled = true;
         
-        //Client.Instance.SendLocation(RoomSelected.GetComponent<Rooms>().RoomNumber);
+         Client.Instance.SendLocation(RoomSelected.GetComponent<Rooms>().RoomNumber);
 
 
     }
