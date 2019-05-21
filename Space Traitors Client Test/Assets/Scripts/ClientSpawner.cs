@@ -13,13 +13,12 @@ public class ClientSpawner : MonoBehaviour
     public Image mainPortrait;
     public Image[] portraitList;
     public Text characterLabel;
-    public GameObject selectButton, gameButton;
+    public GameObject selectButton;
     public GameObject LobbyScene;
     // Start is called before the first frame update
     void Start()
     {
         selectButton.SetActive(false);
-        gameButton.SetActive(false);
     }
 
     // Update is called once per frame
@@ -37,7 +36,7 @@ public class ClientSpawner : MonoBehaviour
             client.GetComponent<Client>().serverIP = customServerIP;
         }
         client.GetComponent<Client>().Initialise();
-        SceneManager.LoadScene("Character Select");
+        
     }
 
     public void ChooseCharacter(string characterName)
@@ -79,10 +78,7 @@ public class ClientSpawner : MonoBehaviour
         LobbyScene.GetComponent<LobbyScene>().character = characterName;
     }
 
-    public void GameButton()
-    {
-        gameButton.SetActive(true);
-    }
+ 
 
     public void GoToGame()
     {

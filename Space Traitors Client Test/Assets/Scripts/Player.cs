@@ -10,7 +10,7 @@ public class Player : MonoBehaviour {
     public bool isInSelction = false;
 
     private int ActionPoints = 0;
-    public bool Turn = true;
+    public bool Turn = false;
     private bool TurnStarted = true;
     public int rollMin = 1, rollMax = 11;
 
@@ -27,19 +27,22 @@ public class Player : MonoBehaviour {
     public Text RoomNameText;
     public GameObject RoomSelected;
     public GameObject EndTurnButton;
+    public GameObject rooms;
     private GameObject lobbyScene;
 
     // Start is called before the first frame update
     void Start() {
         EndTurnButton = GameObject.FindGameObjectWithTag("End");
         lobbyScene = GameObject.FindGameObjectWithTag("LobbyScene");
-        Turn = true; //TODO: have it so the server switches to the player's turn
+        Turn = false;
     }
 
     // Update is called once per frame
     void Update() {
         if (Turn)
         {
+            rooms.SetActive(true);
+
             if (TurnStarted)
             {
                 //Set action points
@@ -54,6 +57,11 @@ public class Player : MonoBehaviour {
             {
                 EndTurn();
             }
+        }
+        else
+        {
+            //Player can't select rooms when it is not their turn
+            rooms.SetActive(false);
         }
 
     }

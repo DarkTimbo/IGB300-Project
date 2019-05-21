@@ -10257,7 +10257,7 @@ GameObject:
   - component: {fileID: 1387521896}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10364,6 +10364,7 @@ MonoBehaviour:
   RoomNameText: {fileID: 531433888}
   RoomSelected: {fileID: 0}
   EndTurnButton: {fileID: 0}
+  rooms: {fileID: 1226621063}
 --- !u!1 &1400076562
 GameObject:
   m_ObjectHideFlags: 0

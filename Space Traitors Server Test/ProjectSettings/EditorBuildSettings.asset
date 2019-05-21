@@ -9,9 +9,9 @@ EditorBuildSettings:
     path: Assets/LobbyTest.unity
     guid: 6be2160b80f852f44aae21a192e481cf
   - enabled: 1
-    path: Assets/server.unity
-    guid: e516284f4a76ff24188bc45d9409c98a
-  - enabled: 1
     path: Assets/Character Select.unity
     guid: a0901f358dedd894bbc65343dfce3632
+  - enabled: 1
+    path: Assets/server.unity
+    guid: e516284f4a76ff24188bc45d9409c98a
   m_configObjects: {}

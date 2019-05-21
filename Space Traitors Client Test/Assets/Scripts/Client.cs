@@ -4,6 +4,7 @@ using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.SceneManagement;
 
 using System.Net;
 using System.Net.NetworkInformation;
@@ -79,14 +80,14 @@ public class Client : MonoBehaviour
     //private const string serverIP = "100.104.80.220";
     public string serverIP = IPManager.GetIP(ADDRESSFAM.IPv4);
     private bool isStarted = false;
- 
+
+    private GameObject player;
 
     // Use this for initialization
     void Start()
     {
         Instance = this;
         DontDestroyOnLoad(gameObject);
-        //Initialise();
     }
 
     public void Initialise()
@@ -126,7 +127,8 @@ public class Client : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-            UpdateMessagePump();
+        player = GameObject.FindGameObjectWithTag("Player");
+        UpdateMessagePump();
     }
 
     private void UpdateMessagePump()
@@ -180,6 +182,15 @@ public class Client : MonoBehaviour
             case NetOP.None:
                 Debug.Log("Unexpected NETOP");
                 break;
+            case NetOP.ChangeRoom:
+                ChangeRoom(conID, chanID, rHostID, (Net_ChangeRoom)msg);
+                break;
+            case NetOP.SendPoints:
+                SendPoints(conID, chanID, rHostID, (Net_SendPoints)msg);
+                break;
+            case NetOP.SendTurnEnd:
+                SendTurnEnd(conID, chanID, rHostID, (Net_SendTurnEnd)msg);
+                break;
         }
         //Debug.Log("Recieved a message of type " + msg.OperationCode);
 
@@ -225,6 +236,30 @@ public class Client : MonoBehaviour
         te.Ended = var;
         SendServer(te);
     }
+
+    private void ChangeRoom(int conID, int chanID, int rHostID, Net_ChangeRoom ca)
+    {
+        //on Client side, ChangeRoom changes to the next scene (saves on having to create new net classes)
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+    }
+
+    private void SendPoints(int conID, int chanID, int rHostID, Net_SendPoints ca)
+    {
+        
+    }
+
+    private void SendTurnEnd(int conID, int chanID, int rHostID, Net_SendTurnEnd ca)
+    {
+        if (!player.GetComponent<Player>().Turn)
+        {
+            player.GetComponent<Player>().Turn = true;
+        }
+        else
+        {
+            player.GetComponent<Player>().Turn = false;
+        }
+    }
+
 }
 
 
