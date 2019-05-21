@@ -34,6 +34,10 @@ public class Player : MonoBehaviour {
         EndTurnButton = GameObject.FindGameObjectWithTag("End");
         lobbyScene = GameObject.FindGameObjectWithTag("LobbyScene");
         Turn = true; //TODO: have it so the server switches to the player's turn
+
+
+
+
     }
 
     // Update is called once per frame
@@ -105,7 +109,7 @@ public class Player : MonoBehaviour {
         AcceptRoomCanvas.enabled = false;
         RoomSelected.GetComponent<Rooms>().RoomChoices.enabled = true;
         
-         Client.Instance.SendLocation(RoomSelected.GetComponent<Rooms>().RoomNumber);
+        Client.Instance.SendLocation(RoomSelected.GetComponent<Rooms>().RoomNumber);
 
 
     }
