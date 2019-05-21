@@ -77,11 +77,6 @@ public class Player : Navigation
         }
 
     }
-
-    public void SetPlayerTurn()
-    {
-
-    }
         
 
 

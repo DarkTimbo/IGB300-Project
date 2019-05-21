@@ -101,6 +101,7 @@ public class Server : MonoBehaviour
     public Text connectText;
     public Sprite[] portraits;
     private GameObject setter;
+    public int tempPlayerID;
 
     // Use this for initialization
     void Start()
@@ -454,8 +455,61 @@ public class Server : MonoBehaviour
             i++;
         }
 
+        //Send message to every player's client to move onto next scene
+        ClientNextScene();
+
         //Change to the character select
-        SceneManager.LoadScene("Character Select"); //TODO: Should change to '1' later, build order index
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+    }
+
+    public void ClientNextScene()
+    {
+        foreach (GameObject player in players)
+        {
+            tempPlayerID = player.GetComponent<PlayerConnect>().playerID;
+            SendLocation(0);
+        }
+    }
+
+    public void ClientTurnChange(int connection)
+    {
+        tempPlayerID = connection;
+        SendTurnEnd(0);
+    }
+
+    public void SendClient(NetMessage msg)
+    {
+        //This is where data is held
+        byte[] buffer = new byte[byteSize];
+
+        BinaryFormatter formatter = new BinaryFormatter();
+        MemoryStream ms = new MemoryStream(buffer);
+        formatter.Serialize(ms, msg);
+
+        int connectionID = tempPlayerID;
+
+        Debug.Log("sent");
+        NetworkTransport.Send(hostID, connectionID, reliableChannel, buffer, byteSize, out error);
+
+    }
+
+    //Sends the location to the server, references the get,set from Net_Change Room
+    public void SendLocation(int location)
+    {
+        Net_ChangeRoom ca = new Net_ChangeRoom();
+
+        ca.Location = location;
+
+        SendClient(ca);
+
+    }
+
+    //Sends the location to the server, references the get,set from Net_Change Room
+    public void SendTurnEnd(int location)
+    {
+        Net_SendTurnEnd ca = new Net_SendTurnEnd();
+
+        SendClient(ca);
 
     }
 
