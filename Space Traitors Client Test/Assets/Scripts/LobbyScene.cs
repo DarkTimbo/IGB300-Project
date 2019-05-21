@@ -9,11 +9,12 @@ public class LobbyScene : MonoBehaviour
 
 
     public int influence;
-    public string character = "Brute";
+    public string character;
     public GameObject clientSp;
 
     public void Start()
     {
+
 
     }
 

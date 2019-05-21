@@ -28,13 +28,58 @@ public class Player : MonoBehaviour {
     public GameObject RoomSelected;
     public GameObject EndTurnButton;
     private GameObject lobbyScene;
+    private GameObject controller;
 
     // Start is called before the first frame update
     void Start() {
         EndTurnButton = GameObject.FindGameObjectWithTag("End");
         lobbyScene = GameObject.FindGameObjectWithTag("LobbyScene");
         Turn = true; //TODO: have it so the server switches to the player's turn
+        controller = GameObject.Find("Controller");
 
+        if(controller.GetComponent<LobbyScene>().character == "Brute") {
+
+            Brawn = 6;
+            Skill = 3;
+            Tech = 2;
+            Charm = 4;
+
+        }
+        else if (controller.GetComponent<LobbyScene>().character == "Butler") {
+
+            Brawn = 4;
+            Skill = 5;
+            Tech = 3;
+            Charm = 3;
+        }
+        else if(controller.GetComponent<LobbyScene>().character == "Techie") {
+
+            Brawn = 2;
+            Skill = 2;
+            Tech = 6;
+            Charm = 5;
+        }
+        else if (controller.GetComponent<LobbyScene>().character == "Entertainer") {
+
+            Brawn = 2;
+            Skill = 5;
+            Tech = 2;
+            Charm = 6;
+        }
+        else if (controller.GetComponent<LobbyScene>().character == "Engineer") {
+
+            Brawn = 4;
+            Skill = 3;
+            Tech = 5;
+            Charm = 3;
+        }
+        else if (controller.GetComponent<LobbyScene>().character == "Chef") {
+
+            Brawn = 3;
+            Skill = 6;
+            Tech = 5;
+            Charm = 2;
+        }
 
 
 
