@@ -29,7 +29,7 @@ public class AEscapePod : MonoBehaviour
     public void OnOptionOneClick() {
 
 
-        if(Player.GetComponent<Player>().Components > 1) {
+        if(Player.GetComponent<Player>().Components > 0) {
 
             Player.GetComponent<Player>().Components -= 1;
         }
