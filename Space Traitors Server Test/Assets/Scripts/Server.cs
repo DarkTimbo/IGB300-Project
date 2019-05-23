@@ -102,6 +102,8 @@ public class Server : MonoBehaviour
     public Sprite[] portraits;
     private GameObject setter;
     public int tempPlayerID;
+    public GameObject[] ScrapTotals;
+    public GameObject[] Components;
 
     // Use this for initialization
     void Start()
@@ -152,6 +154,12 @@ public class Server : MonoBehaviour
         if (sceneName == "Character Select")
         {
             SetPortraits();
+        }
+        if(sceneName == "server") {
+
+            SetScrapText();
+            SetComponentsText();
+
         }
 
         //Networking messages
@@ -249,9 +257,40 @@ public class Server : MonoBehaviour
             case NetOP.SendTurnEnd:
                 SendTurnEnd(conID, chanID, rHostID, (Net_SendTurnEnd)msg);
                 break;
+            case NetOP.SendScrap:
+                SendScrap(conID, chanID, rHostID, (Net_SendScrap)msg);
+                break;
+            case NetOP.SendComponents:
+                SendComponents(conID, chanID, rHostID, (Net_SendComponents)msg);
+                break;
         }
         //Debug.Log("Recieved a message of type " + msg.OperationCode);
 
+    }
+
+
+    private void SendScrap(int conID, int chanID, int rHostID, Net_SendScrap scrap) {
+
+        foreach (GameObject player in playerArray()) {
+            //Find the correct player
+            if (player.GetComponent<Player>().playerID == conID) {
+
+                ScrapTotals[conID - 1].GetComponent<Text>().text = scrap.ScrapTotal.ToString();
+
+            }
+        }
+    }
+
+    private void SendComponents(int conID, int chanID, int rHostID, Net_SendComponents components) {
+
+        foreach (GameObject player in playerArray()) {
+            //Find the correct player
+            if (player.GetComponent<Player>().playerID == conID) {
+
+                Components[conID - 1].GetComponent<Text>().text = components.ComponentNumber.ToString();
+
+            }
+        }
     }
 
     private void ChangeRoom(int conID, int chanID, int rHostID, Net_ChangeRoom ca)
@@ -510,6 +549,18 @@ public class Server : MonoBehaviour
         Net_SendTurnEnd ca = new Net_SendTurnEnd();
 
         SendClient(ca);
+
+    }
+
+    public void SetScrapText() {
+
+        ScrapTotals = GameObject.FindGameObjectsWithTag("Scrap Text");
+
+    }
+
+    public void SetComponentsText() {
+
+        Components = GameObject.FindGameObjectsWithTag("Components Text");
 
     }
 

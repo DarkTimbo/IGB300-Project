@@ -63,8 +63,7 @@ public enum ADDRESSFAM
 }
 
 [System.Serializable]
-public class Client : MonoBehaviour
-{
+public class Client : MonoBehaviour {
     public static Client Instance { get; set; }
 
     private byte reliableChannel;
@@ -84,14 +83,12 @@ public class Client : MonoBehaviour
     private GameObject player;
 
     // Use this for initialization
-    void Start()
-    {
+    void Start() {
         Instance = this;
         DontDestroyOnLoad(gameObject);
     }
 
-    public void Initialise()
-    {
+    public void Initialise() {
         NetworkTransport.Init();
 
         ConnectionConfig config = new ConnectionConfig();
@@ -117,24 +114,20 @@ public class Client : MonoBehaviour
         isStarted = true;
     }
 
-    public void ShutDown()
-    {
+    public void ShutDown() {
         isStarted = false;
         NetworkTransport.Shutdown();
     }
 
 
     // Update is called once per frame
-    void Update()
-    {
+    void Update() {
         player = GameObject.FindGameObjectWithTag("Player");
         UpdateMessagePump();
     }
 
-    private void UpdateMessagePump()
-    {
-        if (!isStarted)
-        {
+    private void UpdateMessagePump() {
+        if (!isStarted) {
             return;
         }
         int recHostID;  //checks whether this is from Web or standalone
@@ -145,8 +138,7 @@ public class Client : MonoBehaviour
         int dataSize;
 
         NetworkEventType type = NetworkTransport.Receive(out recHostID, out connectionID, out channelID, recBuffer, byteSize, out dataSize, out error);
-        switch (type)
-        {
+        switch (type) {
             case NetworkEventType.Nothing:
                 break;
 
@@ -175,10 +167,8 @@ public class Client : MonoBehaviour
 
     }
 
-    private void OnData(int conID, int chanID, int rHostID, NetMessage msg)
-    {
-        switch (msg.OperationCode)
-        {
+    private void OnData(int conID, int chanID, int rHostID, NetMessage msg) {
+        switch (msg.OperationCode) {
             case NetOP.None:
                 Debug.Log("Unexpected NETOP");
                 break;
@@ -191,13 +181,13 @@ public class Client : MonoBehaviour
             case NetOP.SendTurnEnd:
                 SendTurnEnd(conID, chanID, rHostID, (Net_SendTurnEnd)msg);
                 break;
+           
         }
         //Debug.Log("Recieved a message of type " + msg.OperationCode);
 
     }
 
-    public void SendServer(NetMessage msg)
-    {
+    public void SendServer(NetMessage msg) {
         //This is where data is held
         byte[] buffer = new byte[byteSize];
 
@@ -211,8 +201,7 @@ public class Client : MonoBehaviour
     }
 
     //Sends the location to the server, references the get,set from Net_Change Room
-    public void SendLocation(int location)
-    {
+    public void SendLocation(int location) {
         Net_ChangeRoom ca = new Net_ChangeRoom();
 
         ca.Location = location;
@@ -221,46 +210,55 @@ public class Client : MonoBehaviour
 
     }
 
-    public void SendPoints(string var)
-    {
+    public void SendPoints(string var) {
         Net_SendPoints lr = new Net_SendPoints();
 
         lr.Influence = var;
         SendServer(lr);
     }
 
-    public void SendTurnEnd(int var)
-    {
+    public void SendTurnEnd(int var) {
         Net_SendTurnEnd te = new Net_SendTurnEnd();
 
         te.Ended = var;
         SendServer(te);
     }
 
-    private void ChangeRoom(int conID, int chanID, int rHostID, Net_ChangeRoom ca)
-    {
+    private void ChangeRoom(int conID, int chanID, int rHostID, Net_ChangeRoom ca) {
         //on Client side, ChangeRoom changes to the next scene (saves on having to create new net classes)
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
-    private void SendPoints(int conID, int chanID, int rHostID, Net_SendPoints ca)
-    {
-        
+    private void SendPoints(int conID, int chanID, int rHostID, Net_SendPoints ca) {
+
     }
 
-    private void SendTurnEnd(int conID, int chanID, int rHostID, Net_SendTurnEnd ca)
-    {
-        if (!player.GetComponent<Player>().Turn)
-        {
+    private void SendTurnEnd(int conID, int chanID, int rHostID, Net_SendTurnEnd ca) {
+        if (!player.GetComponent<Player>().Turn) {
             player.GetComponent<Player>().Turn = true;
         }
-        else
-        {
+        else {
             player.GetComponent<Player>().Turn = false;
         }
     }
 
-}
+    public void SendScrap(int var) {
 
+        Net_SendScrap scrap = new Net_SendScrap();
+
+        scrap.ScrapTotal = var;
+        SendServer(scrap);
+
+    }
+
+    public void SendComponents(int var) {
+
+        Net_SendComponents Component = new Net_SendComponents();
+
+        Component.ComponentNumber = var;
+        SendServer(Component);
+
+    }
+}
 
  

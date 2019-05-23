@@ -23,6 +23,7 @@ public class MEngineering : MonoBehaviour
     public void OnClickExitButton() {
 
         ChoicesCanvas.enabled = false;
+        ErrorText.enabled = false;
         Player.GetComponent<Player>().isInSelction = false;
 
     }
@@ -40,6 +41,7 @@ public class MEngineering : MonoBehaviour
          
         }
         ChoicesCanvas.enabled = false;
+        ErrorText.enabled = false;
         Player.GetComponent<Player>().isInSelction = false;
 
     }

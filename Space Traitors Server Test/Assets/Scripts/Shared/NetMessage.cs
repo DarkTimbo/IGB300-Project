@@ -14,6 +14,8 @@ public static class NetOP
     public const int OnChangeCharacter = 6;
     public const int SendTurnEnd = 7;
     public const int OnSendTurnEnd = 8;
+    public const int SendScrap = 9;
+    public const int SendComponents = 10;
 
 }
 

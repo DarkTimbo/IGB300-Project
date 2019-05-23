@@ -25,7 +25,7 @@ public class HSpa : MonoBehaviour
 
         ChoicesCanvas.enabled = false;
         Player.GetComponent<Player>().isInSelction = false;
-
+        ErrorText.enabled = false;
     }
 
     public void OnOptionOneClick() {
@@ -42,6 +42,7 @@ public class HSpa : MonoBehaviour
         }
         ChoicesCanvas.enabled = false;
         Destroy(OptionOneButton);
+        ErrorText.enabled = false;
         Player.GetComponent<Player>().isInSelction = false;
 
     }

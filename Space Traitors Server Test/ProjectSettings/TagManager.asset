@@ -9,6 +9,8 @@ TagManager:
   - RoundManager
   - Spawner
   - Server
+  - Scrap Text
+  - Components Text
   layers:
   - Default
   - TransparentFX

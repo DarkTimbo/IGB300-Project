@@ -7,6 +7,7 @@ public class Player : MonoBehaviour {
 
     public int CurrentRoomNumber;
     public int scrapTotal = 0;
+    public int previousScrapTotal = 0;
     public bool isInSelction = false;
     public string CharacterName;
 
@@ -21,6 +22,7 @@ public class Player : MonoBehaviour {
     public int Tech = 0;
     public int Charm = 0;
     public int Components = 0;
+    public int PreviousComponent = 0;
     public int Corruption = 0;
     public int AIPower = 0;
 
@@ -104,6 +106,20 @@ public class Player : MonoBehaviour {
             }
 
             ClickOnRoom();
+
+            if(scrapTotal != previousScrapTotal) {
+
+                previousScrapTotal = scrapTotal;
+                Client.Instance.SendScrap(scrapTotal);
+             
+            }
+
+            if (Components != PreviousComponent) {
+
+                PreviousComponent = Components;
+                Client.Instance.SendComponents(Components);
+
+            }
 
             if (ActionPoints <= 0)
             {
