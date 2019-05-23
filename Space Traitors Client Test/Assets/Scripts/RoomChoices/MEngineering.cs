@@ -1,11 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MEngineering : MonoBehaviour
 {
     public Canvas ChoicesCanvas;
     public int targetScore = 3;
+    public Button OptionTwoButton;
+    public Text ErrorText;
     private GameObject Player;
     private bool result;
 
@@ -44,11 +47,20 @@ public class MEngineering : MonoBehaviour
     public void OnOptionTwoClick() {
 
 
-        Player.GetComponent<Player>().Components += 1;
-        Player.GetComponent<Player>().Corruption += 20;
-        ChoicesCanvas.enabled = false;
-        Player.GetComponent<Player>().isInSelction = false;
+        if (Player.GetComponent<Player>().Components == 0) {
+            Player.GetComponent<Player>().Components += 1;
+            Player.GetComponent<Player>().Corruption += 20;
+            ChoicesCanvas.enabled = false;
+            ErrorText.enabled = false;
+            Destroy(OptionTwoButton);
+            Player.GetComponent<Player>().isInSelction = false;
 
+        }
+        else {
+            ErrorText.enabled = true;
+            ErrorText.text = "You can only have One component at a time";
+
+        }
 
     }
 

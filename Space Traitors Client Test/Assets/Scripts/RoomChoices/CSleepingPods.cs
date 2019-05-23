@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class CSleepingPods : MonoBehaviour
 {
     public Canvas ChoicesCanvas;
+    public Button OptionOneButton;
     private GameObject Player;
     public Text ErrorText;
 
@@ -26,21 +27,27 @@ public class CSleepingPods : MonoBehaviour
 
     public void OnOptionOneClick() {
 
+        if (Player.GetComponent<Player>().Components == 0) {
+            Player.GetComponent<Player>().Components += 1;
+            Player.GetComponent<Player>().Corruption += 20;
+            ChoicesCanvas.enabled = false;
+            ErrorText.enabled = false;
+            Destroy(OptionOneButton);
+            Player.GetComponent<Player>().isInSelction = false;
 
-        Player.GetComponent<Player>().Components += 1;
-        Player.GetComponent<Player>().Corruption += 20;
-        ChoicesCanvas.enabled = false;
-        ErrorText.enabled = false;
-        Player.GetComponent<Player>().isInSelction = false;
+        }
+        else {
+            ErrorText.enabled = true;
+            ErrorText.text = "You can only have One component at a time";
 
-
+        }
     }
 
     public void OnOptionTwoClick() {
 
         if (Player.GetComponent<Player>().scrapTotal >= 10){
 
-            if(Player.GetComponent<Player>().LifePoints < 2) {
+            if(Player.GetComponent<Player>().LifePoints < 3) {
                 Player.GetComponent<Player>().scrapTotal -= 10;
                 Player.GetComponent<Player>().LifePoints += 1;
                 ChoicesCanvas.enabled = false;

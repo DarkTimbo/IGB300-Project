@@ -9,6 +9,7 @@ TagManager:
   - Client
   - Portrait
   - LobbyScene
+  - Select Button
   layers:
   - Default
   - TransparentFX

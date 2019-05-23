@@ -8,6 +8,7 @@ public class LDiningHall : MonoBehaviour
     public Canvas ChoicesCanvas;
     private GameObject Player;
     public GameObject OptionOneButton;
+    public GameObject OptionTwoButton;
     public Text ErrorText;
 
 
@@ -51,12 +52,20 @@ public class LDiningHall : MonoBehaviour
     }
 
     public void OnOptionTwoClick() {
+        if (Player.GetComponent<Player>().Components == 0) {
+            Player.GetComponent<Player>().Components += 1;
+            Player.GetComponent<Player>().Corruption += 20;
+            ChoicesCanvas.enabled = false;
+            ErrorText.enabled = false;
+            Destroy(OptionTwoButton);
+            Player.GetComponent<Player>().isInSelction = false;
 
-        Player.GetComponent<Player>().Components += 1;
-        Player.GetComponent<Player>().Corruption += 20;
-        ChoicesCanvas.enabled = false;
-        ErrorText.enabled = false;
-        Player.GetComponent<Player>().isInSelction = false;
+        }
+        else {
+            ErrorText.enabled = true;
+            ErrorText.text = "You can only have One component at a time";
+
+        }
 
     }
 }

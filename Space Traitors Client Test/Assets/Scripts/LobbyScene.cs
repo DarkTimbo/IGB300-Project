@@ -3,19 +3,36 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems;
 
 public class LobbyScene : MonoBehaviour
 {
 
-
     public int influence;
     public string character;
     public GameObject clientSp;
+    public GameObject Player;
+    public Scene CurrentScene;
 
-    public void Start()
+    GraphicRaycaster raycaster;
+
+     void Start()
     {
+        DontDestroyOnLoad(gameObject);
+        
 
+    }
 
+     void Update() {
+
+        CurrentScene = SceneManager.GetActiveScene();
+        raycaster = GameObject.Find("Canvas").GetComponent<GraphicRaycaster>();
+
+        if (CurrentScene.name == "Character Select") {
+            ClickOnSelect();
+
+        }
     }
 
     //Button that calls The Send location in client, tells it what to send also
@@ -33,6 +50,34 @@ public class LobbyScene : MonoBehaviour
     {
         Client.Instance.SendTurnEnd(1);
     }
+
+    private void ClickOnSelect() {
+
+
+        if (Input.GetMouseButtonDown(0)) {
+
+            //Set up the new Pointer Event
+            PointerEventData pointerData = new PointerEventData(EventSystem.current);
+            List<RaycastResult> results = new List<RaycastResult>();
+
+            //Raycast using the Graphics Raycaster and mouse click position
+            pointerData.position = Input.mousePosition;
+            this.raycaster.Raycast(pointerData, results);
+
+            //For every result returned, output the name of the GameObject on the Canvas hit by the Ray
+            foreach (RaycastResult result in results) {
+               
+                if(result.gameObject.name == "Select") {
+
+                    OnClickChangeVariable();
+                }
+
+            }
+        }
+
+    }
+
+
 }
 
 //public void OnClickCreateAccount()

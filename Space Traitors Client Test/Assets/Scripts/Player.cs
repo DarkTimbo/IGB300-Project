@@ -8,13 +8,14 @@ public class Player : MonoBehaviour {
     public int CurrentRoomNumber;
     public int scrapTotal = 0;
     public bool isInSelction = false;
+    public string CharacterName;
 
     private int ActionPoints = 0;
     public bool Turn = false;
     private bool TurnStarted = true;
     public int rollMin = 1, rollMax = 11;
 
-    public int LifePoints = 2;
+    public int LifePoints = 3;
     public int Brawn = 0;
     public int Skill = 0;
     public int Tech = 0;
@@ -37,8 +38,9 @@ public class Player : MonoBehaviour {
         lobbyScene = GameObject.FindGameObjectWithTag("LobbyScene");
         Turn = false; //TODO: have it so the server switches to the player's turn
         controller = GameObject.Find("Controller");
+        CharacterName = controller.GetComponent<LobbyScene>().character;
 
-        if(controller.GetComponent<LobbyScene>().character == "Brute") {
+        if (CharacterName == "Brute") {
 
             Brawn = 6;
             Skill = 3;
@@ -46,35 +48,35 @@ public class Player : MonoBehaviour {
             Charm = 4;
 
         }
-        else if (controller.GetComponent<LobbyScene>().character == "Butler") {
+        else if (CharacterName == "Butler") {
 
             Brawn = 4;
             Skill = 5;
             Tech = 3;
             Charm = 3;
         }
-        else if(controller.GetComponent<LobbyScene>().character == "Techie") {
+        else if(CharacterName == "Techie") {
 
             Brawn = 2;
             Skill = 2;
             Tech = 6;
             Charm = 5;
         }
-        else if (controller.GetComponent<LobbyScene>().character == "Entertainer") {
+        else if (CharacterName == "Entertainer") {
 
             Brawn = 2;
             Skill = 5;
             Tech = 2;
             Charm = 6;
         }
-        else if (controller.GetComponent<LobbyScene>().character == "Engineer") {
+        else if (CharacterName == "Engineer") {
 
             Brawn = 4;
             Skill = 3;
             Tech = 5;
             Charm = 3;
         }
-        else if (controller.GetComponent<LobbyScene>().character == "Chef") {
+        else if (CharacterName == "Chef") {
 
             Brawn = 3;
             Skill = 6;

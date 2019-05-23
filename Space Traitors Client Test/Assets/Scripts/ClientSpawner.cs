@@ -19,6 +19,7 @@ public class ClientSpawner : MonoBehaviour
     void Start()
     {
         selectButton.SetActive(false);
+        LobbyScene = GameObject.Find("Controller");
     }
 
     // Update is called once per frame

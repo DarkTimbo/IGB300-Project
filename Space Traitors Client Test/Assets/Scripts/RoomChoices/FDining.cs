@@ -9,6 +9,7 @@ public class FDining : MonoBehaviour
     public GameObject OptionOneButton;
     public GameObject OptionTwoButton;
     public int targetScore = 5;
+    public Text ErrorText;
     private GameObject Player;
     private bool result;
 
@@ -50,10 +51,20 @@ public class FDining : MonoBehaviour
 
     public void OnOptionTwoClick() {
 
-        Player.GetComponent<Player>().Components += 1;
-        Player.GetComponent<Player>().Corruption += 20;
-        ChoicesCanvas.enabled = false;
-        Player.GetComponent<Player>().isInSelction = false;
+        if (Player.GetComponent<Player>().Components == 0) {
+            Player.GetComponent<Player>().Components += 1;
+            Player.GetComponent<Player>().Corruption += 20;
+            ChoicesCanvas.enabled = false;
+            ErrorText.enabled = false;
+            Destroy(OptionTwoButton);
+            Player.GetComponent<Player>().isInSelction = false;
+
+        }
+        else {
+            ErrorText.enabled = true;
+            ErrorText.text = "You can only have One component at a time";
+
+        }
 
     }
 

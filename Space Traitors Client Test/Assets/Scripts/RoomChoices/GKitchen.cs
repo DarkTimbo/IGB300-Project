@@ -49,7 +49,7 @@ public class GKitchen : MonoBehaviour {
 
         if (Player.GetComponent<Player>().scrapTotal >= 10) {
 
-            if (Player.GetComponent<Player>().LifePoints < 2) {
+            if (Player.GetComponent<Player>().LifePoints < 3) {
                 Player.GetComponent<Player>().scrapTotal -= 10;
                 Player.GetComponent<Player>().LifePoints += 1;
                 ChoicesCanvas.enabled = false;
