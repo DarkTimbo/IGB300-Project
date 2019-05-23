@@ -10,6 +10,7 @@ TagManager:
   - Portrait
   - LobbyScene
   - Select Button
+  - Text
   layers:
   - Default
   - TransparentFX

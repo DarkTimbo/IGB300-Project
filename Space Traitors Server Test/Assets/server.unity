@@ -7690,3 +7690,5 @@ MonoBehaviour:
   playersInGame: []
   server: {fileID: 0}
   playerObject: {fileID: 0}
+  canvas: {fileID: 0}
+  rndText: {fileID: 0}
