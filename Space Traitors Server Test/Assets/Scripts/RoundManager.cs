@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class RoundManager : MonoBehaviour
@@ -10,18 +11,24 @@ public class RoundManager : MonoBehaviour
     public GameObject server;
     public GameObject playerObject;
     private int PlayerIndex;
-    private int Round;
+    private int Round = 1;
     private bool setup = false, randomised = true, initialisePlayer = false;
     private Scene currentScene;
     private string sceneName;
     private int index;
+    public GameObject rnds;
+    private Text rndText;
 
     // Start is called before the first frame update
     void Start()
     {
         DontDestroyOnLoad(gameObject);
         server = GameObject.FindGameObjectWithTag("Server");
-        
+        rnds = GameObject.FindGameObjectWithTag("Text");
+        if (rnds != null)
+        {
+            rndText = rnds.GetComponent<Text>();
+        }
     }
 
     // Update is called once per frame
@@ -29,6 +36,8 @@ public class RoundManager : MonoBehaviour
     {
         currentScene = SceneManager.GetActiveScene();
         sceneName = currentScene.name;
+
+        Debug.Log(PlayerIndex);
 
         if (sceneName == "server")
         {
@@ -48,13 +57,7 @@ public class RoundManager : MonoBehaviour
                     randomised = true;
                 }
 
-                if (PlayerIndex >= playersInGame.Count)
-                //If all players have been cycled through, the round is over
-                {
-                    //Restart a new round
-                    PlayerIndex = 0;
-                    Round++;
-                }
+                //TurnIncrement();
 
                 ////First player in the array gets their turn
                 //if (!initialisePlayer)
@@ -73,9 +76,22 @@ public class RoundManager : MonoBehaviour
         playersInGame[PlayerIndex].GetComponent<Player>().Turn = false;
         server.GetComponent<Server>().ClientTurnChange(playersInGame[PlayerIndex].GetComponent<Player>().playerID);
         PlayerIndex++;
+        TurnIncrement();
         playersInGame[PlayerIndex].GetComponent<Player>().Turn = true;
         server.GetComponent<Server>().ClientTurnChange(playersInGame[PlayerIndex].GetComponent<Player>().playerID);
         
+    }
+
+    public void TurnIncrement()
+    {
+        if (PlayerIndex >= playersInGame.Count)
+        //If all players have been cycled through, the round is over
+        {
+            //Start a new round
+            PlayerIndex = 0;
+            Round++;
+            rndText.text = "Round " + Round.ToString();
+        }
     }
 
     public void turn1()

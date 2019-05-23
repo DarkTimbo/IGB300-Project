@@ -318,9 +318,9 @@ public class Server : MonoBehaviour
         foreach (GameObject player in playerArray())
         {
             //Find the correct player
-            if (player.GetComponent<PlayerConnect>().playerID == conID)
+            if (player.GetComponent<Player>().playerID == conID)
             {
-                playerStorage.GetComponent<RoundManager>().IncrementTurn(); 
+                playerStorage.GetComponent<RoundManager>().IncrementTurn();
             }
         }
     }

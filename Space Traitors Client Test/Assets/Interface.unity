@@ -18224,6 +18224,8 @@ MonoBehaviour:
   character: Yolo
   clientSp: {fileID: 0}
   Player: {fileID: 0}
+  CurrentScene:
+    m_Handle: 0
 --- !u!4 &2092106897
 Transform:
   m_ObjectHideFlags: 0
