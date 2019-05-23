@@ -16,19 +16,14 @@ public class RoundManager : MonoBehaviour
     private Scene currentScene;
     private string sceneName;
     private int index;
-    public GameObject rnds;
-    private Text rndText;
+    public GameObject canvas;
+    public Text rndText;
 
     // Start is called before the first frame update
     void Start()
     {
         DontDestroyOnLoad(gameObject);
         server = GameObject.FindGameObjectWithTag("Server");
-        rnds = GameObject.FindGameObjectWithTag("Text");
-        if (rnds != null)
-        {
-            rndText = rnds.GetComponent<Text>();
-        }
     }
 
     // Update is called once per frame
@@ -42,6 +37,7 @@ public class RoundManager : MonoBehaviour
         if (sceneName == "server")
         {
 
+
             //Allow a frame for the list to be filled up with players before acting
             if (!setup)
             {
@@ -49,6 +45,7 @@ public class RoundManager : MonoBehaviour
             }
             else
             {
+                rndText.text = rndText.text = "Round " + Round.ToString(); 
 
                 if (!randomised)
                 {
@@ -68,6 +65,10 @@ public class RoundManager : MonoBehaviour
                 //}
 
             }
+        }
+        else
+        {
+            rndText.text = ""; 
         }
     }
 
@@ -90,7 +91,6 @@ public class RoundManager : MonoBehaviour
             //Start a new round
             PlayerIndex = 0;
             Round++;
-            rndText.text = "Round " + Round.ToString();
         }
     }
 
