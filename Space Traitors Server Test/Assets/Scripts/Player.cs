@@ -42,21 +42,12 @@ public class Player : Navigation
 
     private void PlayerMove(int goalIndex) {
 
-        if (move) {
-            //Reset current path and add first node - needs to be done here because of recursive function of greedy
-            currentPath.Clear();
-            greedyPaintList.Clear();
-            currentPathIndex = 0;
-            currentPath.Add(currentNodeIndex);
+        
+         currentPath = AStarSearch(currentPath[currentPathIndex], goalIndex);
+         currentPathIndex = 0;
 
-            //Greedy Search
-            currentPath = GreedySearch(currentPath[currentPathIndex], goalIndex, currentPath);
 
-            //Reverse path and remove final (i.e. initial) position
-            currentPath.Reverse();
-            currentPath.RemoveAt(currentPath.Count - 1);
-            move = false;
-        }
+        //Move player
         if (currentPath.Count > 0) {
 
             transform.position = Vector3.MoveTowards(transform.position, graphNodes.graphNodes[currentPath[currentPathIndex]].transform.position, moveSpeed * Time.deltaTime);
@@ -65,21 +56,13 @@ public class Player : Navigation
             if (Vector3.Distance(transform.position, graphNodes.graphNodes[currentPath[currentPathIndex]].transform.position) <= minDistance) {
 
                 if (currentPathIndex < currentPath.Count - 1)
+
                     currentPathIndex++;
             }
 
             currentNodeIndex = graphNodes.graphNodes[currentPath[currentPathIndex]].GetComponent<LinkedNodes>().index;   //Store current node index
         }
-        //If player object is at the last node of the path allow it to move again.
-        if(transform.position == graphNodes.graphNodes[currentPath[currentPathIndex]].transform.position) {
-            move = true;
-            startMoving = false;
-        }
-
     }
-        
-
-
-        
+              
   }
 

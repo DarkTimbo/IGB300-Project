@@ -7,10 +7,15 @@ using System;
 public class Navigation : MonoBehaviour
 {
     public WayPointGraph graphNodes;
-    public List<int> currentPath = new List<int>();
-    public List<int> greedyPaintList = new List<int>();
+
     public int currentPathIndex = 0;
     public int currentNodeIndex = 0;
+    public List<int> openList = new List<int>();
+    public List<int> closedList = new List<int>();
+    public List<int> currentPath = new List<int>();
+    public Dictionary<int, int> cameFrom = new Dictionary<int, int>();
+
+
 
     // Start is called before the first frame update
     void Start()
@@ -30,71 +35,100 @@ public class Navigation : MonoBehaviour
 
     }
 
-    public class GreedyChildren : IComparable<GreedyChildren> {
-
-        public int childID { get; set; }
-        public float childHScore { get; set; }
-
-        public GreedyChildren(int childrenID, float childrenHScore) {
-            this.childID = childrenID;
-            this.childHScore = childrenHScore;
-        }
-
-        public int CompareTo(GreedyChildren other) {
-            return this.childHScore.CompareTo(other.childHScore);
-        }
 
 
-    }
+    //A-Star Search
+    public List<int> AStarSearch(int start, int goal) {
 
-    //Greedy Search
-    public List<int> GreedySearch(int currentNode, int goal, List<int> path) {
+        //Clear everything at start
+        openList.Clear();
+        closedList.Clear();
+        cameFrom.Clear();
 
-        //Code here
+        //Begin
+        openList.Add(start);
 
-        if (!greedyPaintList.Contains(currentNode)) {
-            greedyPaintList.Add(currentNode);
-        }
-
-        if (currentNode == goal) {
-            path.Add(currentNode);
-            return path;
-        }
-
-        //Make a custom list that stores the current node's children nodes and H scores. Sort them by ascending order of Heuristic
-        List<GreedyChildren> thisNodesChildren = new List<GreedyChildren>();
-
-        for (int i = 0; i < graphNodes.graphNodes[currentNode].GetComponent<LinkedNodes>().linkedNodesIndex.Length; i++) {
-
-            thisNodesChildren.Add(new GreedyChildren(graphNodes.graphNodes[currentNode].GetComponent<LinkedNodes>().linkedNodesIndex[i], Heuristic(graphNodes.graphNodes[currentNode].GetComponent<LinkedNodes>().linkedNodesIndex[i], goal)));
-
-        }
-
-        thisNodesChildren.Sort();
-
-        for (int i = 0; i < thisNodesChildren.Count; i++) {
+        float gScore = 0;
+        float fScore = gScore + Heuristic(start, goal);
 
 
-            if (!greedyPaintList.Contains(thisNodesChildren[i].childID)) {
+        while (openList.Count > 0) {
+            //Find the Node in openList that has the lowest fScore value
+            int currentNode = bestOpenListFScore(start, goal);
 
-                if (thisNodesChildren[i].childID == goal) {
+            if (currentNode == goal) {
+                return ReconstructPath(cameFrom, currentNode);
+            }
 
-                    path.Add(thisNodesChildren[i].childID);
-                    return path;
-                }
+            openList.Remove(currentNode);
+            closedList.Add(currentNode);
 
-                GreedySearch(thisNodesChildren[i].childID, goal, path);
+            //For each of the nodes conncected to the current node
+            for (int i = 0; i < graphNodes.graphNodes[currentNode].GetComponent<LinkedNodes>().linkedNodesIndex.Length; i++) {
 
-                if (path.Count != 0) {
+                int thisNeighbourNode = graphNodes.graphNodes[currentNode].GetComponent<LinkedNodes>().linkedNodesIndex[i];
 
-                    path.Add(thisNodesChildren[i].childID);
-                    return path;
+                //Ignore if neighbour node is attached
+                if (!closedList.Contains(thisNeighbourNode)) {
+
+                    //distance from current to the nextNode
+                    float tentativeGScore = Heuristic(start, currentNode) + Heuristic(currentNode, thisNeighbourNode);
+
+                    //Check to see if in openList or if new GScore is more sensible
+                    if (!openList.Contains(thisNeighbourNode) || tentativeGScore < gScore) {
+
+                        openList.Add(thisNeighbourNode);
+                    }
+
+                    if (!cameFrom.ContainsKey(thisNeighbourNode)) {
+                        cameFrom.Add(thisNeighbourNode, currentNode);
+                    }
+
+                    gScore = tentativeGScore;
+                    fScore = Heuristic(start, thisNeighbourNode) + Heuristic(thisNeighbourNode, goal);
+
+
                 }
 
             }
 
         }
 
-        return path;
+        return null;
+    }
+
+    public List<int> ReconstructPath(Dictionary<int, int> CF, int current) {
+
+        List<int> finalPath = new List<int>();
+        finalPath.Add(current);
+
+        while (CF.ContainsKey(current)) {
+
+            current = CF[current];
+            finalPath.Add(current);
+        }
+
+        finalPath.Reverse();
+        return finalPath;
+
+    }
+
+    public int bestOpenListFScore(int start, int goal) {
+
+        int bestIndex = 0;
+
+        for (int i = 0; i < openList.Count; i++) {
+
+            if ((Heuristic(openList[i], start) + Heuristic(openList[i], goal)) < (Heuristic(openList[bestIndex], start) + Heuristic(openList[bestIndex], goal))) {
+
+                bestIndex = i;
+
+            }
+
+        }
+
+        int bestNode = openList[bestIndex];
+        return bestNode;
+
     }
 }
