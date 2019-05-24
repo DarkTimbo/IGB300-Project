@@ -121,6 +121,13 @@ public class Player : MonoBehaviour {
 
             }
 
+            if(AIPower > 0) {
+
+                Client.Instance.SendAIPower(AIPower);
+                AIPower = 0;
+
+            }
+
             if (ActionPoints <= 0)
             {
                 EndTurn();

@@ -104,6 +104,7 @@ public class Server : MonoBehaviour
     public int tempPlayerID;
     public GameObject[] ScrapTotals;
     public GameObject[] Components;
+    public GameObject AiPowerSliderUI;
 
     // Use this for initialization
     void Start()
@@ -159,6 +160,7 @@ public class Server : MonoBehaviour
 
             SetScrapText();
             SetComponentsText();
+            SetAiPowerSlider();
 
         }
 
@@ -258,10 +260,13 @@ public class Server : MonoBehaviour
                 SendTurnEnd(conID, chanID, rHostID, (Net_SendTurnEnd)msg);
                 break;
             case NetOP.SendScrap:
-                SendScrap(conID, chanID, rHostID, (Net_SendScrap)msg);
+                AssignScrap(conID, chanID, rHostID, (Net_SendScrap)msg);
                 break;
             case NetOP.SendComponents:
-                SendComponents(conID, chanID, rHostID, (Net_SendComponents)msg);
+                AssignComponents(conID, chanID, rHostID, (Net_SendComponents)msg);
+                break;
+            case NetOP.SendAIPower:
+                AssignAiPower(conID, chanID, rHostID, (Net_SendAiPower)msg);
                 break;
         }
         //Debug.Log("Recieved a message of type " + msg.OperationCode);
@@ -269,7 +274,7 @@ public class Server : MonoBehaviour
     }
 
 
-    private void SendScrap(int conID, int chanID, int rHostID, Net_SendScrap scrap) {
+    private void AssignScrap(int conID, int chanID, int rHostID, Net_SendScrap scrap) {
 
         foreach (GameObject player in playerArray()) {
             //Find the correct player
@@ -281,7 +286,16 @@ public class Server : MonoBehaviour
         }
     }
 
-    private void SendComponents(int conID, int chanID, int rHostID, Net_SendComponents components) {
+    private void AssignAiPower(int conID, int chanID, int rHostID, Net_SendAiPower aiPower) {
+
+        AiPowerSliderUI.GetComponent<AiPower>().AIPower += aiPower.AIpowerAmountGained;
+       
+    }
+
+
+
+
+    private void AssignComponents(int conID, int chanID, int rHostID, Net_SendComponents components) {
 
         foreach (GameObject player in playerArray()) {
             //Find the correct player
@@ -561,6 +575,12 @@ public class Server : MonoBehaviour
     public void SetComponentsText() {
 
         Components = GameObject.FindGameObjectsWithTag("Components Text");
+
+    }
+
+    public void SetAiPowerSlider() {
+
+        AiPowerSliderUI = GameObject.FindGameObjectWithTag("Ai Power");
 
     }
 

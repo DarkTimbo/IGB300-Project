@@ -16,6 +16,7 @@ public static class NetOP
     public const int OnSendTurnEnd = 8;
     public const int SendScrap = 9;
     public const int SendComponents = 10;
+    public const int SendAIPower = 11;
 
 }
 

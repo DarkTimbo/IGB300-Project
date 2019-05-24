@@ -259,6 +259,16 @@ public class Client : MonoBehaviour {
         SendServer(Component);
 
     }
+
+    public void SendAIPower(int var) {
+
+        Net_SendAiPower aiPower = new Net_SendAiPower();
+
+        aiPower.AIpowerAmountGained = var;
+        SendServer(aiPower);
+
+
+    }
 }
 
  
