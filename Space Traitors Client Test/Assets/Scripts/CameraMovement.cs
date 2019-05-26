@@ -6,6 +6,8 @@ public class CameraMovement : MonoBehaviour
 {
 
     public float speed;
+
+   
     // Start is called before the first frame update
     void Start()
     {
@@ -26,6 +28,11 @@ public class CameraMovement : MonoBehaviour
                 Mathf.Clamp(transform.position.y, 25.0f, 25.0f),
                 Mathf.Clamp(transform.position.z, -25.0f, 2.0f));
         }
+
+        if (Input.GetAxisRaw("Horizontal") != 0 || Input.GetAxisRaw("Vertical") != 0) {
+            transform.position += speed * new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
+        }
+
 
     }
 }

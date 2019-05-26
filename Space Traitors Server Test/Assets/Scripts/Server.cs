@@ -589,9 +589,9 @@ public class Server : MonoBehaviour
 
 
                 costOfRoom.RoomCost = player.GetComponent<Player>().currentPath.Count -1 ;
-
-                SendClient(costOfRoom);
                 Debug.Log("EnergyCost: " + costOfRoom.RoomCost);
+                SendClient(costOfRoom);
+               
                 
             }
         }

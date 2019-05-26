@@ -29,7 +29,9 @@ public class Player : MonoBehaviour {
 
     public Canvas AcceptRoomCanvas;
     public Text RoomNameText;
+    public Text EnergyCost;
     public Text Energy;
+    public Text Error;
     public GameObject RoomSelected;
     public GameObject EndTurnButton;
     public GameObject rooms;
@@ -109,11 +111,12 @@ public class Player : MonoBehaviour {
                 rooms.SetActive(true);
                 TurnStarted = false;
             }
+            EnergyCost.text = ("Actions Point Cost: " + ActionPointCost);
 
-            Energy.text = ActionPoints.ToString();
             ClickOnRoom();
+            Energy.text = ActionPoints.ToString();
 
-            if(scrapTotal != previousScrapTotal) {
+            if (scrapTotal != previousScrapTotal) {
 
                 previousScrapTotal = scrapTotal;
                 Client.Instance.SendScrap(scrapTotal);
@@ -145,6 +148,8 @@ public class Player : MonoBehaviour {
 
     private void ClickOnRoom() {
 
+       
+
         if (Input.GetMouseButtonDown(0)) {
 
             if (GameObject.Find("Player").GetComponent<Player>().isInSelction == false) {
@@ -157,10 +162,12 @@ public class Player : MonoBehaviour {
 
                         RoomSelected = hit.transform.gameObject;
                         Client.Instance.SendRoomNumber(RoomSelected.GetComponent<Rooms>().RoomNumber);
-                        RoomNameText.text = ("Do you want to move to " + RoomSelected.name + "? It will cost " + ActionPointCost + " Energy" );
-                        AcceptRoomCanvas.enabled= true;
-                        isInSelction = true;
 
+                        RoomNameText.text = ("Do you want to move to " + RoomSelected.name + "?");
+                        AcceptRoomCanvas.enabled = true;
+                        EnergyCost.enabled = true;
+                        isInSelction = true;
+                                                    
                     }
                 }
             }
@@ -189,13 +196,19 @@ public class Player : MonoBehaviour {
 
     public void AcceptButtonClick() {
 
-        if (ActionPoints > ActionPointCost ) {
+        if (ActionPoints >= ActionPointCost ) {
 
             ActionPoints -= ActionPointCost;
-            AcceptRoomCanvas.enabled = false;
+            Error.enabled = false;
+            AcceptRoomCanvas.enabled = false;     
             RoomSelected.GetComponent<Rooms>().RoomChoices.enabled = true;
 
             Client.Instance.ChangeLocation(RoomSelected.GetComponent<Rooms>().RoomNumber);
+        }
+        else {
+
+            Error.enabled = true;
+            Error.text = "You dont have enough Action Points to move there";
         }
 
     }
@@ -203,5 +216,6 @@ public class Player : MonoBehaviour {
 
         AcceptRoomCanvas.enabled = false;
         isInSelction = false;
+        Error.enabled = false;
     }
 }

@@ -3,14 +3,9 @@ guid: fdc59ea43c9758d47a6a5a3a3b252ae5
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
-    100000: Floor
-    100002: //RootNode
-    400000: Floor
-    400002: //RootNode
-    2100000: lambert1
-    2300000: Floor
-    3300000: Floor
-    4300000: Floor
+    100000: //RootNode
+    400000: //RootNode
+    2186277476908879412: ImportLogs
   externalObjects: {}
   materials:
     importMaterials: 1
