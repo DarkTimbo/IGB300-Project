@@ -11,6 +11,7 @@ public class Player : Navigation
     public bool Turn = true;
     public bool move = true;
     public bool startMoving = false;
+    public bool Begin = false;
 
     //Network variables
     public int playerID;
@@ -33,34 +34,36 @@ public class Player : Navigation
             spawned = true;
         }
 
-        if (Turn == true && startMoving == true ) {
+        if (Turn == true && Begin == true ) {
     
             PlayerMove(goalIndex);
         }
                 
     }
 
-    private void PlayerMove(int goalIndex) {
-
-        
-         currentPath = AStarSearch(currentPath[currentPathIndex], goalIndex);
-         currentPathIndex = 0;
+    public void PlayerMove(int goalIndex) {
 
 
-        //Move player
-        if (currentPath.Count > 0) {
+        currentPath = AStarSearch(currentPath[currentPathIndex], goalIndex);
+        currentPathIndex = 0;
 
-            transform.position = Vector3.MoveTowards(transform.position, graphNodes.graphNodes[currentPath[currentPathIndex]].transform.position, moveSpeed * Time.deltaTime);
+        if (startMoving == true) {
 
-            //Increase path index
-            if (Vector3.Distance(transform.position, graphNodes.graphNodes[currentPath[currentPathIndex]].transform.position) <= minDistance) {
+            //Move player
+            if (currentPath.Count > 0) {
 
-                if (currentPathIndex < currentPath.Count - 1)
+                transform.position = Vector3.MoveTowards(transform.position, graphNodes.graphNodes[currentPath[currentPathIndex]].transform.position, moveSpeed * Time.deltaTime);
 
-                    currentPathIndex++;
+                //Increase path index
+                if (Vector3.Distance(transform.position, graphNodes.graphNodes[currentPath[currentPathIndex]].transform.position) <= minDistance) {
+
+                    if (currentPathIndex < currentPath.Count - 1)
+
+                        currentPathIndex++;
+                }
+
+                currentNodeIndex = graphNodes.graphNodes[currentPath[currentPathIndex]].GetComponent<LinkedNodes>().index;   //Store current node index
             }
-
-            currentNodeIndex = graphNodes.graphNodes[currentPath[currentPathIndex]].GetComponent<LinkedNodes>().index;   //Store current node index
         }
     }
               

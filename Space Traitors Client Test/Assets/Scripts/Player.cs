@@ -11,10 +11,11 @@ public class Player : MonoBehaviour {
     public bool isInSelction = false;
     public string CharacterName;
 
-    private int ActionPoints = 0;
+    public int ActionPoints = 0;
+    public int ActionPointCost = 0;
     public bool Turn = false;
     private bool TurnStarted = true;
-    public int rollMin = 1, rollMax = 11;
+    public int rollMin = 1, rollMax = 4;
 
     public int LifePoints = 3;
     public int Brawn = 0;
@@ -28,6 +29,7 @@ public class Player : MonoBehaviour {
 
     public Canvas AcceptRoomCanvas;
     public Text RoomNameText;
+    public Text Energy;
     public GameObject RoomSelected;
     public GameObject EndTurnButton;
     public GameObject rooms;
@@ -41,9 +43,6 @@ public class Player : MonoBehaviour {
         Turn = false; //TODO: have it so the server switches to the player's turn
         controller = GameObject.Find("Controller");
         CharacterName = controller.GetComponent<LobbyScene>().character;
-
-        EndTurnButton.SetActive(false);
-        rooms.SetActive(false);
 
         if (CharacterName == "Brute") {
 
@@ -98,16 +97,17 @@ public class Player : MonoBehaviour {
     void Update() {
         if (Turn)
         {
+            rooms.SetActive(true);
 
             if (TurnStarted)
             {
                 //Set action points
                 ActionPointsRoll();
                 EndTurnButton.SetActive(true);
-                rooms.SetActive(true);
                 TurnStarted = false;
             }
 
+            Energy.text = ActionPoints.ToString();
             ClickOnRoom();
 
             if(scrapTotal != previousScrapTotal) {
@@ -136,7 +136,11 @@ public class Player : MonoBehaviour {
                 EndTurn();
             }
         }
-       
+        else
+        {
+            //Player can't select rooms when it is not their turn
+            rooms.SetActive(false);
+        }
 
     }
 
@@ -154,7 +158,8 @@ public class Player : MonoBehaviour {
                     if (hit.transform.tag == "Room") {
 
                         RoomSelected = hit.transform.gameObject;
-                        RoomNameText.text = ("Do you want to move to " + RoomSelected.name + "?");
+                        Client.Instance.SendRoomNumber(RoomSelected.GetComponent<Rooms>().RoomNumber);
+                        RoomNameText.text = ("Do you want to move to " + RoomSelected.name + "? It will cost " + ActionPointCost + " Energy" );
                         AcceptRoomCanvas.enabled= true;
                         isInSelction = true;
 
@@ -178,19 +183,20 @@ public class Player : MonoBehaviour {
         Turn = false;
         TurnStarted = true;
         EndTurnButton.SetActive(false);
-        //Player can't select rooms when it is not their turn
-        rooms.SetActive(false);
         //Send a notification to the server to let them know the player's turn has ended
         lobbyScene.GetComponent<LobbyScene>().OnSendTurnEnd();
     }
-    
+
     public void AcceptButtonClick() {
 
-        AcceptRoomCanvas.enabled = false;
-        RoomSelected.GetComponent<Rooms>().RoomChoices.enabled = true;
+        if (ActionPoints > ActionPointCost ) {
 
-        Client.Instance.SendLocation(RoomSelected.GetComponent<Rooms>().RoomNumber);
+            ActionPoints -= ActionPointCost;
+            AcceptRoomCanvas.enabled = false;
+            RoomSelected.GetComponent<Rooms>().RoomChoices.enabled = true;
 
+            Client.Instance.ChangeLocation(RoomSelected.GetComponent<Rooms>().RoomNumber);
+        }
 
     }
     public void DenyButtonClick() {

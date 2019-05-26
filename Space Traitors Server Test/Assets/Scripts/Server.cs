@@ -111,6 +111,7 @@ public class Server : MonoBehaviour
     {
         DontDestroyOnLoad(gameObject);
         Initialise();
+       
     }
 
     public void Initialise()
@@ -268,6 +269,10 @@ public class Server : MonoBehaviour
             case NetOP.SendAIPower:
                 AssignAiPower(conID, chanID, rHostID, (Net_SendAiPower)msg);
                 break;
+            case NetOP.RoomNumber:
+                SendRoomCost(conID, chanID, rHostID, (Net_SendRoomNumber)msg);
+                break;
+
         }
         //Debug.Log("Recieved a message of type " + msg.OperationCode);
 
@@ -292,9 +297,6 @@ public class Server : MonoBehaviour
        
     }
 
-
-
-
     private void AssignComponents(int conID, int chanID, int rHostID, Net_SendComponents components) {
 
         foreach (GameObject player in playerArray()) {
@@ -307,6 +309,7 @@ public class Server : MonoBehaviour
         }
     }
 
+
     private void ChangeRoom(int conID, int chanID, int rHostID, Net_ChangeRoom ca)
     {
         foreach (GameObject player in playerArray())
@@ -315,6 +318,7 @@ public class Server : MonoBehaviour
             if (player.GetComponent<Player>().playerID == conID)
             {
                 player.GetComponent<Player>().goalIndex = ca.Location;
+                player.GetComponent<Player>().Begin = true;
                 player.GetComponent<Player>().startMoving = true;
 
               
@@ -564,6 +568,31 @@ public class Server : MonoBehaviour
 
         SendClient(ca);
 
+    }
+
+    private void SendRoomCost(int conID, int chanID, int rHostID, Net_SendRoomNumber roomNumber) {
+
+        foreach (GameObject player in playerArray()) {
+            //Find the correct player
+            if (player.GetComponent<Player>().playerID == conID) {
+
+                Net_SendCostOfRoom costOfRoom = new Net_SendCostOfRoom();
+                player.GetComponent<Player>().goalIndex = roomNumber.Room;
+                player.GetComponent<Player>().startMoving = false;
+                player.GetComponent<Player>().Begin = true;
+
+
+                //I know this method is disgusting but ill fix it later.
+                player.GetComponent<Player>().currentPath = player.GetComponent<Player>().AStarSearch(player.GetComponent<Player>().currentPath[player.GetComponent<Player>().currentPathIndex], roomNumber.Room);
+
+
+                costOfRoom.RoomCost = player.GetComponent<Player>().currentPath.Count -1 ;
+
+                SendClient(costOfRoom);
+                Debug.Log("EnergyCost: " + costOfRoom.RoomCost);
+                
+            }
+        }
     }
 
     public void SetScrapText() {

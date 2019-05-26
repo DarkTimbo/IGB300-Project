@@ -11471,21 +11471,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CurrentRoomNumber: 0
   scrapTotal: 0
+  previousScrapTotal: 0
   isInSelction: 0
   CharacterName: 
+  ActionPoints: 0
+  ActionPointCost: 0
   Turn: 1
   rollMin: 1
-  rollMax: 11
+  rollMax: 4
   LifePoints: 3
   Brawn: 0
   Skill: 0
   Tech: 0
   Charm: 0
   Components: 0
+  PreviousComponent: 0
   Corruption: 0
   AIPower: 0
   AcceptRoomCanvas: {fileID: 1429915384}
   RoomNameText: {fileID: 531433888}
+  Energy: {fileID: 1701854721}
   RoomSelected: {fileID: 0}
   EndTurnButton: {fileID: 0}
   rooms: {fileID: 1226621063}

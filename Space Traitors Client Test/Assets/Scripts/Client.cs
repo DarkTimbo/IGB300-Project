@@ -187,11 +187,24 @@ public class Client : MonoBehaviour {
             case NetOP.SendTurnEnd:
                 SendTurnEnd(conID, chanID, rHostID, (Net_SendTurnEnd)msg);
                 break;
+            case NetOP.SendRoomCost:
+                RoomCost(conID, chanID, rHostID, (Net_SendCostOfRoom)msg);
+                break;
            
         }
         //Debug.Log("Recieved a message of type " + msg.OperationCode);
 
     }
+
+    private void RoomCost (int conID, int chanID, int rHostID, Net_SendCostOfRoom costOfRoom) {
+
+
+        player.GetComponent<Player>().ActionPointCost = costOfRoom.RoomCost;
+
+
+    }
+
+
 
     public void SendServer(NetMessage msg) {
         //This is where data is held
@@ -207,7 +220,7 @@ public class Client : MonoBehaviour {
     }
 
     //Sends the location to the server, references the get,set from Net_Change Room
-    public void SendLocation(int location) {
+    public void ChangeLocation(int location) {
         Net_ChangeRoom ca = new Net_ChangeRoom();
 
         ca.Location = location;
@@ -281,8 +294,21 @@ public class Client : MonoBehaviour {
         aiPower.AIpowerAmountGained = var;
         SendServer(aiPower);
 
+       
 
     }
+
+    public void SendRoomNumber (int var) {
+
+
+        Net_SendRoomNumber roomNumber = new Net_SendRoomNumber();
+
+        roomNumber.Room = var;
+        SendServer(roomNumber);
+
+
+    }
+
 
 }
 
