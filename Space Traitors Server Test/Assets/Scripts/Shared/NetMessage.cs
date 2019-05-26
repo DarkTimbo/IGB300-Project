@@ -17,6 +17,8 @@ public static class NetOP
     public const int SendScrap = 9;
     public const int SendComponents = 10;
     public const int SendAIPower = 11;
+    public const int SendRoomCost = 12;
+    public const int RoomNumber = 13;
 
 }
 

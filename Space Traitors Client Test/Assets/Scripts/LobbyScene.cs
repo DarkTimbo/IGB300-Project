@@ -38,7 +38,7 @@ public class LobbyScene : MonoBehaviour
     //Button that calls The Send location in client, tells it what to send also
     public void OnClickChangeRoom(int room)
     {
-        Client.Instance.SendLocation(room);
+        Client.Instance.ChangeLocation(room);
     }
 
     public void OnClickChangeVariable()
