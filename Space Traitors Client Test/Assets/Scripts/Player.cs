@@ -44,6 +44,9 @@ public class Player : MonoBehaviour {
         controller = GameObject.Find("Controller");
         CharacterName = controller.GetComponent<LobbyScene>().character;
 
+        EndTurnButton.SetActive(false);
+        rooms.SetActive(false);
+
         if (CharacterName == "Brute") {
 
             Brawn = 6;
@@ -97,13 +100,13 @@ public class Player : MonoBehaviour {
     void Update() {
         if (Turn)
         {
-            rooms.SetActive(true);
 
             if (TurnStarted)
             {
                 //Set action points
                 ActionPointsRoll();
                 EndTurnButton.SetActive(true);
+                rooms.SetActive(true);
                 TurnStarted = false;
             }
 
@@ -135,11 +138,6 @@ public class Player : MonoBehaviour {
             {
                 EndTurn();
             }
-        }
-        else
-        {
-            //Player can't select rooms when it is not their turn
-            rooms.SetActive(false);
         }
 
     }
@@ -183,6 +181,8 @@ public class Player : MonoBehaviour {
         Turn = false;
         TurnStarted = true;
         EndTurnButton.SetActive(false);
+        //Player can't select rooms when it is not their turn
+        rooms.SetActive(false);
         //Send a notification to the server to let them know the player's turn has ended
         lobbyScene.GetComponent<LobbyScene>().OnSendTurnEnd();
     }
