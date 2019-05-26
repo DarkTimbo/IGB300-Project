@@ -81,11 +81,15 @@ public class Client : MonoBehaviour {
     private bool isStarted = false;
 
     private GameObject player;
+    public GameObject connectButton;
+    public GameObject loadingScreen;
+    private Scene scene;
+    private string sceneName;
 
     // Use this for initialization
     void Start() {
         Instance = this;
-        DontDestroyOnLoad(gameObject);
+        DontDestroyOnLoad(gameObject); 
     }
 
     public void Initialise() {
@@ -144,6 +148,8 @@ public class Client : MonoBehaviour {
 
             case NetworkEventType.ConnectEvent:
                 Debug.Log(string.Format("Connected to server"));
+                //Disable the connect button so player can't have multiple instances
+                connectButton.SetActive(false);
                 break;
 
             case NetworkEventType.DisconnectEvent:
@@ -226,7 +232,14 @@ public class Client : MonoBehaviour {
 
     private void ChangeRoom(int conID, int chanID, int rHostID, Net_ChangeRoom ca) {
         //on Client side, ChangeRoom changes to the next scene (saves on having to create new net classes)
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        scene = SceneManager.GetActiveScene();
+        sceneName = scene.name;
+
+        if (sceneName == "Character Select")
+        {
+            loadingScreen.GetComponent<LoadingScreen>().LoadImage();
+        }
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
     private void SendPoints(int conID, int chanID, int rHostID, Net_SendPoints ca) {
@@ -240,6 +253,7 @@ public class Client : MonoBehaviour {
         else {
             player.GetComponent<Player>().Turn = false;
         }
+        Debug.Log(player.GetComponent<Player>().Turn);
     }
 
     public void SendScrap(int var) {
@@ -269,6 +283,7 @@ public class Client : MonoBehaviour {
 
 
     }
+
 }
 
  

@@ -32,8 +32,6 @@ public class RoundManager : MonoBehaviour
         currentScene = SceneManager.GetActiveScene();
         sceneName = currentScene.name;
 
-        Debug.Log(PlayerIndex);
-
         if (sceneName == "server")
         {
 

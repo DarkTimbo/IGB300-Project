@@ -37,7 +37,6 @@ public class ClientSpawner : MonoBehaviour
             client.GetComponent<Client>().serverIP = customServerIP;
         }
         client.GetComponent<Client>().Initialise();
-        
     }
 
     public void ChooseCharacter(string characterName)

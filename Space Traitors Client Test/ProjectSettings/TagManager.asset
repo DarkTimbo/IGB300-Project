@@ -11,6 +11,7 @@ TagManager:
   - LobbyScene
   - Select Button
   - Text
+  - Loading
   layers:
   - Default
   - TransparentFX
