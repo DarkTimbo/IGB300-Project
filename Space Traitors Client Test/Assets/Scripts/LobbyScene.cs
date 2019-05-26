@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
@@ -13,6 +12,7 @@ public class LobbyScene : MonoBehaviour
     public string character;
     public GameObject clientSp;
     public GameObject Player;
+    public GameObject client;
     public Scene CurrentScene;
 
     GraphicRaycaster raycaster;
@@ -48,7 +48,8 @@ public class LobbyScene : MonoBehaviour
 
     public void OnSendTurnEnd()
     {
-        Client.Instance.SendTurnEnd(1);
+        //Client.Instance.SendTurnEnd(false);
+        client.GetComponent<Client>().SendTurnEnd(false);
     }
 
     private void ClickOnSelect() {

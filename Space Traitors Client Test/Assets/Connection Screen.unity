@@ -293,6 +293,7 @@ MonoBehaviour:
   character: Brute
   clientSp: {fileID: 0}
   Player: {fileID: 0}
+  client: {fileID: 2084083767}
   CurrentScene:
     m_Handle: 0
 --- !u!223 &179798193

@@ -12,5 +12,4 @@ public class Net_SendCostOfRoom : NetMessage
 
     public int RoomCost { set; get; }
 
-
 }

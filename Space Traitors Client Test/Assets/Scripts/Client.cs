@@ -149,7 +149,7 @@ public class Client : MonoBehaviour {
             case NetworkEventType.ConnectEvent:
                 Debug.Log(string.Format("Connected to server"));
                 //Disable the connect button so player can't have multiple instances
-                connectButton.SetActive(false);
+                    connectButton.SetActive(false);
                 break;
 
             case NetworkEventType.DisconnectEvent:
@@ -236,7 +236,7 @@ public class Client : MonoBehaviour {
         SendServer(lr);
     }
 
-    public void SendTurnEnd(int var) {
+    public void SendTurnEnd(bool var) {
         Net_SendTurnEnd te = new Net_SendTurnEnd();
 
         te.Ended = var;
@@ -262,11 +262,12 @@ public class Client : MonoBehaviour {
     private void SendTurnEnd(int conID, int chanID, int rHostID, Net_SendTurnEnd ca) {
         if (!player.GetComponent<Player>().Turn) {
             player.GetComponent<Player>().Turn = true;
+            Debug.Log("ah");
         }
         else {
             player.GetComponent<Player>().Turn = false;
         }
-        Debug.Log(player.GetComponent<Player>().Turn);
+        Debug.Log("hello");
     }
 
     public void SendScrap(int var) {

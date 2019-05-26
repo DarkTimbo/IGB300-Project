@@ -528,10 +528,10 @@ public class Server : MonoBehaviour
         }
     }
 
-    public void ClientTurnChange(int connection)
+    public void ClientTurnChange(int playerID, bool playerturn)
     {
-        tempPlayerID = connection;
-        SendTurnEnd(0);
+        tempPlayerID = playerID;
+        SendTurnEnd(playerturn);
     }
 
     public void SendClient(NetMessage msg)
@@ -562,9 +562,11 @@ public class Server : MonoBehaviour
     }
 
     //Sends the location to the server, references the get,set from Net_Change Room
-    public void SendTurnEnd(int location)
+    public void SendTurnEnd(bool playerturn)
     {
         Net_SendTurnEnd ca = new Net_SendTurnEnd();
+
+        ca.Ended = playerturn;
 
         SendClient(ca);
 

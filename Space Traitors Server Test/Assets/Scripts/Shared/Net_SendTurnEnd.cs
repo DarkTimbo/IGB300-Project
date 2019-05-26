@@ -10,5 +10,5 @@ public class Net_SendTurnEnd : NetMessage
         OperationCode = NetOP.SendTurnEnd;
     }
 
-    public int Ended { set; get; }
+    public bool Ended { set; get; }
 }

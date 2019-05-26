@@ -32,8 +32,9 @@ public class PlayerSpawner : MonoBehaviour
                 spawnedPlayer.GetComponent<Player>().characterName = player.GetComponent<PlayerConnect>().characterName;
 
                 j++;
+                currPlayers++;
             }
-            currPlayers++;
+            
         }
         ////Find player objects that have not been set with a player and remove them from round manager
         //foreach (GameObject player in playerStorage.GetComponent<RoundManager>().playersInGame)
