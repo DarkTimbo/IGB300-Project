@@ -137,10 +137,6 @@ public class Player : MonoBehaviour {
 
             }
 
-            if (ActionPoints <= 0)
-            {
-                EndTurn();
-            }
         }
 
     }

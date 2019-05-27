@@ -260,14 +260,11 @@ public class Client : MonoBehaviour {
     }
 
     private void SendTurnEnd(int conID, int chanID, int rHostID, Net_SendTurnEnd ca) {
-        if (!player.GetComponent<Player>().Turn) {
+        if (ca.Ended == true) {
             player.GetComponent<Player>().Turn = true;
             Debug.Log("ah");
         }
-        else {
-            player.GetComponent<Player>().Turn = false;
-        }
-        Debug.Log("hello");
+
     }
 
     public void SendScrap(int var) {
