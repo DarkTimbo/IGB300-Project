@@ -20,7 +20,7 @@ public static class NetOP
     public const int SendRoomCost = 12;
     public const int RoomNumber = 13;
     public const int SendWinLoss = 14;
-
+    public const int AssignTraitor = 15;
 }
 
 [System.Serializable]

@@ -8,22 +8,25 @@ using UnityEngine.SceneManagement;
 public class RoundManager : MonoBehaviour
 {
     public List<GameObject> playersInGame = new List<GameObject>();
-    public GameObject server;
-    public GameObject playerObject;
-    private int PlayerIndex;
-    private int Round = 1;
-    private bool setup = false, randomised = true, initialisePlayer = false;
     private Scene currentScene;
-    private string sceneName;
-    private int index;
-    public GameObject canvas;
     public Text rndText;
 
+    public GameObject server;
+    public GameObject playerObject;
+    public GameObject canvas;
+    private GameObject AI;
+
+    private int index, PlayerIndex;
+    private int Round = 1;
+    private bool setup = false, randomised = true, initialisePlayer = false;
+    private string sceneName;
+  
     // Start is called before the first frame update
     void Start()
     {
         DontDestroyOnLoad(gameObject);
         server = GameObject.FindGameObjectWithTag("Server");
+        AI = GameObject.FindGameObjectWithTag("Ai Power");
     }
 
     // Update is called once per frame
@@ -51,17 +54,6 @@ public class RoundManager : MonoBehaviour
                     playersInGame = playersInGame.OrderBy(x => Random.value).ToList();
                     randomised = true;
                 }
-
-                //TurnIncrement();
-
-                ////First player in the array gets their turn
-                //if (!initialisePlayer)
-                //{
-                //    //Debug.Log(playersInGame[0]);
-                    
-                //    initialisePlayer = true;
-                //}
-
             }
         }
         else
@@ -78,7 +70,6 @@ public class RoundManager : MonoBehaviour
         TurnIncrement();
         playersInGame[PlayerIndex].GetComponent<Player>().Turn = true;
         server.GetComponent<Server>().ClientTurnChange(playersInGame[PlayerIndex].GetComponent<Player>().playerID, true);
-        
     }
 
     public void TurnIncrement()
@@ -89,6 +80,7 @@ public class RoundManager : MonoBehaviour
             //Start a new round
             PlayerIndex = 0;
             Round++;
+            AI.GetComponent<AiPower>().incrementAIPower();
         }
     }
 

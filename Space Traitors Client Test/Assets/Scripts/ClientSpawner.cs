@@ -15,6 +15,7 @@ public class ClientSpawner : MonoBehaviour
     public Text characterLabel;
     public GameObject selectButton;
     public GameObject LobbyScene;
+
     // Start is called before the first frame update
     void Start()
     {
