@@ -71,7 +71,6 @@ public class Client : MonoBehaviour {
     private int hostID;
     private int connectionID;
 
-
     private const int maxUser = 100;
     private const int port = 26000;
     private const int webPort = 26001;
@@ -122,7 +121,6 @@ public class Client : MonoBehaviour {
         isStarted = false;
         NetworkTransport.Shutdown();
     }
-
 
     // Update is called once per frame
     void Update() {
@@ -190,7 +188,9 @@ public class Client : MonoBehaviour {
             case NetOP.SendRoomCost:
                 RoomCost(conID, chanID, rHostID, (Net_SendCostOfRoom)msg);
                 break;
-           
+            case NetOP.AssignTraitor:
+                AssignTraitor(conID, chanID, rHostID, (Net_AssignTraitor)msg);
+                break;
         }
         //Debug.Log("Recieved a message of type " + msg.OperationCode);
 
@@ -200,11 +200,8 @@ public class Client : MonoBehaviour {
 
 
         player.GetComponent<Player>().ActionPointCost = costOfRoom.RoomCost;
-
-
+       
     }
-
-
 
     public void SendServer(NetMessage msg) {
         //This is where data is held
@@ -262,9 +259,12 @@ public class Client : MonoBehaviour {
     private void SendTurnEnd(int conID, int chanID, int rHostID, Net_SendTurnEnd ca) {
         if (ca.Ended == true) {
             player.GetComponent<Player>().Turn = true;
-            Debug.Log("ah");
         }
 
+    }
+    private void AssignTraitor(int conID, int chanID, int rHostID, Net_AssignTraitor ca)
+    {
+        player.GetComponent<Player>().TRAITOR = true;
     }
 
     public void SendScrap(int var) {

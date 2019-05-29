@@ -19,7 +19,7 @@ public static class NetOP
     public const int SendAIPower = 11;
     public const int SendRoomCost = 12;
     public const int RoomNumber = 13;
-
+    public const int AssignTraitor = 14;
 }
 
 [System.Serializable]

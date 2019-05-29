@@ -85,26 +85,26 @@ public class Server : MonoBehaviour
 
     private bool isStarted = false;
     private byte error;
-
     private string serverIP = IPManager.GetIP(ADDRESSFAM.IPv4);
 
     //Other
     public AudioSource connectSound;
     public List<GameObject> players = new List<GameObject>();
     private List<GameObject> playersRemoved = new List<GameObject>();
-    public int[] playerIDs = new int[6];
-    public GameObject playerStorage;
-    public int playersJoined;
-    private int portraitID = -1;
-    private Scene currentScene;
-    private string sceneName;
-    public Text connectText;
-    public Sprite[] portraits;
-    private GameObject setter;
-    public int tempPlayerID;
     public GameObject[] ScrapTotals;
     public GameObject[] Components;
     public GameObject AiPowerSliderUI;
+    public GameObject playerStorage;
+    private GameObject setter;
+    private Scene currentScene;
+    public Text connectText;
+    public Sprite[] portraits;
+
+    public int[] playerIDs = new int[6];
+    public int playersJoined;
+    private int portraitID = -1;
+    public int tempPlayerID;
+    private string sceneName;
 
     // Use this for initialization
     void Start()
@@ -272,7 +272,9 @@ public class Server : MonoBehaviour
             case NetOP.RoomNumber:
                 SendRoomCost(conID, chanID, rHostID, (Net_SendRoomNumber)msg);
                 break;
-
+            case NetOP.AssignTraitor:
+                AssignTraitor(conID, chanID, rHostID, (Net_AssignTraitor)msg);
+                break;
         }
         //Debug.Log("Recieved a message of type " + msg.OperationCode);
 
@@ -291,9 +293,13 @@ public class Server : MonoBehaviour
         }
     }
 
-    private void AssignAiPower(int conID, int chanID, int rHostID, Net_SendAiPower aiPower) {
+    private void AssignTraitor(int conID, int chanID, int rHostID, Net_AssignTraitor scrap)
+    {
+    }
 
-        AiPowerSliderUI.GetComponent<AiPower>().AIPower += aiPower.AIpowerAmountGained;
+        private void AssignAiPower(int conID, int chanID, int rHostID, Net_SendAiPower aiPower) {
+
+        AiPowerSliderUI.GetComponent<AiPower>().power += aiPower.AIpowerAmountGained;
        
     }
 
@@ -528,6 +534,13 @@ public class Server : MonoBehaviour
         }
     }
 
+    public void ChooseTraitor()
+    {
+        int randomIndex = Random.Range(0, players.Count + 1);
+        tempPlayerID = players[randomIndex].GetComponent<PlayerConnect>().playerID;
+        SendTraitor(0);
+    }
+
     public void ClientTurnChange(int playerID, bool playerturn)
     {
         tempPlayerID = playerID;
@@ -561,6 +574,14 @@ public class Server : MonoBehaviour
 
     }
 
+    public void SendTraitor(int blank)
+    {
+        Net_AssignTraitor ca = new Net_AssignTraitor();
+
+        SendClient(ca);
+
+    }
+
     //Sends the location to the server, references the get,set from Net_Change Room
     public void SendTurnEnd(bool playerturn)
     {
@@ -571,6 +592,7 @@ public class Server : MonoBehaviour
         SendClient(ca);
 
     }
+
 
     private void SendRoomCost(int conID, int chanID, int rHostID, Net_SendRoomNumber roomNumber) {
 
@@ -591,8 +613,6 @@ public class Server : MonoBehaviour
                 costOfRoom.RoomCost = player.GetComponent<Player>().currentPath.Count -1 ;
                 Debug.Log("EnergyCost: " + costOfRoom.RoomCost);
                 SendClient(costOfRoom);
-               
-                
             }
         }
     }
