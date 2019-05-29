@@ -86,6 +86,13 @@ public class Client : MonoBehaviour {
     private Scene scene;
     private string sceneName;
 
+    public enum WinLossConditions {
+
+        InnocentsWin,
+        Eliminated,
+        TraitorsWin
+    }
+
     // Use this for initialization
     void Start() {
         Instance = this;
@@ -190,7 +197,10 @@ public class Client : MonoBehaviour {
             case NetOP.SendRoomCost:
                 RoomCost(conID, chanID, rHostID, (Net_SendCostOfRoom)msg);
                 break;
-           
+            case NetOP.SendWinLoss:
+                WinLossConditonMet(conID, chanID, rHostID, (Net_SendWinLoss)msg);
+                break;
+
         }
         //Debug.Log("Recieved a message of type " + msg.OperationCode);
 
@@ -204,9 +214,32 @@ public class Client : MonoBehaviour {
 
     }
 
+    private void WinLossConditonMet(int conID, int chanID, int rHostID, Net_SendWinLoss WinOrLossCondition) {
+
+        player.GetComponent<Player>().WinLossCanvas.enabled = true;
 
 
-    public void SendServer(NetMessage msg) {
+        if (WinOrLossCondition.WinOrLossCondition == (int)WinLossConditions.InnocentsWin) {
+
+            player.GetComponent<Player>().WinLossText.text = "You Successfuly escaped. You Win";
+
+        }
+        else if (WinOrLossCondition.WinOrLossCondition == (int)WinLossConditions.TraitorsWin) {
+
+            player.GetComponent<Player>().WinLossText.text = "You managed to destory the remaining robots. You Win";
+
+        }
+        else if (WinOrLossCondition.WinOrLossCondition == (int)WinLossConditions.Eliminated) {
+
+            player.GetComponent<Player>().WinLossText.text = "You were eliminated by a corrupted robot. You Lose";
+
+        }
+
+    }
+
+
+
+        public void SendServer(NetMessage msg) {
         //This is where data is held
         byte[] buffer = new byte[byteSize];
 
@@ -276,11 +309,12 @@ public class Client : MonoBehaviour {
 
     }
 
-    public void SendComponents(int var) {
+    public void SendComponents(int var , bool Installed = false) {
 
         Net_SendComponents Component = new Net_SendComponents();
 
         Component.ComponentNumber = var;
+        Component.Installed = Installed;
         SendServer(Component);
 
     }

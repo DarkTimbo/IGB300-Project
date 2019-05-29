@@ -26,8 +26,11 @@ public class Player : MonoBehaviour {
     public int PreviousComponent = 0;
     public int Corruption = 0;
     public int AIPower = 0;
+    public bool Installed = false;
 
     public Canvas AcceptRoomCanvas;
+    public Canvas WinLossCanvas;
+    public Text WinLossText;
     public Text RoomNameText;
     public Text EnergyCost;
     public Text Energy;
@@ -124,13 +127,23 @@ public class Player : MonoBehaviour {
             }
 
             if (Components != PreviousComponent) {
+                if (Installed == false) {
 
-                PreviousComponent = Components;
-                Client.Instance.SendComponents(Components);
+                    Debug.Log("HELP");
 
+                    PreviousComponent = Components;
+                    Client.Instance.SendComponents(Components);
+
+                }
+                else {
+                    PreviousComponent = Components;
+                    Client.Instance.SendComponents(Components, Installed);
+                    Installed = false;
+                }
             }
 
-            if(AIPower > 0) {
+
+            if (AIPower > 0) {
 
                 Client.Instance.SendAIPower(AIPower);
                 AIPower = 0;

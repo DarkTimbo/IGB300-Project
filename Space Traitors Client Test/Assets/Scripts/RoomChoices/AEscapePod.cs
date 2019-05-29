@@ -7,6 +7,7 @@ public class AEscapePod : MonoBehaviour
 {
     public Canvas ChoicesCanvas;
     private GameObject Player;
+    private GameObject Handler;
     private bool result;
     public Text ErrorText;
 
@@ -17,6 +18,7 @@ public class AEscapePod : MonoBehaviour
         Player = GameObject.Find("Player");
 
     }
+
 
 
     public void OnClickExitButton() {
@@ -32,6 +34,8 @@ public class AEscapePod : MonoBehaviour
         if(Player.GetComponent<Player>().Components > 0) {
 
             Player.GetComponent<Player>().Components -= 1;
+            Player.GetComponent<Player>().Installed = true;
+
         }
         else {
             ErrorText.enabled = true;

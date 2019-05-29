@@ -137,16 +137,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   graphNodes: {fileID: 0}
-  currentPath: 
-  greedyPaintList: 
   currentPathIndex: 0
   currentNodeIndex: 0
-  moveSpeed: 50
+  openList: 
+  closedList: 
+  currentPath: 
+  moveSpeed: 150
   minDistance: 0.1
   goalIndex: 0
   Turn: 1
   move: 1
+  startMoving: 0
+  Begin: 0
   playerID: 0
+  characterName: 
   connected: 0
   influence: 0
   playerStorage: {fileID: 0}

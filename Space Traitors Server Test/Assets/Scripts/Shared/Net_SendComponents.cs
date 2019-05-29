@@ -10,4 +10,5 @@ public class Net_SendComponents : NetMessage {
 
     }
     public int ComponentNumber { set; get; }
+    public bool Installed { set; get; }
 }

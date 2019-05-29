@@ -5,7 +5,7 @@ using UnityEngine;
 public static class NetOP
 {
     public const int None = 0;
-    
+
     public const int ChangeRoom = 1;
     public const int SendPoints = 2;
     public const int ChangeCharacter = 3;
@@ -19,6 +19,7 @@ public static class NetOP
     public const int SendAIPower = 11;
     public const int SendRoomCost = 12;
     public const int RoomNumber = 13;
+    public const int SendWinLoss = 14;
 
 }
 

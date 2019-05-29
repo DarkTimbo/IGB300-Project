@@ -91,6 +91,7 @@ public class Server : MonoBehaviour
     //Other
     public AudioSource connectSound;
     public List<GameObject> players = new List<GameObject>();
+    private List<GameObject> ElminiatedPlayers = new List<GameObject>();
     private List<GameObject> playersRemoved = new List<GameObject>();
     public int[] playerIDs = new int[6];
     public GameObject playerStorage;
@@ -105,6 +106,17 @@ public class Server : MonoBehaviour
     public GameObject[] ScrapTotals;
     public GameObject[] Components;
     public GameObject AiPowerSliderUI;
+    public int InstalledComponents = 0;
+    private bool SentMessage = false;
+
+    public enum WinLossConditions {
+
+        InnocentsWin ,
+        Eliminated,
+        TraitorsWin
+    }
+  
+
 
     // Use this for initialization
     void Start()
@@ -162,6 +174,7 @@ public class Server : MonoBehaviour
             SetScrapText();
             SetComponentsText();
             SetAiPowerSlider();
+            VictoryConditions();
 
         }
 
@@ -303,7 +316,11 @@ public class Server : MonoBehaviour
             //Find the correct player
             if (player.GetComponent<Player>().playerID == conID) {
 
-                Components[conID - 1].GetComponent<Text>().text = components.ComponentNumber.ToString();
+                Components[conID - 1].GetComponent<Text>().text = components.ComponentNumber.ToString();              
+            }
+            if(components.Installed == true) {
+
+                InstalledComponents += 1;
 
             }
         }
@@ -613,6 +630,28 @@ public class Server : MonoBehaviour
 
         AiPowerSliderUI = GameObject.FindGameObjectWithTag("Ai Power");
 
+    }
+
+    private void VictoryConditions() {
+
+
+        if (SentMessage == false) {
+
+            if (InstalledComponents == 5) {
+
+                Net_SendWinLoss VictoryMet = new Net_SendWinLoss();
+                VictoryMet.WinOrLossCondition = (int)WinLossConditions.InnocentsWin;
+                SendClient(VictoryMet);
+                SentMessage = true;
+
+            }
+            else if (players.Count == 0) {
+
+
+
+            }
+
+        }
     }
 
 }
