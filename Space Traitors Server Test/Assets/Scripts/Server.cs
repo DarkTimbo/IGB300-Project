@@ -353,8 +353,8 @@ public class Server : MonoBehaviour
                             player.GetComponent<PlayerConnect>().characterName = "Butler";
                             break;
 
-                        case "Entertainer":
-                            player.GetComponent<PlayerConnect>().characterName = "Entertainer";
+                        case "Singer":
+                            player.GetComponent<PlayerConnect>().characterName = "Singer";
                             break;
 
                         case "Techie":
@@ -459,7 +459,7 @@ public class Server : MonoBehaviour
                     portraitID = 1;
                     break;
 
-                case "Entertainer":
+                case "Singer":
                     portraitID = 2;
                     break;
 

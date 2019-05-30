@@ -72,7 +72,7 @@ public class Player : MonoBehaviour {
             Tech = 6;
             Charm = 5;
         }
-        else if (CharacterName == "Entertainer") {
+        else if (CharacterName == "Singer") {
 
             Brawn = 2;
             Skill = 5;

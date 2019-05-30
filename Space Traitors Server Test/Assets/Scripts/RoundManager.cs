@@ -14,7 +14,7 @@ public class RoundManager : MonoBehaviour
     public GameObject server;
     public GameObject playerObject;
     public GameObject canvas;
-    private GameObject AI;
+    public GameObject AI;
 
     private int index, PlayerIndex;
     private int Round = 1;
@@ -26,7 +26,6 @@ public class RoundManager : MonoBehaviour
     {
         DontDestroyOnLoad(gameObject);
         server = GameObject.FindGameObjectWithTag("Server");
-        AI = GameObject.FindGameObjectWithTag("Ai Power");
     }
 
     // Update is called once per frame
