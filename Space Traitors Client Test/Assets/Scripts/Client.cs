@@ -225,14 +225,14 @@ public class Client : MonoBehaviour {
 
         else if (WinOrLossCondition.WinOrLossCondition == (int)WinLossConditions.TraitorsWin) {
 
-        }
-
             player.GetComponent<Player>().WinLossText.text = "You were eliminated by a corrupted robot. You Lose";
+        }
+         
 
         else if (WinOrLossCondition.WinOrLossCondition == (int)WinLossConditions.Eliminated) {
-        }
-
             player.GetComponent<Player>().WinLossText.text = "You managed to destory the remaining robots. You Win";
+
+        }
 
     }
         public void SendServer(NetMessage msg) {

@@ -9,7 +9,7 @@ public class Navigation : MonoBehaviour
     public WayPointGraph graphNodes;
 
     public int currentPathIndex = 0;
-    public int currentNodeIndex = 0;
+    public int currentNodeIndex = 9;
     public List<int> openList = new List<int>();
     public List<int> closedList = new List<int>();
     public List<int> currentPath = new List<int>();
