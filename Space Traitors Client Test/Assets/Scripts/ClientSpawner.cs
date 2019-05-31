@@ -55,7 +55,7 @@ public class ClientSpawner : MonoBehaviour
                 i = 1;
                 break;
 
-            case "Entertainer":
+            case "Singer":
                 i = 2;
                 break;
 
