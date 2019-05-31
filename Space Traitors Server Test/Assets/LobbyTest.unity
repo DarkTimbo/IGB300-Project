@@ -1933,7 +1933,7 @@ MonoBehaviour:
   playersInGame: []
   rndText: {fileID: 1689024387}
   server: {fileID: 0}
-  playerObject: {fileID: 4515132729699850780, guid: 54559ad2223b7b64caad2768c73092be,
+  playerObject: {fileID: 6829752487554965703, guid: 93b793ba06e0fb54f8c75f129a9e1cdc,
     type: 3}
   canvas: {fileID: 0}
   AI: {fileID: 1760991011}

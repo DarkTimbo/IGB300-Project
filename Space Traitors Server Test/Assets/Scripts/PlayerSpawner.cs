@@ -8,6 +8,7 @@ public class PlayerSpawner : MonoBehaviour
     private GameObject playerStorage;
     public List<GameObject> removeList;
     private int maxPlayers, currPlayers;
+    private Vector3 SpawnLocation = new Vector3(600, 5, 0);
     // Start is called before the first frame update
     void Start()
     {
@@ -26,7 +27,7 @@ public class PlayerSpawner : MonoBehaviour
             foreach (GameObject player in server.GetComponent<Server>().players)
             {
                 //Spawn player in game, give them the lobby player's ID
-                GameObject spawnedPlayer = Instantiate(playerStorage.GetComponent<RoundManager>().playerObject, transform.position, Quaternion.identity) as GameObject; //TODO: spawn position is a placeholder, change later
+                GameObject spawnedPlayer = Instantiate(playerStorage.GetComponent<RoundManager>().playerObject, SpawnLocation, Quaternion.identity) as GameObject; //TODO: spawn position is a placeholder, change later
 
                 spawnedPlayer.GetComponent<Player>().playerID = server.GetComponent<Server>().playerIDs[j];
                 spawnedPlayer.GetComponent<Player>().characterName = player.GetComponent<PlayerConnect>().characterName;

@@ -13,6 +13,7 @@ TagManager:
   - Components Text
   - Text
   - Ai Power
+  - Identifier
   layers:
   - Default
   - TransparentFX

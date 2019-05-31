@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Animations;
 
 public class Player : Navigation
 {
@@ -12,6 +13,7 @@ public class Player : Navigation
     public bool move = true;
     public bool startMoving = false;
     public bool Begin = false;
+    public bool isMoving = false;
 
     //Network variables
     public int playerID;
@@ -42,8 +44,7 @@ public class Player : Navigation
     }
 
     public void PlayerMove(int goalIndex) {
-
-
+    
         currentPath = AStarSearch(currentPath[currentPathIndex], goalIndex);
         currentPathIndex = 0;
 
@@ -51,6 +52,12 @@ public class Player : Navigation
 
             //Move player
             if (currentPath.Count > 0) {
+
+                isMoving = true;
+
+                Vector3 direction = (graphNodes.graphNodes[currentPath[currentPathIndex]].transform.position - this.transform.position).normalized;
+                Quaternion look = Quaternion.LookRotation(direction);
+                transform.rotation = look;
 
                 transform.position = Vector3.MoveTowards(transform.position, graphNodes.graphNodes[currentPath[currentPathIndex]].transform.position, moveSpeed * Time.deltaTime);
 
@@ -65,7 +72,14 @@ public class Player : Navigation
                 currentNodeIndex = graphNodes.graphNodes[currentPath[currentPathIndex]].GetComponent<LinkedNodes>().index;   //Store current node index
             }
         }
+
+        if(transform.position == graphNodes.graphNodes[currentPath[currentPathIndex]].transform.position) {
+
+            isMoving = false;
+
+        }
     }
+    
               
   }
 
