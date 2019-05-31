@@ -9,7 +9,8 @@ public class DSpa : MonoBehaviour
     public int targetScore = 3;
     private GameObject Player;
     private bool result;
-    
+    public Text ErrorText;
+
 
     // Start is called before the first frame update
     void Start() {
@@ -21,6 +22,7 @@ public class DSpa : MonoBehaviour
     public void OnClickExitButton() {
 
         ChoicesCanvas.enabled = false;
+        ErrorText.enabled = false;
         Player.GetComponent<Player>().isInSelction = false;
 
     }
@@ -28,27 +30,43 @@ public class DSpa : MonoBehaviour
     public void OnOptionOneClick() {
 
 
-        Player.GetComponent<Player>().scrapTotal += 2;  
-        ChoicesCanvas.enabled = false;
-        Player.GetComponent<Player>().isInSelction = false;
-
+        if (Player.GetComponent<Player>().ChoiceMade == false) {
+            Player.GetComponent<Player>().scrapTotal += 2;
+            ChoicesCanvas.enabled = false;
+            Player.GetComponent<Player>().isInSelction = false;
+            ErrorText.enabled = false;
+            Player.GetComponent<Player>().ChoiceMade = true;
+        }
+        else {
+            ErrorText.enabled = true;
+            ErrorText.text = "You can only make one choice per round.";
+        }
 
     }
 
     public void OnOptionTwoClick() {
 
-        result =  SpecChallange(Player.GetComponent<Player>().Charm, targetScore);
 
-        if(result == false) {
+        if (Player.GetComponent<Player>().ChoiceMade == false) {
 
-            Player.GetComponent<Player>().Corruption += 15;
+            result = SpecChallange(Player.GetComponent<Player>().Charm, targetScore);
+
+            if (result == false) {
+
+                Player.GetComponent<Player>().Corruption += 15;
+            }
+            else {
+                Player.GetComponent<Player>().scrapTotal += 12;
+            }
+            ChoicesCanvas.enabled = false;
+            Player.GetComponent<Player>().isInSelction = false;
+            Player.GetComponent<Player>().ChoiceMade = true;
+            ErrorText.enabled = false;
         }
         else {
-            Player.GetComponent<Player>().scrapTotal += 12;
+            ErrorText.enabled = true;
+            ErrorText.text = "You can only make one choice per round.";
         }
-        ChoicesCanvas.enabled = false;
-        Player.GetComponent<Player>().isInSelction = false;
-
     }
 
     private bool SpecChallange(int playerScore, int targetScore) {

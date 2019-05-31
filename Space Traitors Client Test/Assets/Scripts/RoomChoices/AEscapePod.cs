@@ -30,20 +30,23 @@ public class AEscapePod : MonoBehaviour
 
     public void OnOptionOneClick() {
 
+        if (Player.GetComponent<Player>().ChoiceMade == false) {
+            if (Player.GetComponent<Player>().Components > 0) {
 
-        if(Player.GetComponent<Player>().Components > 0) {
-
-            Player.GetComponent<Player>().Components -= 1;
-            Player.GetComponent<Player>().Installed = true;
+                Player.GetComponent<Player>().Components -= 1;
+                Player.GetComponent<Player>().Installed = true;
+                Player.GetComponent<Player>().ChoiceMade = true;
+            }
+            else {
+                ErrorText.enabled = true;
+                ErrorText.text = "You don't have any components";
+            }
 
         }
         else {
             ErrorText.enabled = true;
-            ErrorText.text = "You don't have any components";
+            ErrorText.text = "You can only make one choice per round.";
         }
-        
-
-
     }
 
  

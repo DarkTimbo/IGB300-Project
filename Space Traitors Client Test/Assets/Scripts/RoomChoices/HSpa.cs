@@ -30,40 +30,53 @@ public class HSpa : MonoBehaviour
 
     public void OnOptionOneClick() {
 
-        result = SpecChallange(Player.GetComponent<Player>().Brawn, targetScore);
+        if (Player.GetComponent<Player>().ChoiceMade == false) {
+            result = SpecChallange(Player.GetComponent<Player>().Brawn, targetScore);
 
-        if (result == false) {
+            if (result == false) {
 
-            Player.GetComponent<Player>().AIPower +=10;
+                Player.GetComponent<Player>().AIPower += 10;
+            }
+            else {
+                Player.GetComponent<Player>().Brawn += 2;
+                Player.GetComponent<Player>().Tech += 1;
+            }
+            ChoicesCanvas.enabled = false;
+            Destroy(OptionOneButton);
+            ErrorText.enabled = false;
+            Player.GetComponent<Player>().isInSelction = false;
+            Player.GetComponent<Player>().ChoiceMade = true;
         }
         else {
-            Player.GetComponent<Player>().Brawn += 2;
-            Player.GetComponent<Player>().Tech += 1;
+            ErrorText.enabled = true;
+            ErrorText.text = "You can only make one choice per round.";
         }
-        ChoicesCanvas.enabled = false;
-        Destroy(OptionOneButton);
-        ErrorText.enabled = false;
-        Player.GetComponent<Player>().isInSelction = false;
-
     }
 
     public void OnOptionTwoClick() {
 
-        if (Player.GetComponent<Player>().Components == 0) {
-            Player.GetComponent<Player>().Components += 1;
-            Player.GetComponent<Player>().Corruption += 20;
-            ChoicesCanvas.enabled = false;
-            ErrorText.enabled = false;
-            Destroy(OptionTwoButton);
-            Player.GetComponent<Player>().isInSelction = false;
 
+        if (Player.GetComponent<Player>().ChoiceMade == false) {
+            if (Player.GetComponent<Player>().Components == 0) {
+                Player.GetComponent<Player>().Components += 1;
+                Player.GetComponent<Player>().Corruption += 20;
+                ChoicesCanvas.enabled = false;
+                ErrorText.enabled = false;
+                Destroy(OptionTwoButton);
+                Player.GetComponent<Player>().isInSelction = false;
+                Player.GetComponent<Player>().ChoiceMade = true;
+
+            }
+            else {
+                ErrorText.enabled = true;
+                ErrorText.text = "You can only have One component at a time";
+
+            }
         }
         else {
             ErrorText.enabled = true;
-            ErrorText.text = "You can only have One component at a time";
-
+            ErrorText.text = "You can only make one choice per round.";
         }
-
 
     }
 

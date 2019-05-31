@@ -28,6 +28,7 @@ public class Player : MonoBehaviour {
     public int Corruption = 0;
     public int AIPower = 0;
     public bool Installed = false;
+    public bool ChoiceMade = false;
 
     public Canvas AcceptRoomCanvas;
     public Canvas WinLossCanvas;
@@ -113,6 +114,7 @@ public class Player : MonoBehaviour {
                 ActionPointsRoll();
                 EndTurnButton.SetActive(true);
                 rooms.SetActive(true);
+                ChoiceMade = false;
                 TurnStarted = false;
             }
             EnergyCost.text = ("Actions Point Cost: " + ActionPointCost);

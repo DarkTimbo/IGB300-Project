@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.23236784, g: 0.23553982, b: 0.27230316, a: 1}
+  m_IndirectSpecularColor: {r: 0.23207375, g: 0.23575982, b: 0.27139103, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -10078,7 +10078,7 @@ RectTransform:
   - {fileID: 1193106349}
   - {fileID: 1436347150}
   m_Father: {fileID: 1427619730}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -11819,6 +11819,7 @@ MonoBehaviour:
   Corruption: 0
   AIPower: 0
   Installed: 0
+  ChoiceMade: 0
   AcceptRoomCanvas: {fileID: 1429915384}
   WinLossCanvas: {fileID: 1218506286}
   WinLossText: {fileID: 1436347151}
@@ -14059,7 +14060,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ChoicesCanvas: {fileID: 1615733951}
   targetScore: 4
-  OptionTwoButton: {fileID: 0}
+  OptionTwoButton: {fileID: 1558317782}
+  ErrorText: {fileID: 1988963838}
 --- !u!223 &1615733951
 Canvas:
   m_ObjectHideFlags: 0
@@ -15339,6 +15341,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ChoicesCanvas: {fileID: 1712405489}
   targetScore: 3
+  ErrorText: {fileID: 1988963838}
 --- !u!223 &1712405489
 Canvas:
   m_ObjectHideFlags: 0
@@ -16042,6 +16045,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ChoicesCanvas: {fileID: 1774430343}
   targetScore: 4
+  ErrorText: {fileID: 1988963838}
 --- !u!223 &1774430343
 Canvas:
   m_ObjectHideFlags: 0
@@ -16884,6 +16888,7 @@ MonoBehaviour:
   ActionPoints: 0
   ActionPointCost: 0
   Turn: 0
+  TRAITOR: 0
   rollMin: 1
   rollMax: 4
   LifePoints: 3
@@ -16896,6 +16901,7 @@ MonoBehaviour:
   Corruption: 0
   AIPower: 0
   Installed: 0
+  ChoiceMade: 0
   AcceptRoomCanvas: {fileID: 0}
   WinLossCanvas: {fileID: 0}
   WinLossText: {fileID: 0}

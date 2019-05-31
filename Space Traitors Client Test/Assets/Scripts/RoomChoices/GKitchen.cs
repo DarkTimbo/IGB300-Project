@@ -28,46 +28,56 @@ public class GKitchen : MonoBehaviour {
     }
 
     public void OnOptionOneClick() {
+        if (Player.GetComponent<Player>().ChoiceMade == false) {
+            result = SpecChallange(Player.GetComponent<Player>().Brawn, targetScore);
 
-        result = SpecChallange(Player.GetComponent<Player>().Brawn, targetScore);
+            if (result == false) {
 
-        if (result == false) {
-
-            Player.GetComponent<Player>().Corruption += 15;
+                Player.GetComponent<Player>().Corruption += 15;
+            }
+            else {
+                Player.GetComponent<Player>().scrapTotal += 12;
+            }
+            ChoicesCanvas.enabled = false;
+            ErrorText.enabled = false;
+            Player.GetComponent<Player>().isInSelction = false;
+            Player.GetComponent<Player>().ChoiceMade = true;
         }
         else {
-            Player.GetComponent<Player>().scrapTotal += 12;
+            ErrorText.enabled = true;
+            ErrorText.text = "You can only make one choice per round.";
         }
-        ChoicesCanvas.enabled = false;
-        ErrorText.enabled = false;
-        Player.GetComponent<Player>().isInSelction = false;
-
     }
 
     public void OnOptionTwoClick() {
 
+        if (Player.GetComponent<Player>().ChoiceMade == false) {
+            if (Player.GetComponent<Player>().scrapTotal >= 10) {
 
-        if (Player.GetComponent<Player>().scrapTotal >= 10) {
+                if (Player.GetComponent<Player>().LifePoints < 3) {
+                    Player.GetComponent<Player>().scrapTotal -= 10;
+                    Player.GetComponent<Player>().LifePoints += 1;
+                    ChoicesCanvas.enabled = false;
+                    ErrorText.enabled = false;
+                    Player.GetComponent<Player>().isInSelction = false;
+                    Player.GetComponent<Player>().ChoiceMade = true;
+                }
+                else {
+                    ErrorText.enabled = true;
+                    ErrorText.text = "Already at max health";
+                }
 
-            if (Player.GetComponent<Player>().LifePoints < 3) {
-                Player.GetComponent<Player>().scrapTotal -= 10;
-                Player.GetComponent<Player>().LifePoints += 1;
-                ChoicesCanvas.enabled = false;
-                ErrorText.enabled = false;
-                Player.GetComponent<Player>().isInSelction = false;
             }
             else {
                 ErrorText.enabled = true;
-                ErrorText.text = "Already at max health";
-            }
+                ErrorText.text = "Not Enough Scrap";
 
+            }
         }
         else {
             ErrorText.enabled = true;
-            ErrorText.text = "Not Enough Scrap";
-
+            ErrorText.text = "You can only make one choice per round.";
         }
-
     }
 
     private bool SpecChallange(int playerScore, int targetScore) {

@@ -27,45 +27,59 @@ public class CSleepingPods : MonoBehaviour
 
     public void OnOptionOneClick() {
 
-        if (Player.GetComponent<Player>().Components == 0) {
-            Player.GetComponent<Player>().Components += 1;
-            Player.GetComponent<Player>().Corruption += 20;
-            ChoicesCanvas.enabled = false;
-            ErrorText.enabled = false;
-            Destroy(OptionOneButton);
-            Player.GetComponent<Player>().isInSelction = false;
+        if (Player.GetComponent<Player>().ChoiceMade == false) {
+            if (Player.GetComponent<Player>().Components == 0) {
+                Player.GetComponent<Player>().Components += 1;
+                Player.GetComponent<Player>().Corruption += 20;
+                ChoicesCanvas.enabled = false;
+                ErrorText.enabled = false;
+                Destroy(OptionOneButton);
+                Player.GetComponent<Player>().isInSelction = false;
+                Player.GetComponent<Player>().ChoiceMade = true;
 
+            }
+            else {
+                ErrorText.enabled = true;
+                ErrorText.text = "You can only have One component at a time";
+
+            }
         }
         else {
             ErrorText.enabled = true;
-            ErrorText.text = "You can only have One component at a time";
+            ErrorText.text = "You can only make one choice per round.";
 
         }
     }
 
     public void OnOptionTwoClick() {
 
-        if (Player.GetComponent<Player>().scrapTotal >= 10){
+        if (Player.GetComponent<Player>().ChoiceMade == false) {
+            if (Player.GetComponent<Player>().scrapTotal >= 10) {
 
-            if(Player.GetComponent<Player>().LifePoints < 3) {
-                Player.GetComponent<Player>().scrapTotal -= 10;
-                Player.GetComponent<Player>().LifePoints += 1;
-                ChoicesCanvas.enabled = false;
-                ErrorText.enabled = false;
-                Player.GetComponent<Player>().isInSelction = false;
+                if (Player.GetComponent<Player>().LifePoints < 3) {
+                    Player.GetComponent<Player>().scrapTotal -= 10;
+                    Player.GetComponent<Player>().LifePoints += 1;
+                    ChoicesCanvas.enabled = false;
+                    ErrorText.enabled = false;
+                    Player.GetComponent<Player>().isInSelction = false;
+                    Player.GetComponent<Player>().ChoiceMade = true;
+                }
+                else {
+                    ErrorText.enabled = true;
+                    ErrorText.text = "Already at max health";
+                }
+
             }
             else {
                 ErrorText.enabled = true;
-                ErrorText.text = "Already at max health";
+                ErrorText.text = "Not Enough Scrap";
+
             }
-           
         }
         else {
             ErrorText.enabled = true;
-            ErrorText.text = "Not Enough Scrap";
-
+            ErrorText.text = "You can only make one choice per round.";
         }
-
     }
 
    

@@ -31,37 +31,48 @@ public class EKitchen : MonoBehaviour {
 
     public void OnOptionOneClick() {
 
-        result = SpecChallange(Player.GetComponent<Player>().Skill, targetScore);
+        if (Player.GetComponent<Player>().ChoiceMade == false) {
+            result = SpecChallange(Player.GetComponent<Player>().Skill, targetScore);
 
-        if (result == false) {
+            if (result == false) {
 
-            Player.GetComponent<Player>().Corruption += 15;
+                Player.GetComponent<Player>().Corruption += 15;
+            }
+            else {
+                Player.GetComponent<Player>().scrapTotal += 12;
+            }
+            ChoicesCanvas.enabled = false;
+            ErrorText.enabled = false;
+            Player.GetComponent<Player>().isInSelction = false;
+            Player.GetComponent<Player>().ChoiceMade = true;
         }
         else {
-            Player.GetComponent<Player>().scrapTotal += 12;
+            ErrorText.enabled = true;
+            ErrorText.text = "You can only make one choice per round.";
         }
-        ChoicesCanvas.enabled = false;
-        ErrorText.enabled = false;
-        Player.GetComponent<Player>().isInSelction = false;
-
     }
 
     public void OnOptionTwoClick() {
 
+        if (Player.GetComponent<Player>().ChoiceMade == false) {
+            if (Player.GetComponent<Player>().scrapTotal >= 2) {
+                Player.GetComponent<Player>().scrapTotal -= 2;
+                Player.GetComponent<Player>().Skill += 1;
+                Destroy(OptionTwoButton);
+                ChoicesCanvas.enabled = false;
+                Player.GetComponent<Player>().isInSelction = false;
+                Player.GetComponent<Player>().ChoiceMade = true;
+            }
+            else {
+                ErrorText.enabled = true;
+                ErrorText.text = "Not Enough Scrap";
 
-        if (Player.GetComponent<Player>().scrapTotal >= 2) {
-            Player.GetComponent<Player>().scrapTotal -= 2;
-            Player.GetComponent<Player>().Skill += 1;
-            Destroy(OptionTwoButton);
-            ChoicesCanvas.enabled = false;
-            Player.GetComponent<Player>().isInSelction = false;
+            }
         }
         else {
             ErrorText.enabled = true;
-            ErrorText.text = "Not Enough Scrap";
-
+            ErrorText.text = "You can only make one choice per round.";
         }
-
     }
 
     private bool SpecChallange(int playerScore, int targetScore) {
