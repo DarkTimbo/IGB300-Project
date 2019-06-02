@@ -11,12 +11,14 @@ public class IBar : MonoBehaviour
     private GameObject Player;
     private bool result;
     public Text ErrorText;
+    private GameObject SuccessFailCanvas;
 
 
     // Start is called before the first frame update
     void Start() {
 
         Player = GameObject.Find("Player");
+        SuccessFailCanvas = GameObject.Find("Success / Fail Canvas");
 
     }
 
@@ -47,14 +49,19 @@ public class IBar : MonoBehaviour
 
         if (Player.GetComponent<Player>().ChoiceMade == false) {
             result = SpecChallange(Player.GetComponent<Player>().Tech, targetScore);
+            SuccessFailCanvas.GetComponent<SuccessCanvas>().SuccessFailCanvas.enabled = true;
 
             if (result == false) {
 
                 Player.GetComponent<Player>().Corruption += 20;
+                SuccessFailCanvas.GetComponent<SuccessCanvas>().Text.text = "Failed";
+                SuccessFailCanvas.GetComponent<SuccessCanvas>().BackGroundColor.color = Color.red;
             }
             else {
                 Player.GetComponent<Player>().Charm += 2;
                 Player.GetComponent<Player>().Skill += 1;
+                SuccessFailCanvas.GetComponent<SuccessCanvas>().Text.text = "Success";
+                SuccessFailCanvas.GetComponent<SuccessCanvas>().BackGroundColor.color = Color.green;
             }
             ChoicesCanvas.enabled = false;
             Destroy(OptionTwoButton);

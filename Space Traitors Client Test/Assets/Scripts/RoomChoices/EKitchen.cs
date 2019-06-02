@@ -12,12 +12,14 @@ public class EKitchen : MonoBehaviour {
     private GameObject Player;
     public Text ErrorText;
     private bool result;
+    private GameObject SuccessFailCanvas;
 
 
     // Start is called before the first frame update
     void Start() {
 
         Player = GameObject.Find("Player");
+        SuccessFailCanvas = GameObject.Find("Success / Fail Canvas");
 
     }
 
@@ -33,13 +35,18 @@ public class EKitchen : MonoBehaviour {
 
         if (Player.GetComponent<Player>().ChoiceMade == false) {
             result = SpecChallange(Player.GetComponent<Player>().Skill, targetScore);
+            SuccessFailCanvas.GetComponent<SuccessCanvas>().SuccessFailCanvas.enabled = true;
 
             if (result == false) {
 
                 Player.GetComponent<Player>().Corruption += 15;
+                SuccessFailCanvas.GetComponent<SuccessCanvas>().Text.text = "Failed";
+                SuccessFailCanvas.GetComponent<SuccessCanvas>().BackGroundColor.color = Color.red;
             }
             else {
                 Player.GetComponent<Player>().scrapTotal += 12;
+                SuccessFailCanvas.GetComponent<SuccessCanvas>().Text.text = "Success";
+                SuccessFailCanvas.GetComponent<SuccessCanvas>().BackGroundColor.color = Color.green;
             }
             ChoicesCanvas.enabled = false;
             ErrorText.enabled = false;

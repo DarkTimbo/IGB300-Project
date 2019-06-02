@@ -12,12 +12,15 @@ public class FDining : MonoBehaviour
     public Text ErrorText;
     private GameObject Player;
     private bool result;
+    private GameObject SuccessFailCanvas;
 
 
     // Start is called before the first frame update
     void Start() {
 
         Player = GameObject.Find("Player");
+        SuccessFailCanvas = GameObject.Find("Success / Fail Canvas");
+
 
     }
 
@@ -33,14 +36,19 @@ public class FDining : MonoBehaviour
 
         if (Player.GetComponent<Player>().ChoiceMade == false) {
             result = SpecChallange(Player.GetComponent<Player>().Skill, targetScore);
+            SuccessFailCanvas.GetComponent<SuccessCanvas>().SuccessFailCanvas.enabled = true;
 
             if (result == false) {
 
                 Player.GetComponent<Player>().AIPower += 10;
+                SuccessFailCanvas.GetComponent<SuccessCanvas>().Text.text = "Failed";
+                SuccessFailCanvas.GetComponent<SuccessCanvas>().BackGroundColor.color = Color.red;
             }
             else {
                 Player.GetComponent<Player>().Skill += 2;
                 Player.GetComponent<Player>().Brawn += 1;
+                SuccessFailCanvas.GetComponent<SuccessCanvas>().Text.text = "Success";
+                SuccessFailCanvas.GetComponent<SuccessCanvas>().BackGroundColor.color = Color.green;
             }
             ChoicesCanvas.enabled = false;
             Destroy(OptionOneButton);

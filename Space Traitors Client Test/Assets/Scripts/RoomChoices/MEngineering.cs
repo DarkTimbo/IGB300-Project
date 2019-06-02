@@ -11,12 +11,14 @@ public class MEngineering : MonoBehaviour
     public Text ErrorText;
     private GameObject Player;
     private bool result;
+    private GameObject SuccessFailCanvas;
 
 
     // Start is called before the first frame update
     void Start() {
 
         Player = GameObject.Find("Player");
+        SuccessFailCanvas = GameObject.Find("Success / Fail Canvas");
 
     }
 
@@ -35,9 +37,13 @@ public class MEngineering : MonoBehaviour
             if (result == false) {
 
                 Player.GetComponent<Player>().Corruption += 15;
+                SuccessFailCanvas.GetComponent<SuccessCanvas>().Text.text = "Failed";
+                SuccessFailCanvas.GetComponent<SuccessCanvas>().BackGroundColor.color = Color.red;
             }
             else {
                 Player.GetComponent<Player>().scrapTotal += 12;
+                SuccessFailCanvas.GetComponent<SuccessCanvas>().Text.text = "Success";
+                SuccessFailCanvas.GetComponent<SuccessCanvas>().BackGroundColor.color = Color.green;
 
             }
             ChoicesCanvas.enabled = false;

@@ -8,6 +8,7 @@ public class DSpa : MonoBehaviour
     public Canvas ChoicesCanvas;
     public int targetScore = 3;
     private GameObject Player;
+    private GameObject SuccessFailCanvas;
     private bool result;
     public Text ErrorText;
 
@@ -16,6 +17,7 @@ public class DSpa : MonoBehaviour
     void Start() {
 
         Player = GameObject.Find("Player");
+        SuccessFailCanvas = GameObject.Find("Success / Fail Canvas");
 
     }
 
@@ -50,13 +52,20 @@ public class DSpa : MonoBehaviour
         if (Player.GetComponent<Player>().ChoiceMade == false) {
 
             result = SpecChallange(Player.GetComponent<Player>().Charm, targetScore);
+            SuccessFailCanvas.GetComponent<SuccessCanvas>().SuccessFailCanvas.enabled = true;
 
             if (result == false) {
 
                 Player.GetComponent<Player>().Corruption += 15;
+                
+                SuccessFailCanvas.GetComponent<SuccessCanvas>().Text.text = "Failed";
+                SuccessFailCanvas.GetComponent<SuccessCanvas>().BackGroundColor.color = Color.red;
+
             }
             else {
                 Player.GetComponent<Player>().scrapTotal += 12;
+                SuccessFailCanvas.GetComponent<SuccessCanvas>().Text.text = "Success";
+                SuccessFailCanvas.GetComponent<SuccessCanvas>().BackGroundColor.color = Color.green;
             }
             ChoicesCanvas.enabled = false;
             Player.GetComponent<Player>().isInSelction = false;

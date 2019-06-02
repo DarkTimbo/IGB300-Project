@@ -68,6 +68,8 @@ public class Player : Navigation
             //Move player
             if (currentPath.Count > 0) {
 
+                isMoving = true;
+
                 if (sent == false) {
                     server.GetComponent<Server>().SendAllowMovement(playerID, false);
                     sent = true;
@@ -94,6 +96,8 @@ public class Player : Navigation
                 isMoving = false;
                 Begin = false;
                 sent = false;
+                Vector3 lookBack = new Vector3(transform.position.x,transform.position.y,transform.position.z-1000);
+                transform.rotation = Quaternion.LookRotation(lookBack);
                 server.GetComponent<Server>().SendAllowMovement(playerID, true);
 
 
