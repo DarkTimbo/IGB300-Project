@@ -14,6 +14,7 @@ public class Player : Navigation
     public bool startMoving = false;
     public bool Begin = false;
     public bool isMoving = false;
+    public bool sent = false;
 
     //Network variables
     public int playerID;
@@ -25,6 +26,19 @@ public class Player : Navigation
     private bool spawned = false;
     public GameObject playerStorage;
     public GameObject[] inventory;
+    private GameObject server;
+
+     void Start() {
+
+        server = GameObject.FindGameObjectWithTag("Server");
+
+        //Find waypoint graph
+        graphNodes = GameObject.FindGameObjectWithTag("waypoint graph").GetComponent<WayPointGraph>();
+
+        //Initial node index to move to
+        currentPath.Add(currentNodeIndex);
+
+    }
 
     // Update is called once per frame
     void Update()
@@ -44,6 +58,7 @@ public class Player : Navigation
     }
 
     public void PlayerMove(int goalIndex) {
+
     
         currentPath = AStarSearch(currentPath[currentPathIndex], goalIndex);
         currentPathIndex = 0;
@@ -53,8 +68,10 @@ public class Player : Navigation
             //Move player
             if (currentPath.Count > 0) {
 
-                isMoving = true;
-
+                if (sent == false) {
+                    server.GetComponent<Server>().SendAllowMovement(playerID, false);
+                    sent = true;
+                }
                 Vector3 direction = (graphNodes.graphNodes[currentPath[currentPathIndex]].transform.position - this.transform.position).normalized;
                 Quaternion look = Quaternion.LookRotation(direction);
                 transform.rotation = look;
@@ -71,13 +88,19 @@ public class Player : Navigation
 
                 currentNodeIndex = graphNodes.graphNodes[currentPath[currentPathIndex]].GetComponent<LinkedNodes>().index;   //Store current node index
             }
+            //Check if reached end of path
+            if (transform.position == graphNodes.graphNodes[currentPath[currentPathIndex]].transform.position) {
+
+                isMoving = false;
+                Begin = false;
+                sent = false;
+                server.GetComponent<Server>().SendAllowMovement(playerID, true);
+
+
+            }
         }
 
-        if(transform.position == graphNodes.graphNodes[currentPath[currentPathIndex]].transform.position) {
-
-            isMoving = false;
-
-        }
+        
     }
     
               

@@ -201,6 +201,9 @@ public class Client : MonoBehaviour {
             case NetOP.AssignTraitor:
                 AssignTraitor(conID, chanID, rHostID, (Net_AssignTraitor)msg);
                 break;
+            case NetOP.AllowMovement:
+                AllowMovement(conID, chanID, rHostID, (NetAllowMovement)msg);
+                break;
         }
         //Debug.Log("Recieved a message of type " + msg.OperationCode);
 
@@ -235,6 +238,23 @@ public class Client : MonoBehaviour {
         }
 
     }
+
+    private void AllowMovement(int conID, int chanID, int rHostID, NetAllowMovement allowMovement) {
+
+        if(allowMovement.AllowToMove == true) {
+
+            player.GetComponent<Player>().allowMovement = true;
+
+        }
+        else {
+
+            player.GetComponent<Player>().allowMovement = false;
+
+        }
+
+    }
+
+
         public void SendServer(NetMessage msg) {
         //This is where data is held
         byte[] buffer = new byte[byteSize];
@@ -336,6 +356,8 @@ public class Client : MonoBehaviour {
 
         roomNumber.Room = var;
         SendServer(roomNumber);
+
+        Debug.Log(roomNumber.Room);
 
 
     }

@@ -310,7 +310,7 @@ public class Server : MonoBehaviour
     {
     }
 
-        private void AssignAiPower(int conID, int chanID, int rHostID, Net_SendAiPower aiPower) {
+    private void AssignAiPower(int conID, int chanID, int rHostID, Net_SendAiPower aiPower) {
 
         AiPowerSliderUI.GetComponent<AiPower>().power += aiPower.AIpowerAmountGained;
        
@@ -609,6 +609,20 @@ public class Server : MonoBehaviour
         SendClient(ca);
 
     }
+
+    public void SendAllowMovement(int player, bool yes_no) {
+
+        NetAllowMovement ca = new NetAllowMovement();
+
+        tempPlayerID = player;
+
+        ca.AllowToMove = yes_no;
+
+        SendClient(ca);
+
+    }
+
+
 
 
     private void SendRoomCost(int conID, int chanID, int rHostID, Net_SendRoomNumber roomNumber) {

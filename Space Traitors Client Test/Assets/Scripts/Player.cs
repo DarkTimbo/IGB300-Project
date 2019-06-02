@@ -17,6 +17,7 @@ public class Player : MonoBehaviour {
     public bool TRAITOR = false;
     private bool TurnStarted = true;
     public int rollMin = 1, rollMax = 4;
+    public bool allowMovement = true;
 
     public int LifePoints = 3;
     public int Brawn = 0;
@@ -192,18 +193,20 @@ public class Player : MonoBehaviour {
         return ActionPoints;
     }
 
-    public void EndTurn()
-    {
-        //If action points are not emptied, remove them
-        ActionPoints = 0;
-        //Reinitialise variables for next turn
-        Turn = false;
-        TurnStarted = true;
-        EndTurnButton.SetActive(false);
-        //Player can't select rooms when it is not their turn
-        rooms.SetActive(false);
-        //Send a notification to the server to let them know the player's turn has ended
-        lobbyScene.GetComponent<LobbyScene>().OnSendTurnEnd();
+    public void EndTurn() {
+
+        if (allowMovement == true) {
+            //If action points are not emptied, remove them
+            ActionPoints = 0;
+            //Reinitialise variables for next turn
+            Turn = false;
+            TurnStarted = true;
+            EndTurnButton.SetActive(false);
+            //Player can't select rooms when it is not their turn
+            rooms.SetActive(false);
+            //Send a notification to the server to let them know the player's turn has ended
+            lobbyScene.GetComponent<LobbyScene>().OnSendTurnEnd();
+        }
     }
 
     public void AcceptButtonClick() {
