@@ -9,6 +9,9 @@ public class MusicManager : MonoBehaviour
 
     public AudioClip menuMusic;
     public AudioClip gameMusic;
+    public AudioClip victoryMusic;
+
+    public Server server;
 
     private void Awake()
     {
@@ -24,7 +27,14 @@ public class MusicManager : MonoBehaviour
 
         if (sceneName == "server")
         {
-            ChangeMusicClip(gameMusic);
+            if (server.InstalledComponents == 5)
+            {
+                ChangeMusicClip(victoryMusic);
+            }
+            else
+            {
+                ChangeMusicClip(gameMusic);
+            }
         }
         else if (sceneName == "Character Select" || sceneName == "LobbyTest")
         {

@@ -14,6 +14,8 @@ public class HSpa : MonoBehaviour
     private bool result;
     private GameObject SuccessFailCanvas;
 
+    public GameObject sfxSource;
+    private SFXManager sfxManager;
 
     // Start is called before the first frame update
     void Start() {
@@ -21,6 +23,7 @@ public class HSpa : MonoBehaviour
         Player = GameObject.Find("Player");
         SuccessFailCanvas = GameObject.Find("Success / Fail Canvas");
 
+        sfxManager = sfxSource.GetComponent<SFXManager>();
     }
 
     public void OnClickExitButton() {
@@ -41,12 +44,14 @@ public class HSpa : MonoBehaviour
                 Player.GetComponent<Player>().AIPower += 10;
                 SuccessFailCanvas.GetComponent<SuccessCanvas>().Text.text = "Failed";
                 SuccessFailCanvas.GetComponent<SuccessCanvas>().BackGroundColor.color = Color.red;
+                sfxManager.PlaySpecChallengeFail();
             }
             else {
                 Player.GetComponent<Player>().Brawn += 2;
                 Player.GetComponent<Player>().Tech += 1;
                 SuccessFailCanvas.GetComponent<SuccessCanvas>().Text.text = "Success";
                 SuccessFailCanvas.GetComponent<SuccessCanvas>().BackGroundColor.color = Color.green;
+                sfxManager.PlaySpecChallengeSuccess();
             }
             ChoicesCanvas.enabled = false;
             Destroy(OptionOneButton);
@@ -57,6 +62,7 @@ public class HSpa : MonoBehaviour
         else {
             ErrorText.enabled = true;
             ErrorText.text = "You can only make one choice per round.";
+            sfxManager.PlayFailedChoice();
         }
     }
 
@@ -77,12 +83,14 @@ public class HSpa : MonoBehaviour
             else {
                 ErrorText.enabled = true;
                 ErrorText.text = "You can only have One component at a time";
+                sfxManager.PlayFailedChoice();
 
             }
         }
         else {
             ErrorText.enabled = true;
             ErrorText.text = "You can only make one choice per round.";
+            sfxManager.PlayFailedChoice();
         }
 
     }

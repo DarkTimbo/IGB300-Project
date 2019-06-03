@@ -9,13 +9,16 @@ public class KBar : MonoBehaviour
     private GameObject Player;
     public GameObject OptionTwoButton;
     public Text ErrorText;
-  
+
+    public GameObject sfxSource;
+    private SFXManager sfxManager;
 
     // Start is called before the first frame update
     void Start() {
 
         Player = GameObject.Find("Player");
 
+        sfxManager = sfxSource.GetComponent<SFXManager>();
     }
 
     public void OnClickExitButton() {
@@ -38,6 +41,7 @@ public class KBar : MonoBehaviour
         else {
             ErrorText.enabled = true;
             ErrorText.text = "You can only make one choice per round.";
+            sfxManager.PlayFailedChoice();
         }
     }
 
@@ -59,12 +63,14 @@ public class KBar : MonoBehaviour
             else {
                 ErrorText.enabled = true;
                 ErrorText.text = "Not Enough Scrap";
+                sfxManager.PlayFailedChoice();
 
             }
         }
         else {
             ErrorText.enabled = true;
             ErrorText.text = "You can only make one choice per round.";
+            sfxManager.PlayFailedChoice();
         }
     }
 

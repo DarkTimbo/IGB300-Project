@@ -10,11 +10,15 @@ public class CSleepingPods : MonoBehaviour
     private GameObject Player;
     public Text ErrorText;
 
+    public GameObject sfxSource;
+    private SFXManager sfxManager;
+
     // Start is called before the first frame update
     void Start() {
 
         Player = GameObject.Find("Player");
 
+        sfxManager = sfxSource.GetComponent<SFXManager>();
     }
 
     public void OnClickExitButton() {
@@ -41,12 +45,14 @@ public class CSleepingPods : MonoBehaviour
             else {
                 ErrorText.enabled = true;
                 ErrorText.text = "You can only have One component at a time";
+                sfxManager.PlayFailedChoice();
 
             }
         }
         else {
             ErrorText.enabled = true;
             ErrorText.text = "You can only make one choice per round.";
+            sfxManager.PlayFailedChoice();
 
         }
     }
@@ -67,18 +73,21 @@ public class CSleepingPods : MonoBehaviour
                 else {
                     ErrorText.enabled = true;
                     ErrorText.text = "Already at max health";
+                    sfxManager.PlayFailedChoice();
                 }
 
             }
             else {
                 ErrorText.enabled = true;
                 ErrorText.text = "Not Enough Scrap";
+                sfxManager.PlayFailedChoice();
 
             }
         }
         else {
             ErrorText.enabled = true;
             ErrorText.text = "You can only make one choice per round.";
+            sfxManager.PlayFailedChoice();
         }
     }
 

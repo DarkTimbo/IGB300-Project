@@ -44,6 +44,9 @@ public class Player : MonoBehaviour {
     private GameObject lobbyScene;
     private GameObject controller;
 
+    public GameObject sfxSource;
+    private SFXManager sfxManager;
+
     // Start is called before the first frame update
     void Start() {
         EndTurnButton = GameObject.FindGameObjectWithTag("End");
@@ -99,7 +102,7 @@ public class Player : MonoBehaviour {
             Charm = 2;
         }
 
-
+        sfxManager = sfxSource.GetComponent<SFXManager>();
 
 
     }
@@ -224,6 +227,7 @@ public class Player : MonoBehaviour {
 
             Error.enabled = true;
             Error.text = "You dont have enough Action Points to move there";
+            sfxManager.PlayFailedChoice();
         }
 
     }
