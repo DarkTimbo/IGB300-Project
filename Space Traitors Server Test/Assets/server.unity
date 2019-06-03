@@ -4531,10 +4531,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1916923490}
     m_Modifications:
-    - target: {fileID: 100042, guid: 8f4795facf55806438d0ac878cb14a3a, type: 3}
-      propertyPath: m_Name
-      value: ' F Dining Draft '
-      objectReference: {fileID: 0}
     - target: {fileID: 400042, guid: 8f4795facf55806438d0ac878cb14a3a, type: 3}
       propertyPath: m_LocalPosition.x
       value: 600
@@ -4590,6 +4586,10 @@ PrefabInstance:
     - target: {fileID: 400042, guid: 8f4795facf55806438d0ac878cb14a3a, type: 3}
       propertyPath: m_LocalScale.z
       value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 100042, guid: 8f4795facf55806438d0ac878cb14a3a, type: 3}
+      propertyPath: m_Name
+      value: ' F Dining Draft '
       objectReference: {fileID: 0}
     - target: {fileID: 2300036, guid: 8f4795facf55806438d0ac878cb14a3a, type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -6529,10 +6529,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1916923490}
     m_Modifications:
-    - target: {fileID: 100042, guid: 8f4795facf55806438d0ac878cb14a3a, type: 3}
-      propertyPath: m_Name
-      value: ' L Dining Draft'
-      objectReference: {fileID: 0}
     - target: {fileID: 400042, guid: 8f4795facf55806438d0ac878cb14a3a, type: 3}
       propertyPath: m_LocalPosition.x
       value: 400
@@ -6588,6 +6584,10 @@ PrefabInstance:
     - target: {fileID: 400042, guid: 8f4795facf55806438d0ac878cb14a3a, type: 3}
       propertyPath: m_LocalScale.z
       value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 100042, guid: 8f4795facf55806438d0ac878cb14a3a, type: 3}
+      propertyPath: m_Name
+      value: ' L Dining Draft'
       objectReference: {fileID: 0}
     - target: {fileID: 2300036, guid: 8f4795facf55806438d0ac878cb14a3a, type: 3}
       propertyPath: m_Materials.Array.data[0]
