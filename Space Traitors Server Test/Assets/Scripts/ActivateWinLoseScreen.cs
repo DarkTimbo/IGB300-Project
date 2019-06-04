@@ -17,6 +17,7 @@ public class ActivateWinLoseScreen : MonoBehaviour
         if (server.GetComponent<Server>().InstalledComponents == 5)
         {
             GetComponent<Canvas>().enabled = true;
+            transform.SetAsLastSibling();
         }
     }
 }
