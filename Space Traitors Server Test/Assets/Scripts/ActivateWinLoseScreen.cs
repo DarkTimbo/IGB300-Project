@@ -4,16 +4,17 @@ using UnityEngine;
 
 public class ActivateWinLoseScreen : MonoBehaviour
 {
-    public Server server;
+    private GameObject server;
 
     private void Awake()
     {
         GetComponent<Canvas>().enabled = false;
+        server = GameObject.FindGameObjectWithTag("Server");
     }
 
     private void Update()
     {
-        if (server.InstalledComponents == 5)
+        if (server.GetComponent<Server>().InstalledComponents == 5)
         {
             GetComponent<Canvas>().enabled = true;
         }
