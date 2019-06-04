@@ -47,6 +47,8 @@ public class Player : MonoBehaviour {
     public GameObject sfxSource;
     private SFXManager sfxManager;
 
+    public GameObject playerMarker;
+
     // Start is called before the first frame update
     void Start() {
         EndTurnButton = GameObject.FindGameObjectWithTag("End");
@@ -221,6 +223,7 @@ public class Player : MonoBehaviour {
             AcceptRoomCanvas.enabled = false;     
             RoomSelected.GetComponent<Rooms>().RoomChoices.enabled = true;
 
+            playerMarker.GetComponent<MarkerController>().UpdateRoomPos(RoomSelected.GetComponent<Rooms>().RoomNumber);
             Client.Instance.ChangeLocation(RoomSelected.GetComponent<Rooms>().RoomNumber);
         }
         else {
