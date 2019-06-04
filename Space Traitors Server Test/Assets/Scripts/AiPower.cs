@@ -9,7 +9,7 @@ public class AiPower : MonoBehaviour
     public Slider AIPowerSliderUI;
 
     public int power = 0;
-    public int increase = 10;
+    public int increase = 17;
     public int traitorAmount = 50; //Half the max amount (100)
     private bool traitorSent = false;
 

@@ -13,6 +13,8 @@ public class IBar : MonoBehaviour
     public Text ErrorText;
     private GameObject SuccessFailCanvas;
 
+    public GameObject sfxSource;
+    private SFXManager sfxManager;
 
     // Start is called before the first frame update
     void Start() {
@@ -20,6 +22,7 @@ public class IBar : MonoBehaviour
         Player = GameObject.Find("Player");
         SuccessFailCanvas = GameObject.Find("Success / Fail Canvas");
 
+        sfxManager = sfxSource.GetComponent<SFXManager>();
     }
 
     public void OnClickExitButton() {
@@ -42,6 +45,7 @@ public class IBar : MonoBehaviour
         else {
             ErrorText.enabled = true;
             ErrorText.text = "You can only make one choice per round.";
+            sfxManager.PlayFailedChoice();
         }
     }
 
@@ -56,12 +60,14 @@ public class IBar : MonoBehaviour
                 Player.GetComponent<Player>().Corruption += 20;
                 SuccessFailCanvas.GetComponent<SuccessCanvas>().Text.text = "Failed";
                 SuccessFailCanvas.GetComponent<SuccessCanvas>().BackGroundColor.color = Color.red;
+                sfxManager.PlaySpecChallengeFail();
             }
             else {
                 Player.GetComponent<Player>().Charm += 2;
                 Player.GetComponent<Player>().Skill += 1;
                 SuccessFailCanvas.GetComponent<SuccessCanvas>().Text.text = "Success";
                 SuccessFailCanvas.GetComponent<SuccessCanvas>().BackGroundColor.color = Color.green;
+                sfxManager.PlaySpecChallengeSuccess();
             }
             ChoicesCanvas.enabled = false;
             Destroy(OptionTwoButton);
@@ -72,6 +78,7 @@ public class IBar : MonoBehaviour
         else {
             ErrorText.enabled = true;
             ErrorText.text = "You can only make one choice per round.";
+            sfxManager.PlayFailedChoice();
         }
     }
 

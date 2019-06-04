@@ -11,12 +11,15 @@ public class LDiningHall : MonoBehaviour
     public GameObject OptionTwoButton;
     public Text ErrorText;
 
+    public GameObject sfxSource;
+    private SFXManager sfxManager;
 
     // Start is called before the first frame update
     void Start() {
 
         Player = GameObject.Find("Player");
 
+        sfxManager = sfxSource.GetComponent<SFXManager>();
     }
 
     public void OnClickExitButton() {
@@ -45,6 +48,7 @@ public class LDiningHall : MonoBehaviour
             else {
                 ErrorText.enabled = true;
                 ErrorText.text = "Not Enough Scrap";
+                sfxManager.PlayFailedChoice();
 
             }
 
@@ -52,6 +56,7 @@ public class LDiningHall : MonoBehaviour
         else {
             ErrorText.enabled = true;
             ErrorText.text = "You can only make one choice per round.";
+            sfxManager.PlayFailedChoice();
         }
 
     }
@@ -71,12 +76,14 @@ public class LDiningHall : MonoBehaviour
             else {
                 ErrorText.enabled = true;
                 ErrorText.text = "You can only have One component at a time";
+                sfxManager.PlayFailedChoice();
 
             }
         }
         else {
             ErrorText.enabled = true;
             ErrorText.text = "You can only make one choice per round.";
+            sfxManager.PlayFailedChoice();
         }
     }
 }

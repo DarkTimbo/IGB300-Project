@@ -12,6 +12,8 @@ public class GKitchen : MonoBehaviour {
     private bool result;
     private GameObject SuccessFailCanvas;
 
+    public GameObject sfxSource;
+    private SFXManager sfxManager;
 
     // Start is called before the first frame update
     void Start() {
@@ -19,6 +21,7 @@ public class GKitchen : MonoBehaviour {
         Player = GameObject.Find("Player");
         SuccessFailCanvas = GameObject.Find("Success / Fail Canvas");
 
+        sfxManager = sfxSource.GetComponent<SFXManager>();
     }
 
     public void OnClickExitButton() {
@@ -39,11 +42,13 @@ public class GKitchen : MonoBehaviour {
                 Player.GetComponent<Player>().Corruption += 15;
                 SuccessFailCanvas.GetComponent<SuccessCanvas>().Text.text = "Failed";
                 SuccessFailCanvas.GetComponent<SuccessCanvas>().BackGroundColor.color = Color.red;
+                sfxManager.PlaySpecChallengeFail();
             }
             else {
                 Player.GetComponent<Player>().scrapTotal += 12;
                 SuccessFailCanvas.GetComponent<SuccessCanvas>().Text.text = "Success";
                 SuccessFailCanvas.GetComponent<SuccessCanvas>().BackGroundColor.color = Color.green;
+                sfxManager.PlaySpecChallengeSuccess();
             }
             ChoicesCanvas.enabled = false;
             ErrorText.enabled = false;
@@ -53,6 +58,7 @@ public class GKitchen : MonoBehaviour {
         else {
             ErrorText.enabled = true;
             ErrorText.text = "You can only make one choice per round.";
+            sfxManager.PlayFailedChoice();
         }
     }
 
@@ -72,18 +78,21 @@ public class GKitchen : MonoBehaviour {
                 else {
                     ErrorText.enabled = true;
                     ErrorText.text = "Already at max health";
+                    sfxManager.PlayFailedChoice();
                 }
 
             }
             else {
                 ErrorText.enabled = true;
                 ErrorText.text = "Not Enough Scrap";
+                sfxManager.PlayFailedChoice();
 
             }
         }
         else {
             ErrorText.enabled = true;
             ErrorText.text = "You can only make one choice per round.";
+            sfxManager.PlayFailedChoice();
         }
     }
 

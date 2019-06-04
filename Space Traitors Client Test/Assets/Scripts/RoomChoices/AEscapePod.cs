@@ -11,12 +11,16 @@ public class AEscapePod : MonoBehaviour
     private bool result;
     public Text ErrorText;
 
+    public GameObject sfxSource;
+    private SFXManager sfxManager;
+
 
     // Start is called before the first frame update
     void Start() {
 
         Player = GameObject.Find("Player");
 
+        sfxManager = sfxSource.GetComponent<SFXManager>();
     }
 
 
@@ -40,12 +44,14 @@ public class AEscapePod : MonoBehaviour
             else {
                 ErrorText.enabled = true;
                 ErrorText.text = "You don't have any components";
+                sfxManager.PlayFailedChoice();
             }
 
         }
         else {
             ErrorText.enabled = true;
             ErrorText.text = "You can only make one choice per round.";
+            sfxManager.PlayFailedChoice();
         }
     }
 

@@ -316,7 +316,7 @@ public class Client : MonoBehaviour {
     }
     private void AssignTraitor(int conID, int chanID, int rHostID, Net_AssignTraitor ca)
     {
-        player.GetComponent<Player>().TRAITOR = true;
+        player.GetComponent<Player>().traitor = true;
     }
 
     public void SendScrap(int var) {
