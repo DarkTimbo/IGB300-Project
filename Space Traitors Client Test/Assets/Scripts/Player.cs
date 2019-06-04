@@ -14,7 +14,7 @@ public class Player : MonoBehaviour {
     public int ActionPoints = 0;
     public int ActionPointCost = 0;
     public bool Turn = false;
-    public bool TRAITOR = false;
+    public bool traitor = false;
     private bool TurnStarted = true;
     public int rollMin = 1, rollMax = 4;
     public bool allowMovement = true;
@@ -46,6 +46,8 @@ public class Player : MonoBehaviour {
 
     public GameObject sfxSource;
     private SFXManager sfxManager;
+
+    public GameObject playerMarker;
 
     // Start is called before the first frame update
     void Start() {
@@ -221,6 +223,7 @@ public class Player : MonoBehaviour {
             AcceptRoomCanvas.enabled = false;     
             RoomSelected.GetComponent<Rooms>().RoomChoices.enabled = true;
 
+            playerMarker.GetComponent<MarkerController>().UpdateRoomPos(RoomSelected.GetComponent<Rooms>().RoomNumber);
             Client.Instance.ChangeLocation(RoomSelected.GetComponent<Rooms>().RoomNumber);
         }
         else {
