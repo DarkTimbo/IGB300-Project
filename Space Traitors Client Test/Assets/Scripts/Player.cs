@@ -14,7 +14,7 @@ public class Player : MonoBehaviour {
     public int ActionPoints = 0;
     public int ActionPointCost = 0;
     public bool Turn = false;
-    public bool TRAITOR = false;
+    public bool traitor = false;
     private bool TurnStarted = true;
     public int rollMin = 1, rollMax = 4;
     public bool allowMovement = true;
