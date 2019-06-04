@@ -20,12 +20,17 @@ public class RoundManager : MonoBehaviour
     private int Round = 1;
     private bool setup = false, randomised = true, initialisePlayer = false;
     private string sceneName;
+
+    public GameObject sfxSource;
+    private SFXManager sfxManager;
   
     // Start is called before the first frame update
     void Start()
     {
         DontDestroyOnLoad(gameObject);
         server = GameObject.FindGameObjectWithTag("Server");
+
+        sfxManager = sfxSource.GetComponent<SFXManager>();
     }
 
     // Update is called once per frame
@@ -80,6 +85,8 @@ public class RoundManager : MonoBehaviour
             PlayerIndex = 0;
             Round++;
             AI.GetComponent<AiPower>().incrementAIPower();
+
+            sfxManager.PlayRoundEnd();
         }
     }
 

@@ -13,7 +13,7 @@ public class ActivateWinLoseScreen : MonoBehaviour
 
     private void Update()
     {
-        if(server.InstalledComponents == 5)
+        if (server.InstalledComponents == 5)
         {
             GetComponent<Canvas>().enabled = true;
         }

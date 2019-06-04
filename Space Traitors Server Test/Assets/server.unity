@@ -1143,6 +1143,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89b722add62257742951f2e5ff7e2d79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  server: {fileID: 6669035570899587503}
 --- !u!1001 &216928172
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5693,22 +5694,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: 'I Bar Draft '
       objectReference: {fileID: 0}
-    - target: {fileID: 400036, guid: dbb9e6b1670d83c46a69e44dd718ffb3, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 400036, guid: dbb9e6b1670d83c46a69e44dd718ffb3, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -65
-      objectReference: {fileID: 0}
-    - target: {fileID: 400038, guid: dbb9e6b1670d83c46a69e44dd718ffb3, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 400038, guid: dbb9e6b1670d83c46a69e44dd718ffb3, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -65
-      objectReference: {fileID: 0}
     - target: {fileID: 400040, guid: dbb9e6b1670d83c46a69e44dd718ffb3, type: 3}
       propertyPath: m_LocalPosition.x
       value: 200
@@ -5764,6 +5749,22 @@ PrefabInstance:
     - target: {fileID: 400040, guid: dbb9e6b1670d83c46a69e44dd718ffb3, type: 3}
       propertyPath: m_LocalScale.z
       value: 0.10000006
+      objectReference: {fileID: 0}
+    - target: {fileID: 400036, guid: dbb9e6b1670d83c46a69e44dd718ffb3, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 400036, guid: dbb9e6b1670d83c46a69e44dd718ffb3, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -65
+      objectReference: {fileID: 0}
+    - target: {fileID: 400038, guid: dbb9e6b1670d83c46a69e44dd718ffb3, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 400038, guid: dbb9e6b1670d83c46a69e44dd718ffb3, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -65
       objectReference: {fileID: 0}
     - target: {fileID: 2300002, guid: dbb9e6b1670d83c46a69e44dd718ffb3, type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -6071,6 +6072,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 069c6e8cc4bc2c94ebff1c1b21de3679, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  roundEnd: {fileID: 0}
 --- !u!1 &1850095222
 GameObject:
   m_ObjectHideFlags: 0
@@ -6618,22 +6620,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: 'K Bar Draft '
       objectReference: {fileID: 0}
-    - target: {fileID: 400036, guid: dbb9e6b1670d83c46a69e44dd718ffb3, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 400036, guid: dbb9e6b1670d83c46a69e44dd718ffb3, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -65
-      objectReference: {fileID: 0}
-    - target: {fileID: 400038, guid: dbb9e6b1670d83c46a69e44dd718ffb3, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 400038, guid: dbb9e6b1670d83c46a69e44dd718ffb3, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -65
-      objectReference: {fileID: 0}
     - target: {fileID: 400040, guid: dbb9e6b1670d83c46a69e44dd718ffb3, type: 3}
       propertyPath: m_LocalPosition.x
       value: 400
@@ -6689,6 +6675,22 @@ PrefabInstance:
     - target: {fileID: 400040, guid: dbb9e6b1670d83c46a69e44dd718ffb3, type: 3}
       propertyPath: m_LocalScale.z
       value: 0.10000006
+      objectReference: {fileID: 0}
+    - target: {fileID: 400036, guid: dbb9e6b1670d83c46a69e44dd718ffb3, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 400036, guid: dbb9e6b1670d83c46a69e44dd718ffb3, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -65
+      objectReference: {fileID: 0}
+    - target: {fileID: 400038, guid: dbb9e6b1670d83c46a69e44dd718ffb3, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 400038, guid: dbb9e6b1670d83c46a69e44dd718ffb3, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -65
       objectReference: {fileID: 0}
     - target: {fileID: 2300002, guid: dbb9e6b1670d83c46a69e44dd718ffb3, type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -7804,6 +7806,18 @@ PrefabInstance:
       objectReference: {fileID: 1841795240}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aec222d2419d0ac439f170e90401ec8b, type: 3}
+--- !u!114 &6669035570899587503 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6669035571776394293, guid: aec222d2419d0ac439f170e90401ec8b,
+    type: 3}
+  m_PrefabInstance: {fileID: 6669035570899587502}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b45edebaffd7144581dd850758afc0b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &7193829423697753122
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7903,3 +7917,4 @@ MonoBehaviour:
   playerObject: {fileID: 0}
   canvas: {fileID: 0}
   AI: {fileID: 0}
+  sfxSource: {fileID: 0}
