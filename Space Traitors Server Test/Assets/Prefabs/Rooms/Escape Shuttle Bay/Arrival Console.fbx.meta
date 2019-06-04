@@ -1,0 +1,251 @@
+fileFormatVersion: 2
+guid: 314bea0bb2984064ca5da0714145cb13
+ModelImporter:
+  serializedVersion: 22
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: bottom
+    100004: pCube10
+    100006: pCube11
+    100008: pCube12
+    100010: pCube13
+    100012: pCube14
+    100014: pCube15
+    100016: pCube3
+    100018: pCube4
+    100020: pCube5
+    100022: pCube6
+    100024: pCube7
+    100026: pCube8
+    100028: pCube9
+    100030: pCylinder1
+    100032: pCylinder2
+    100034: pCylinder3
+    100036: pCylinder4
+    100038: pCylinder5
+    100040: pCylinder6
+    100042: pCylinder7
+    100044: transform1
+    100046: transform10
+    100048: transform11
+    100050: transform12
+    100052: transform13
+    100054: transform14
+    100056: transform15
+    100058: transform16
+    100060: transform17
+    100062: transform18
+    100064: transform19
+    100066: transform2
+    100068: transform3
+    100070: transform4
+    100072: transform5
+    100074: transform6
+    100076: transform7
+    100078: transform8
+    100080: transform9
+    400000: //RootNode
+    400002: bottom
+    400004: pCube10
+    400006: pCube11
+    400008: pCube12
+    400010: pCube13
+    400012: pCube14
+    400014: pCube15
+    400016: pCube3
+    400018: pCube4
+    400020: pCube5
+    400022: pCube6
+    400024: pCube7
+    400026: pCube8
+    400028: pCube9
+    400030: pCylinder1
+    400032: pCylinder2
+    400034: pCylinder3
+    400036: pCylinder4
+    400038: pCylinder5
+    400040: pCylinder6
+    400042: pCylinder7
+    400044: transform1
+    400046: transform10
+    400048: transform11
+    400050: transform12
+    400052: transform13
+    400054: transform14
+    400056: transform15
+    400058: transform16
+    400060: transform17
+    400062: transform18
+    400064: transform19
+    400066: transform2
+    400068: transform3
+    400070: transform4
+    400072: transform5
+    400074: transform6
+    400076: transform7
+    400078: transform8
+    400080: transform9
+    2000000: bottom
+    2100000: Button1
+    2100002: Stand
+    2100004: Button
+    2100006: Button_3
+    2100008: Border
+    2100010: Centre
+    2100012: Upper
+    2100014: Screen
+    2100016: Button_4
+    2100018: Back_N_Side
+    2100020: Top
+    2100022: Bottome
+    2100024: lambert1
+    2100026: Button_5
+    2300000: pCube15
+    3300000: pCube15
+    4300000: pCube15
+    9500000: //RootNode
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Back_N_Side
+    second: {fileID: 2100000, guid: 5de2cb29eac3a794c8d17aabbd5175b0, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Border
+    second: {fileID: 2100000, guid: 7da901fb6be007543803c345f40a54d7, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Bottome
+    second: {fileID: 2100000, guid: e42098a599f99674f9bf72574c3ec0e8, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Button
+    second: {fileID: 2100000, guid: 0b8f83f3928892141b7ffe6394b26112, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Button1
+    second: {fileID: 2100000, guid: c4ec590ede6190c49a470dce2bdde9ca, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Button_3
+    second: {fileID: 2100000, guid: a80deb9033fc0ea45924f43d5e42f543, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Button_4
+    second: {fileID: 2100000, guid: 347965fb571a85c4f9e016093f8547c3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Button_5
+    second: {fileID: 2100000, guid: 47ce792e79af8cf439f48e1d7a83a5f1, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Centre
+    second: {fileID: 2100000, guid: 80529a59b6734db4485bf7d364bd4d07, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Screen
+    second: {fileID: 2100000, guid: 3a12f728a9f705e4b9bf53ae7293fb6c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Stand
+    second: {fileID: 2100000, guid: 1d6b2bfeed8ff8e478efcacc9a8f4935, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Top
+    second: {fileID: 2100000, guid: ee54cfd936a56ed42b7da09e0d3fcdce, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Upper
+    second: {fileID: 2100000, guid: 00eea9c32385e444c939e4551864be9a, type: 2}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

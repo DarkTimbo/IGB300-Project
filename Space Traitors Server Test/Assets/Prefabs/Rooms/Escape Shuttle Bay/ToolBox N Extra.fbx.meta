@@ -1,0 +1,192 @@
+fileFormatVersion: 2
+guid: 5cbc453e9fe28ac4c802b63313b7cd0f
+ModelImporter:
+  serializedVersion: 22
+  fileIDToRecycleName:
+    100000: Hammer
+    100002: Mjornir1
+    100004: Paper_1
+    100006: Paper_2
+    100008: Paper_3
+    100010: Shield3
+    100012: Spanner
+    100014: Spring1
+    100016: Spring2
+    100018: Tool_Box
+    100020: //RootNode
+    400000: Hammer
+    400002: Mjornir1
+    400004: Paper_1
+    400006: Paper_2
+    400008: Paper_3
+    400010: Shield3
+    400012: Spanner
+    400014: Spring1
+    400016: Spring2
+    400018: Tool_Box
+    400020: //RootNode
+    2100000: ToolBox
+    2100002: Tool
+    2100004: HammerHead
+    2100006: lambert1
+    2100008: Wood
+    2100010: Papers
+    2100012: Spring
+    2100014: Shield
+    2100016: Mjornir
+    2300000: Hammer
+    2300002: Mjornir1
+    2300004: Paper_1
+    2300006: Paper_2
+    2300008: Paper_3
+    2300010: Shield3
+    2300012: Spanner
+    2300014: Spring1
+    2300016: Spring2
+    2300018: Tool_Box
+    3300000: Hammer
+    3300002: Mjornir1
+    3300004: Paper_1
+    3300006: Paper_2
+    3300008: Paper_3
+    3300010: Shield3
+    3300012: Spanner
+    3300014: Spring1
+    3300016: Spring2
+    3300018: Tool_Box
+    4300000: Tool_Box
+    4300002: Spanner
+    4300004: Hammer
+    4300006: Paper_1
+    4300008: Paper_2
+    4300010: Paper_3
+    4300012: Spring1
+    4300014: Spring2
+    4300016: Shield3
+    4300018: Mjornir1
+    9500000: //RootNode
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: HammerHead
+    second: {fileID: 2100000, guid: eba87f651b2cc0548ae37120fb6c44bd, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mjornir
+    second: {fileID: 2100000, guid: 7b596510f51ac0a47a0495f820ffcabd, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Papers
+    second: {fileID: 2100000, guid: 6d6484da2132c6d4c97b3b71d3aa3158, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Shield
+    second: {fileID: 2100000, guid: 6e2711dd109cf7c47affcefb8aa744f8, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Spring
+    second: {fileID: 2100000, guid: fcfd1b418f7ab3e43bc4356115d0bddf, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Tool
+    second: {fileID: 2100000, guid: 78f734c0664575a4496efa1a7534c735, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: ToolBox
+    second: {fileID: 2100000, guid: ba0ad6f1a039ca64d9cf0bb0cc2ce8ce, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Wood
+    second: {fileID: 2100000, guid: 6e3eefb5f7924da49a2c6f9b64dceae3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: lambert1
+    second: {fileID: 2100000, guid: 0f227905ea7a6f540860641fdff9fbdf, type: 2}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
