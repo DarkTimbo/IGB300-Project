@@ -298,11 +298,11 @@ public class Server : MonoBehaviour
 
         foreach (GameObject player in playerArray()) {
             //Find the correct player
-            //if (player.GetComponent<Player>().playerID == conID) {
+            if (player.GetComponent<Player>().playerID == conID) {
 
-            //    ScrapTotals[conID - 1].GetComponent<Text>().text = scrap.ScrapTotal.ToString();
+               ScrapTotals[conID - 1].GetComponent<Text>().text = scrap.ScrapTotal.ToString();
 
-            //}
+            }
         }
     }
 
@@ -320,15 +320,17 @@ public class Server : MonoBehaviour
 
         foreach (GameObject player in playerArray()) {
             //Find the correct player
-            //if (player.GetComponent<Player>().playerID == conID) {
+            if (player.GetComponent<Player>().playerID == conID) {
 
-            //    Components[conID - 1].GetComponent<Text>().text = components.ComponentNumber.ToString();              
-            //}
-            if(components.Installed == true) {
+                Components[conID - 1].GetComponent<Text>().text = components.ComponentNumber.ToString();
 
-                InstalledComponents += 1;
+                if (components.Installed == true) {
 
+                    InstalledComponents += 1;
+
+                }
             }
+            
         }
     }
 

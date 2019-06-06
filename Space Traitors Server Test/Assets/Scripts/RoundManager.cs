@@ -9,12 +9,13 @@ public class RoundManager : MonoBehaviour
 {
     public List<GameObject> playersInGame = new List<GameObject>();
     private Scene currentScene;
-    public Text rndText;
+    private Text rndText;
 
     public GameObject server;
     public GameObject playerObject;
     public GameObject canvas;
-    public GameObject AI;
+    private GameObject AI;
+    private bool SetObject = true;
 
     private int index, PlayerIndex;
     private int Round = 1;
@@ -39,9 +40,14 @@ public class RoundManager : MonoBehaviour
         currentScene = SceneManager.GetActiveScene();
         sceneName = currentScene.name;
 
-        if (sceneName == "server")
-        {
+        if (sceneName == "server") {
 
+            if (SetObject == true) {
+
+                AI = GameObject.FindGameObjectWithTag("Ai Power");
+                rndText = GameObject.Find("RoundText").GetComponent<Text>();
+                SetObject = false;
+            }
 
             //Allow a frame for the list to be filled up with players before acting
             if (!setup)
@@ -60,10 +66,7 @@ public class RoundManager : MonoBehaviour
                 }
             }
         }
-        else
-        {
-            rndText.text = ""; 
-        }
+    
     }
 
     public void IncrementTurn()
