@@ -296,14 +296,14 @@ public class Server : MonoBehaviour
 
     private void AssignScrap(int conID, int chanID, int rHostID, Net_SendScrap scrap) {
 
-        foreach (GameObject player in playerArray()) {
-            //Find the correct player
-            if (player.GetComponent<Player>().playerID == conID) {
+        //foreach (GameObject player in playerArray()) {
+        //    //Find the correct player
+        //    if (player.GetComponent<Player>().playerID == conID) {
 
-               ScrapTotals[conID - 1].GetComponent<Text>().text = scrap.ScrapTotal.ToString();
+        //       ScrapTotals[conID - 1].GetComponent<Text>().text = scrap.ScrapTotal.ToString();
 
-            }
-        }
+        //    }
+        //}
     }
 
     private void AssignTraitor(int conID, int chanID, int rHostID, Net_AssignTraitor scrap)
@@ -318,20 +318,20 @@ public class Server : MonoBehaviour
 
     private void AssignComponents(int conID, int chanID, int rHostID, Net_SendComponents components) {
 
-        foreach (GameObject player in playerArray()) {
-            //Find the correct player
-            if (player.GetComponent<Player>().playerID == conID) {
+        //foreach (GameObject player in playerArray()) {
+        //    //Find the correct player
+        //    if (player.GetComponent<Player>().playerID == conID) {
 
-                Components[conID - 1].GetComponent<Text>().text = components.ComponentNumber.ToString();
+        //        Components[conID - 1].GetComponent<Text>().text = components.ComponentNumber.ToString();
 
-                if (components.Installed == true) {
+        //        if (components.Installed == true) {
 
-                    InstalledComponents += 1;
+        //            InstalledComponents += 1;
 
-                }
-            }
+        //        }
+        //    }
             
-        }
+        //}
     }
 
 
