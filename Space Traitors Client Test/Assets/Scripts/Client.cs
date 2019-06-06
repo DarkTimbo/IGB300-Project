@@ -220,6 +220,8 @@ public class Client : MonoBehaviour {
 
         player.GetComponent<Player>().WinLossCanvas.enabled = true;
 
+        Debug.Log("yeet");
+
 
         if (WinOrLossCondition.WinOrLossCondition == (int)WinLossConditions.InnocentsWin) {
 

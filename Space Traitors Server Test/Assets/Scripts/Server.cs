@@ -673,12 +673,22 @@ public class Server : MonoBehaviour
 
         if (SentMessage == false) {
 
+            tempPlayerID = 1;
+
             if (InstalledComponents == 5) {
 
-                Net_SendWinLoss VictoryMet = new Net_SendWinLoss();
-                VictoryMet.WinOrLossCondition = (int)WinLossConditions.InnocentsWin;
-                SendClient(VictoryMet);
+                foreach(GameObject player in playerArray()) {
+
+
+                    Net_SendWinLoss VictoryMet = new Net_SendWinLoss();
+                    VictoryMet.WinOrLossCondition = (int)WinLossConditions.InnocentsWin;
+                    SendClient(VictoryMet);
+                    tempPlayerID++;
+                 
+
+                }
                 SentMessage = true;
+
 
             }
             else if (players.Count == 0) {
