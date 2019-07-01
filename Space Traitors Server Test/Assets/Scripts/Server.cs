@@ -73,6 +73,8 @@ public enum ADDRESSFAM
 
 public class Server : MonoBehaviour
 {
+    public static Server Instance { get; set; }
+
     //Networking variables
     private byte reliableChannel;
     private int hostID;
