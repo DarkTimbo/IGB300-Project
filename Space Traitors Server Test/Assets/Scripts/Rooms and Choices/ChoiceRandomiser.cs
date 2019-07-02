@@ -7,6 +7,7 @@ public class ChoiceRandomiser : MonoBehaviour
 {
     private const int CHOICES_PER_ROOM = 2;
     private const int ESCAPE_ROOM_ID = 9; //Escape Shuttle Bay does not have choices so needs to be ignored
+    private const int MAX_ITERS = 1000; //Maximum number of iterations the assignment loops can repeat before restarting assignment
 
     private const char LINE_SEPERATOR = '\n'; //Line Seperator in Choice List Data file
     private const char FIELD_SEPERATOR = ','; //Field Seperator in Choice List Data file
@@ -16,14 +17,13 @@ public class ChoiceRandomiser : MonoBehaviour
     private Choice[] choiceList;
 
     //Assign each room in the game into the array in Unity
-    public GameObject [] rooms;
+    public GameObject[] rooms;
 
     private int numRooms;
 
     private void Start()
     {
         ReadChoiceData();
-        InitialiseRooms();
 
         numRooms = rooms.Length;
 
@@ -32,11 +32,29 @@ public class ChoiceRandomiser : MonoBehaviour
         //choiceList[0].mandatory = Server.Instance.playersJoined;
         choiceList[0].mandatory = 3; //For Hardcoding when Debugging
 
-        //Getting Caught in an Infinite Loop after this point and hard crashing Unity- to Fix
-
         AssignMandatoryChoices();
 
         AssignRandomChoices();
+
+        //Output choice list in log for debugging
+        OutputChoiceList();
+    }
+
+    #region Room Handling
+    /// <summary>
+    /// 
+    /// Outputs the choice list in all rooms for testing a debugging. Should regularly be turned off
+    /// 
+    /// </summary>
+    private void OutputChoiceList()
+    {
+        foreach (GameObject room in rooms)
+        {
+            for (int choicePos = 0; choicePos < CHOICES_PER_ROOM; choicePos++)
+            {
+                Debug.Log(room.GetComponent<Room>().roomChoices[choicePos].choiceName);
+            }
+        }
     }
 
     /// <summary>
@@ -51,6 +69,7 @@ public class ChoiceRandomiser : MonoBehaviour
             room.GetComponent<Room>().InitialiseRoom(CHOICES_PER_ROOM);
         }
     }
+    #endregion
 
     #region Reading Choice Data from File
     /// <summary>
@@ -63,7 +82,7 @@ public class ChoiceRandomiser : MonoBehaviour
         int counter = 0;
 
         string[] records = choiceListData.text.Split(LINE_SEPERATOR);
-        
+
         choiceList = new Choice[records.Length - 1]; //Need to not include field headings
 
         //Loop through each row and as such each available choice
@@ -121,7 +140,7 @@ public class ChoiceRandomiser : MonoBehaviour
     /// Converts a string integer value to an actual integer value. Returns 0 if conversion fails
     /// 
     /// </summary>
-    private int ConvertStringToInt (string value)
+    private int ConvertStringToInt(string value)
     {
         int result;
         int.TryParse(value, out result);
@@ -145,9 +164,9 @@ public class ChoiceRandomiser : MonoBehaviour
     /// Converts a string boolean value to an actual boolean value
     /// 
     /// </summary>
-    private bool ConvertStringToBool (string value)
+    private bool ConvertStringToBool(string value)
     {
-        if(value.ToLower() == "true")
+        if (value.ToLower() == "true")
         {
             return true;
         }
@@ -157,7 +176,7 @@ public class ChoiceRandomiser : MonoBehaviour
         }
     }
     #endregion
-    
+
     #region Mandatory Choice Handling
     /// <summary>
     /// 
@@ -167,20 +186,52 @@ public class ChoiceRandomiser : MonoBehaviour
     private void AssignMandatoryChoices()
     {
         List<Choice> mandatoryChoices = FindMandatoryChoices();
-        int roomLocation = -1;
-        bool roomFull;
 
-        foreach (Choice choice in mandatoryChoices)
+        int roomLocation;
+        int choicePos;
+
+        //Output value from the TestAssignChoice function. Unused here
+        bool isOccupied;
+
+        //Counter for restricting the number of times assignment loop can be iterated on to find an appropriate room
+        int counter = 0;
+
+        do
         {
-            for (int occurence = 0; occurence < choice.mandatory; occurence++)
+            //Reset the rooms to be the default choice
+            InitialiseRooms();
+            foreach (Choice choice in mandatoryChoices)
             {
-                do
+                //Loop for mandatory choices which occur more than once
+                for (int occurence = 0; occurence < choice.mandatory; occurence++)
                 {
-                    roomLocation = Random.Range(0, numRooms);
+                    //Loop for assigning mandatory choices to randomised rooms. The counter is to restrict this loop from hanging as it cannot find an appropriate room
+                    //If the counter reaches the MAX_ITERS, will begin assignment from the begining to restart the entire process, since it is not possible to find a
+                    //solution to the given randomisation (based upon choices not being able to appear in particular rooms)
+                    do
+                    {
+                        //Randomise the room location and the choice position in the room. The choice position is the index in the roomChoices array for each room.
+                        roomLocation = Random.Range(0, numRooms);
+                        choicePos = Random.Range(0, CHOICES_PER_ROOM);
+                        counter++;
 
-                } while (!TestAssignChoice(choice, roomLocation, out roomFull));
+                    } while (!TestAssignChoice(choice, roomLocation, choicePos, out isOccupied) && counter < MAX_ITERS);
+                    //break from occurence loop
+                    if (counter == MAX_ITERS)
+                    {
+                        break;
+                    }
+                    //reset counter after a choice assignment is successful
+                    counter = 0;
+                }
+                //break from choice loop
+                if (counter == MAX_ITERS)
+                {
+                    break;
+                }
             }
-        }
+
+        } while (counter == MAX_ITERS);
     }
 
     /// <summary>
@@ -192,9 +243,6 @@ public class ChoiceRandomiser : MonoBehaviour
     private List<Choice> FindMandatoryChoices()
     {
         List<Choice> mandatoryChoices = new List<Choice>();
-
-        //Add the component choice- mandatory has to be determined based on the number of players so cannot be stored in the database
-        mandatoryChoices.Add(choiceList[0]);
 
         foreach (Choice choice in choiceList)
         {
@@ -218,39 +266,65 @@ public class ChoiceRandomiser : MonoBehaviour
         //Total Weighting is used in the process of randomly selecting the choices
         float totalWeighting;
         int roomCounter = 0;
-        //Room Full determines if the room which choices are being placed in already has enough choices placed in it
-        bool roomFull = false;
+        //Is Occupied determines if the choice which is being checked has already been assigned
+        bool isOccupied = false;
 
         //Obtain the relevant choices
         List<Choice> randomChoices = FindRandomChoices(out totalWeighting);
         Choice selectedChoice = new Choice();
 
+        int counter = 0;
+
         //Loop through all the rooms
         foreach (GameObject room in rooms)
         {
+            if (room.GetComponent<Room>().roomType == "Escape")
+            {
+                roomCounter++;
+                continue;
+            }
             //First loop determines if the room is full, breaking out of the loop if it is and moving to the next room (will always determine if it is full first though)
             //The loop will continue until all choices have a relevant choice in them
-            do
+            for (int choicePos = 0; choicePos < CHOICES_PER_ROOM; choicePos++)
             {
                 //Second loop determines if the randomly selected choice can be placed in that room or not, assigning it if it can be and finding a new choice if it cannot
                 do
                 {
+                    if (isOccupied)
+                    {
+                        break;
+                    }
                     selectedChoice = RandomChoice(randomChoices, totalWeighting);
+                    counter++;
 
-                } while (!TestAssignChoice(selectedChoice, roomCounter, out roomFull));
+                } while (!TestAssignChoice(selectedChoice, roomCounter, choicePos, out isOccupied) && counter < MAX_ITERS);
+
+                if (counter == MAX_ITERS)
+                {
+                    Debug.Log(counter);
+                    Debug.Log(selectedChoice.choiceName);
+                    Debug.Log(rooms[roomCounter].GetComponent<Room>().roomID);
+                    Debug.Log(choicePos);
+                    Debug.Log(rooms[roomCounter].GetComponent<Room>().roomType);
+                    Debug.Log(rooms[roomCounter].GetComponent<Room>().roomChoices[0].choiceName);
+                    Debug.Log(rooms[roomCounter].GetComponent<Room>().roomChoices[1].choiceName);
+                }
+                counter = 0;
 
                 //If the item is unique and is successfully placed in the loop above, then can no longer place that choice, so removes it from the available list
                 //This needs to happen whether the room is full or not, so is placed inside the roomFull loop
-                if (selectedChoice.unique)
-                {
-                    randomChoices.Remove(selectedChoice);
-                }
+                //if (selectedChoice.unique)
+                //{
+                //    randomChoices.Remove(selectedChoice);
+                //}
 
-            } while (!roomFull);
-            
+                //Reset variables for next choice position
+                isOccupied = false;
+            }
+
             //Sets up variables for next room loop
             roomCounter += 1;
-            roomFull = false;
+
         }
     }
 
@@ -324,54 +398,64 @@ public class ChoiceRandomiser : MonoBehaviour
     /// <param name="roomLocation">The ID of the given room</param>
     /// <param name="roomFull">Whether the function returned false because the room was fully occupied or not</param>
     /// <returns>Returns whether the assignment was successful or not</returns>
-    private bool TestAssignChoice(Choice choice, int roomLocation, out bool roomFull)
+    private bool TestAssignChoice(Choice choice, int roomLocation, int choicePos, out bool isOccupied)
     {
-        roomFull = false;
         //Tests if the given choice is available to be placed in the room of the given type
         if (RoomTypeViable(choice, rooms[roomLocation].GetComponent<Room>().roomType))
         {
-            Choice[] locationChoices = rooms[roomLocation].GetComponent<Room>().roomChoices;
+            Choice[] roomChoices = rooms[roomLocation].GetComponent<Room>().roomChoices;
 
-            //Loop through each of the choice positions in the given room i.e. how many choices can possibly exist in a room
-            for (int choicePos = 0; choicePos < CHOICES_PER_ROOM; choicePos++)
+            //Tests if any of the other choices already in the room are the same as the given choice, since a choice cannot appear more than once in a given room
+            //If it does not appear in the current room, will continue to attempt assignment
+            if (!ChoiceInRoom(choice, roomChoices))
             {
-                //Tests if any of the other choices already in the room are the same as the given choice, since a choice cannot appear more than once in a given room
-                if (locationChoices[choicePos].choiceID != choice.choiceID)
+                //If the given choice position is not currently occupied (default constructor will have an ID of 0), will assign choice there and return a success
+                if (roomChoices[choicePos].choiceID == 0)
                 {
-                    //If the selected choice is not currently occupied (default constructor will have an ID of 0), will assign choice there and return a success
-                    if (locationChoices[choicePos].choiceID == 0)
-                    {
-                        rooms[roomLocation].GetComponent<Room>().roomChoices[choicePos] = choice;
-                        return true;
-                    }
-                    // If the current choice position is occupied, will continue to test later choice positions
-                    else if (choicePos != CHOICES_PER_ROOM - 1)
-                    {
-                        continue;
-                    }
-                    //If there are no possible spots for the choice to occupy, will return false
-                    else
-                    {
-                        roomFull = true;
-                        return false;
-                    }
+                    rooms[roomLocation].GetComponent<Room>().roomChoices[choicePos] = choice;
+                    isOccupied = false;
+                    return true;
                 }
-                //If the choice cannot be assigned here because it already has been, returns false
+                //If the position is occupied, will not assign and return false
                 else
                 {
+                    isOccupied = true;
                     return false;
                 }
             }
-
-            //Should never reach this point, however provides a dummy case
-            return false;
+            //If the choice cannot be assigned in this room because it already has been, returns false
+            else
+            {
+                isOccupied = false;
+                return false;
+            }
         }
-        //If the choice cannot be assigned in the given room, returns false
+        //If the choice cannot be assigned in the given room type, returns false
         else
         {
+            isOccupied = false;
             return false;
         }
-        
+    }
+
+    /// <summary>
+    /// 
+    /// Tests whether the given choice can appear in the room based on whether it already has or not
+    /// 
+    /// </summary>
+    /// <param name="choice">The choice to be tested</param>
+    /// <param name="roomChoices">The array of choices to be tested from the given room</param>
+    /// <returns>Returns true if the given choice already appears in the room. False otherwise</returns>
+    private bool ChoiceInRoom(Choice choice, Choice[] roomChoices)
+    {
+        for (int choicePos = 0; choicePos < CHOICES_PER_ROOM; choicePos++)
+        {
+            if (roomChoices[choicePos].choiceID == choice.choiceID)
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
     /// <summary>
