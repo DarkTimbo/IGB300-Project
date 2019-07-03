@@ -29,15 +29,15 @@ public class ChoiceRandomiser : MonoBehaviour
 
         //Sets the number of components in the game to be equal to the number of players- mandatory for this choice being the number
         //of times the component choice will appear in the game
-        //choiceList[0].mandatory = Server.Instance.playersJoined;
+        //choiceList[0].mandatory = Server.Instance.playersJoined;- Need to verify this actually works
         choiceList[0].mandatory = 3; //For Hardcoding when Debugging
 
         AssignMandatoryChoices();
 
         AssignRandomChoices();
 
-        //Output choice list in log for debugging
-        OutputChoiceList();
+        //Output choice list in log for debugging. Note will have an output of default for escape room position. This is working as intended
+        //OutputChoiceList();
     }
 
     #region Room Handling
@@ -74,7 +74,9 @@ public class ChoiceRandomiser : MonoBehaviour
     #region Reading Choice Data from File
     /// <summary>
     /// 
-    /// Imports Choice Data from Local csv file and sorts it into choiceList array
+    /// Imports Choice Data from Local csv file and sorts it into choiceList array.
+    /// Note: If the Choice Data has been modified in Excel, will need to reimport the file manually in Unity, otherwise will throw Null Reference Exception. 
+    /// Right-click on ChoiceListData.csv in Unity and select reimport. This cannot be done if file is still open in Excel.
     /// 
     /// </summary>
     private void ReadChoiceData()
@@ -83,20 +85,24 @@ public class ChoiceRandomiser : MonoBehaviour
 
         string[] records = choiceListData.text.Split(LINE_SEPERATOR);
 
-        choiceList = new Choice[records.Length - 1]; //Need to not include field headings
+
+        choiceList = new Choice[records.Length - 2]; //Need to not include field headings as well as empty line which appears at end of csv file (occurs when opening csv in excel)
 
         //Loop through each row and as such each available choice
         foreach (string record in records)
         {
             string[] fields = record.Split(FIELD_SEPERATOR);
 
-            //Need to skip the field headings (hardcoded- might be a better way to do this)
-            if (fields[0] == "Choice_ID")
+            //Need to skip the field headings and empty line at end (hardcoded- might be a better way to do this)
+            if (fields[0] == "Choice_ID" || counter == records.Length - 2)
             {
                 continue;
             }
             else
             {
+                //When splitting file by line endings, adds a space to end of each record, which needs to be removed.
+                fields[fields.Length- 1] = fields[fields.Length - 1].Substring(0, fields[fields.Length - 1].Length - 1);
+
                 //Instantiate the choice list element
                 choiceList[counter] = new Choice
                 {
@@ -273,16 +279,16 @@ public class ChoiceRandomiser : MonoBehaviour
         List<Choice> randomChoices = FindRandomChoices(out totalWeighting);
         Choice selectedChoice = new Choice();
 
-        int counter = 0;
-
         //Loop through all the rooms
         foreach (GameObject room in rooms)
         {
+            //Escape room should not have choices assigned to it. To prevent getting caught in an infinite loop, ignores escape room and continues
             if (room.GetComponent<Room>().roomType == "Escape")
             {
                 roomCounter++;
                 continue;
             }
+
             //First loop determines if the room is full, breaking out of the loop if it is and moving to the next room (will always determine if it is full first though)
             //The loop will continue until all choices have a relevant choice in them
             for (int choicePos = 0; choicePos < CHOICES_PER_ROOM; choicePos++)
@@ -290,33 +296,22 @@ public class ChoiceRandomiser : MonoBehaviour
                 //Second loop determines if the randomly selected choice can be placed in that room or not, assigning it if it can be and finding a new choice if it cannot
                 do
                 {
+                    //If the choice position currently being assigned to already has a choice in it, will move onto next choice position
                     if (isOccupied)
                     {
                         break;
                     }
                     selectedChoice = RandomChoice(randomChoices, totalWeighting);
-                    counter++;
 
-                } while (!TestAssignChoice(selectedChoice, roomCounter, choicePos, out isOccupied) && counter < MAX_ITERS);
+                } while (!TestAssignChoice(selectedChoice, roomCounter, choicePos, out isOccupied));
 
-                if (counter == MAX_ITERS)
-                {
-                    Debug.Log(counter);
-                    Debug.Log(selectedChoice.choiceName);
-                    Debug.Log(rooms[roomCounter].GetComponent<Room>().roomID);
-                    Debug.Log(choicePos);
-                    Debug.Log(rooms[roomCounter].GetComponent<Room>().roomType);
-                    Debug.Log(rooms[roomCounter].GetComponent<Room>().roomChoices[0].choiceName);
-                    Debug.Log(rooms[roomCounter].GetComponent<Room>().roomChoices[1].choiceName);
-                }
-                counter = 0;
 
                 //If the item is unique and is successfully placed in the loop above, then can no longer place that choice, so removes it from the available list
                 //This needs to happen whether the room is full or not, so is placed inside the roomFull loop
-                //if (selectedChoice.unique)
-                //{
-                //    randomChoices.Remove(selectedChoice);
-                //}
+                if (selectedChoice.unique && !isOccupied)
+                {
+                    randomChoices.Remove(selectedChoice);
+                }
 
                 //Reset variables for next choice position
                 isOccupied = false;
@@ -373,8 +368,9 @@ public class ChoiceRandomiser : MonoBehaviour
 
         foreach (Choice choice in choiceList)
         {
-            //If a choice is unique and has a mandatory value, it has already been assigned the maximum number of times it can be, so must be excluded from the random choice list
-            if (!choice.unique || choice.mandatory == 0)
+            //If a choice is unique and has a mandatory value, it has already been assigned the maximum number of times it can be, so must be excluded from the random choice list.
+            //As such below statement adds choices which do not fulfil that criteria
+            if ( !(choice.unique && choice.mandatory != 0))
             {
                 randomChoices.Add(choice);
                 //Sum up the total weighting of all the randomised choices to be utilised
@@ -396,7 +392,8 @@ public class ChoiceRandomiser : MonoBehaviour
     /// </summary>
     /// <param name="choice">The choice to be assingned</param>
     /// <param name="roomLocation">The ID of the given room</param>
-    /// <param name="roomFull">Whether the function returned false because the room was fully occupied or not</param>
+    /// <param name="choicePos">The index of the choice within the roomChoices array for the given room</param>
+    /// <param name="isOccupied">Outputs whether the function returned false because the attempted assignment failed because the room already had a choice assigned there</param>
     /// <returns>Returns whether the assignment was successful or not</returns>
     private bool TestAssignChoice(Choice choice, int roomLocation, int choicePos, out bool isOccupied)
     {
