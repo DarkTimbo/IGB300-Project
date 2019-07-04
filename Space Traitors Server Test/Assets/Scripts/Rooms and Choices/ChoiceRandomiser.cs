@@ -7,7 +7,7 @@ public class ChoiceRandomiser : MonoBehaviour
 {
     private const int CHOICES_PER_ROOM = 2;
     private const int ESCAPE_ROOM_ID = 9; //Escape Shuttle Bay does not have choices so needs to be ignored
-    private const int MAX_ITERS = 1000; //Maximum number of iterations the assignment loops can repeat before restarting assignment
+    private const int MAX_ITERS = 200; //Maximum number of iterations the assignment loops can repeat before restarting assignment
 
     private const char LINE_SEPERATOR = '\n'; //Line Seperator in Choice List Data file
     private const char FIELD_SEPERATOR = ','; //Field Seperator in Choice List Data file
@@ -114,6 +114,8 @@ public class ChoiceRandomiser : MonoBehaviour
                     unique = ConvertStringToBool(fields[3]),
                     mandatory = ConvertStringToInt(fields[4]),
                     oneOff = ConvertStringToBool(fields[5]),
+                    //One off choices are never selected from the start of the game, so this will always be false
+                    isDisabled = false,
 
                     specChallenge = fields[6],
                     targetScore = ConvertStringToInt(fields[7]),

@@ -20,6 +20,8 @@ public class Choice
 
     //Whether the choice is disabled after it has been selected. Disabled choices can be reselected if the item is discarded.
     public bool oneOff;
+    //Whether the choice has been selected and, if it is a oneoff, has been disabled. Should only be true if oneOff is also true.
+    public bool isDisabled;
 
     //Whether choice is a spec challenge, what type of challenge it is and its associated target score.
     //Spec Challenge is "Null" if not a spec challenge and target score will be 0 (this will throw math errors if passed into spec challenge formula)
@@ -56,6 +58,7 @@ public class Choice
         unique = false;
         mandatory = 0;
         oneOff = false;
+        isDisabled = false;
 
         specChallenge = "Null";
         targetScore = 0;
@@ -78,7 +81,15 @@ public class Choice
         inSpa = true;
     }
 
-    private bool isAvailable(int playerID)
+    /// <summary>
+    /// 
+    /// Determines if the choice is available to be selected based on the general conditions for choices. This is to prevent values for resources which
+    /// are not valid
+    /// 
+    /// </summary>
+    /// <param name="playerID">The ID of the player who is trying to select the choice</param>
+    /// <returns></returns>
+    private bool IsAvailable(int playerID)
     {
         //Need to figure out how player data is going to be stored and accessed so it is possible to determine if choice can be selected or not by a specific player
         //Below logic will work just have to find where the data is stored
@@ -94,5 +105,51 @@ public class Choice
 
         //Currently set at dummy variable
         return true;
+    }
+
+    /// <summary>
+    /// 
+    /// Allocate resources to a particular player based upon their choice selection. Used for choices that are not spec challenges
+    /// 
+    /// </summary>
+    /// <param name="playerID">The ID of the player who selected the choice</param>
+    public void SelectChoice(int playerID)
+    {
+        //Will need to update this to allocate the resource changes from the choice to the relevant player
+        //Currently unsure where this information is going to be stored, so need to update this once this is confirmed
+
+        //Example rough Pseudocode
+
+        //scrap(playerID) += scrapChange;
+        //corruption(playerID) += corruptionChange;
+        //aiPower.powerNextSurge += powerChange;
+        //player(playerID).AddItem(specItem);
+        //life(playerID) += lifeChange;
+        //if(component){
+        //player(playerID).hasComponent = true; }
+
+        //if(oneOff) {
+        //isDisabled = true; }
+    }
+
+    /// <summary>
+    /// 
+    /// Allocate resources to a particular player based upon their choice selection. Used for choices that are spec challenges
+    /// 
+    /// </summary>
+    /// <param name="playerID">The ID of the player who selected the choice</param>
+    /// <param name="wasSuccessful">Whether the player succeeded on the spec challenge</param>
+    public void SelectChoice(int playerID, bool wasSuccessful)
+    {
+        //Used when the choice is a Spec Challenge
+        //Again unsure where information is going to stored so will need to update this when that is cofirmed
+
+        //Example Rough Pseudocode
+
+        //if (wasSuccessful){
+        //SelectChoice(playerID); }
+        //else {
+        //corruption(playerID) += scrapFail;
+        //life(playerID) += lifeFail; }
     }
 }

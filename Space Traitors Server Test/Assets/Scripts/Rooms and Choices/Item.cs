@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Item
 {
-    private string itemName;
+    private readonly string itemName;
 
     private int brawnChange;
     private int skillChange;
