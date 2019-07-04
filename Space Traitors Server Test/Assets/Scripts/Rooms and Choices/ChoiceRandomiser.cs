@@ -173,15 +173,8 @@ public class ChoiceRandomiser : MonoBehaviour
     /// 
     /// </summary>
     private bool ConvertStringToBool(string value)
-    {
-        if (value.ToLower() == "true")
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+    { 
+        return value.ToLower() == "true";
     }
     #endregion
 

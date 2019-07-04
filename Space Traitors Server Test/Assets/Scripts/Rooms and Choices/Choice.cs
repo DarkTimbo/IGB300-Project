@@ -84,7 +84,7 @@ public class Choice
     /// <summary>
     /// 
     /// Determines if the choice is available to be selected based on the general conditions for choices. This is to prevent values for resources which
-    /// are not valid
+    /// are not valid. Also checks if the choice has been disabled based on it being a One Off
     /// 
     /// </summary>
     /// <param name="playerID">The ID of the player who is trying to select the choice</param>
@@ -99,9 +99,10 @@ public class Choice
         //bool hasDamage = playerLifePoints + lifeChange < 0;
         //bool hasCorruption = playerCorruption != 0;
         //bool powerNotAtMax = AIPower != 100;
+        bool choiceDisabled = isDisabled;
 
         //If any of the above conditions are false, then needs to return false, since this means the choice is not availabe
-        // return hasComponent && hasScrap && hasDamage && hasCorruption && powerNotAtMax;
+        // return hasComponent && hasScrap && hasDamage && hasCorruption && powerNotAtMax && choiceDisabled;
 
         //Currently set at dummy variable
         return true;
